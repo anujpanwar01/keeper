@@ -5,6 +5,7 @@ import {
   facebookSignIn,
   googleSignIn,
   auth,
+  userCredentail,
 } from "../../firebase/firebase.util";
 
 import {
@@ -48,7 +49,7 @@ const SignIn = function () {
         photo: photoURL,
         email,
       };
-      console.log(email, displayName, user);
+      // console.log(email, displayName, user);
       // ...
     } else {
       // User is signed out
@@ -60,7 +61,7 @@ const SignIn = function () {
     e.preventDefault();
     try {
       const res = await signInWithEmailAndPassword(auth, email, password);
-      console.log(res);
+      // console.log(res);
     } catch (err) {
       console.log(err.message);
     }
@@ -70,31 +71,41 @@ const SignIn = function () {
     });
   };
 
-  const github = async () => {
-    const res = await githubSignIn();
-    console.log(res);
-  };
-
-  const facebook = async () => {
-    const res = await facebookSignIn();
-    console.log(res);
-  };
-  const google = async () => {
-    const res = await googleSignIn();
-    console.log(res);
+  //sign in with social
+  const social = async (data) => {
+    const { user } = await data();
+    userCredentail(user);
   };
 
   return (
     <div className="sign-in">
       <h1>Sign In</h1>
       <div>
-        <CustomBtn className="social-btn" handleChange={google} type="button">
+        <CustomBtn
+          className="social-btn"
+          handleChange={() => {
+            social(googleSignIn);
+          }}
+          type="button"
+        >
           <FaGoogle />
         </CustomBtn>
-        <CustomBtn className="social-btn" handleChange={github} type="button">
+        <CustomBtn
+          className="social-btn"
+          handleChange={() => {
+            social(githubSignIn);
+          }}
+          type="button"
+        >
           <FaGithub />
         </CustomBtn>
-        <CustomBtn className="social-btn" handleChange={facebook} type="button">
+        <CustomBtn
+          className="social-btn"
+          handleChange={() => {
+            social(facebookSignIn);
+          }}
+          type="button"
+        >
           <FaFacebook />
         </CustomBtn>
       </div>

@@ -7,7 +7,7 @@ import {
   FacebookAuthProvider,
   signInWithRedirect,
 } from "firebase/auth";
-import { getFirestore } from "firebase/firestore";
+import { getFirestore, doc, setDoc, getDoc } from "firebase/firestore";
 // import { getAnalytics } from "firebase/analytics";
 
 const firebaseConfig = {
@@ -34,6 +34,35 @@ const githubProvider = new GithubAuthProvider();
 const googleProvider = new GoogleAuthProvider();
 const facebookProvider = new FacebookAuthProvider();
 
-export const githubSignIn = () => signInWithRedirect(auth, githubProvider);
+export const githubSignIn = () => signInWithPopup(auth, githubProvider);
 export const googleSignIn = () => signInWithPopup(auth, googleProvider);
 export const facebookSignIn = () => signInWithPopup(auth, facebookProvider);
+
+// new user auth
+export const userCredentail = async function (userAuth, additonalData) {
+  //user detial
+  console.log(userAuth);
+
+  //if user is exist
+  const uniqueUser = doc(db, "user", userAuth.uid);
+  const getUser = await getDoc(uniqueUser);
+  console.log(getUser.data());
+
+  //if user is not exist
+  if (!getUser.exists()) {
+    const { displayName, email, photoURL } = userAuth;
+    const createAt = new Date();
+    try {
+      const addData = await setDoc(uniqueUser, {
+        displayName,
+        email,
+        createAt,
+        photoURL,
+        ...additonalData,
+      });
+    } catch (err) {
+      console.log(err);
+    }
+  } // if){}
+  return uniqueUser;
+};

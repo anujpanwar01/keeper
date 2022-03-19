@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { auth, db } from "../../firebase/firebase.util";
+import { auth, userCredentail } from "../../firebase/firebase.util";
 import { createUserWithEmailAndPassword } from "firebase/auth";
 // import { collection, addDoc } from "firebase/firestore";
 
@@ -11,13 +11,13 @@ import "./Sign-Up.styles.scss";
 
 const SignUp = () => {
   const [state, setState] = useState({
-    name: "",
+    displayName: "",
     email: "",
     password: "",
     confirmPassword: "",
   });
 
-  const { name, email, password, confirmPassword } = state;
+  const { displayName, email, password, confirmPassword } = state;
 
   const inputChangeHandler = (e) => {
     const { name, value } = e.target;
@@ -28,6 +28,7 @@ const SignUp = () => {
       };
     });
   };
+
   const submitHandler = async (e) => {
     e.preventDefault();
     if (password !== confirmPassword) {
@@ -36,38 +37,28 @@ const SignUp = () => {
     }
     ///////////////////////////
     try {
-      const res = await createUserWithEmailAndPassword(auth, email, password);
-      console.log(res);
+      const { user } = await createUserWithEmailAndPassword(
+        auth,
+        email,
+        password
+      );
+      userCredentail(user, { displayName });
+      console.log(user);
     } catch (err) {
       console.log(err.message);
     }
-    setState({
-      email: "",
-      password: "",
-    });
+    setState({ displayName: "", email: "", password: "", confirmPassword: "" });
   };
 
-  //   const setData = async () => {
-  //     try {
-  //       const docRef = await addDoc(collection(db, "user"), {
-  //         name: name,
-  //         email: email,
-  //         data: new Date(),
-  //       });
-  //     } catch (err) {
-  //       console.log(err.message);
-  //     }
-  //   };
-  //   setData();
   return (
     <div className="sign-up">
       <h1>Sign Up</h1>
       <h3>create new account</h3>
       <CustomForm onSubmit={submitHandler}>
         <CustomInput
-          name="name"
+          name="displayName"
           type="text"
-          value={name}
+          value={displayName}
           placeholder="name"
           onChange={inputChangeHandler}
           required
