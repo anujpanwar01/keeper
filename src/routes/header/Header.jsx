@@ -2,6 +2,9 @@ import React, { Fragment } from "react";
 import { signOut } from "firebase/auth";
 import { auth } from "../../firebase/firebase.util";
 import { Outlet, Link } from "react-router-dom";
+import { FaSearch, FaMoon, FaSun } from "react-icons/fa";
+
+import CustomInput from "../../component/custom-input/CustomInut.component";
 import logo from "../../assester/th.jpg";
 import { userProfile } from "../../component/sign-in/SignIn";
 import "./Header.styles.scss";
@@ -43,9 +46,38 @@ function Header() {
         <Link className="logo" to={"/"}>
           Keeper App
         </Link>
+        {/* for search bar */}
+        <div className="search-container">
+          <label htmlFor="search">
+            <FaSearch size={16} fill={"#555"} />
+          </label>
+          <CustomInput
+            type="search"
+            id="search"
+            placeholder="search"
+            className="search-box"
+          />
+        </div>
+        {/* search bar */}
         <nav>
+          <div className="theme">
+            <input type="checkbox" id="check" className="checkbox" />
+            <label htmlFor="check" className="theme-btn">
+              <div className="sun">
+                {" "}
+                <FaSun />
+              </div>
+              <div className="moon">
+                {" "}
+                <FaMoon />
+              </div>
+              <div className="toggle-thumb"></div>
+            </label>
+          </div>
+
           <Link to={"/user"}>Log in</Link>
           <CustomBtn handleChange={signOUt}>Log out</CustomBtn>
+          <CustomBtn className="profile"></CustomBtn>
         </nav>
       </header>
       <Outlet />

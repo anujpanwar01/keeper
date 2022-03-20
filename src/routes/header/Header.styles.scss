@@ -17,6 +17,9 @@ header {
     display: flex;
     align-items: center;
     font-size: 2rem;
+    & > :not(:last-child) {
+      margin-right: 5rem;
+    }
     a {
       font-weight: 500;
       text-decoration: none;
@@ -30,5 +33,97 @@ header {
       background-size: cover;
       background-position: center;
     }
+    .profile {
+      height: 4.4rem;
+      width: 4.4rem;
+      background-color: blue;
+      display: block;
+      border-radius: 50%;
+      border: 1px solid white;
+      box-sizing: content-box;
+      &:hover {
+        box-shadow: 0 0 1rem rgb(157, 255, 0);
+      }
+    }
+  }
+  .search-container {
+    display: flex;
+    width: 50rem;
+    justify-content: center;
+    border-radius: 0.5rem;
+    overflow: hidden;
+    label {
+      display: flex;
+      align-items: center;
+      background-color: #eee;
+      padding: 1rem;
+      cursor: pointer;
+    }
+    .search-box {
+      font-size: 1.6rem;
+      padding: 1.4rem 0.7rem;
+      border: none;
+      outline: none;
+      background-color: #eee;
+      width: 95%;
+      &::placeholder {
+        color: #555;
+      }
+    }
+  }
+  .theme {
+    display: flex;
+    flex-direction: row-reverse;
+
+    &-btn {
+      width: 6rem;
+      height: 3rem;
+      border-radius: 10rem;
+      background-color: #eee;
+      position: relative;
+      cursor: pointer;
+      // border: 1px solid transparent;
+      &:hover {
+        box-shadow: 0 0 0.8rem rgb(102, 255, 0);
+        // border: 1px solid blue;
+      }
+      .moon,
+      .sun {
+        position: absolute;
+        top: 5px;
+        // right: 3px;
+      }
+      .sun {
+        left: 3px;
+      }
+      .moon {
+        right: 3px;
+      }
+    }
+    .toggle-thumb {
+      height: 2.6rem;
+      width: 2.6rem;
+      border-radius: 10rem;
+      background-color: #f5ba13;
+      position: absolute;
+      left: 2px;
+      top: 1.8px;
+    }
+    // .profile {
+    //   height: 3rem;
+    //   width: 3rem;
+    //   background-color: blue;
+    //   display: block;
+    // }
+  }
+}
+
+.checkbox {
+  display: none;
+
+  &:checked ~ .theme-btn > .toggle-thumb {
+    right: 1px !important;
+    // left: 0;
+    margin-left: auto;
   }
 }
