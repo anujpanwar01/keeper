@@ -1,0 +1,24 @@
+.card {
+  width: 35rem;
+  padding: 2rem 3rem;
+  border-radius: 1rem;
+  background-color: white;
+  word-break: break-all;
+  letter-spacing: 1px;
+  box-shadow: 0 0 1rem rgba(0, 0, 0, 0.445);
+  margin-bottom: 3rem;
+  &:not(:last-child) {
+    margin-right: 2rem;
+  }
+  h2 {
+    font-size: 2rem;
+    text-transform: uppercase;
+    margin-bottom: 1rem;
+  }
+  p {
+    font-size: 1.6rem;
+  }
+}
+.black {
+  color: black !important;
+}

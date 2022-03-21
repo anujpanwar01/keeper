@@ -19,7 +19,7 @@ onAuthStateChanged(auth, (user) => {
   //   const uid = user.uid;
   // console.log(user.displayName);
 
-  const { email, displayName, photoURL } = user;
+  // const { email, displayName, photoURL } = user;
   // console.log(email, displayName, photoURL);
   // console.log(email, displayName, user);
   // ...
@@ -42,6 +42,8 @@ function Header() {
     }
   };
 
+  const titles = document.querySelectorAll(".title");
+  console.log(titles);
   return (
     <Fragment>
       <header>
@@ -77,6 +79,8 @@ function Header() {
                 if (theme) {
                   document.body.classList.toggle("bg");
                 }
+
+                // document.querySelector(".card").classList.toggle("black");
               }}
             />
             <label htmlFor="check" className="theme-btn">
