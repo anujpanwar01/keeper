@@ -1,6 +1,7 @@
 import React, { Fragment } from "react";
 import { signOut } from "firebase/auth";
 import { auth } from "../../firebase/firebase.util";
+import { useState } from "react";
 import { Outlet, Link } from "react-router-dom";
 import { FaSearch, FaMoon, FaSun } from "react-icons/fa";
 
@@ -13,23 +14,25 @@ import { onAuthStateChanged } from "firebase/auth";
 // import { password } from "sudo-js";
 
 onAuthStateChanged(auth, (user) => {
-  if (user) {
-    //   const uid = user.uid;
-    // console.log(user.displayName);
-    const { email, displayName, photoURL } = user;
-    // console.log(email, displayName, photoURL);
-    // console.log(email, displayName, user);
-    // ...
-  } else {
-    // User is signed out
-    // ...
-  }
+  if (!user) return;
+
+  //   const uid = user.uid;
+  // console.log(user.displayName);
+
+  const { email, displayName, photoURL } = user;
+  // console.log(email, displayName, photoURL);
+  // console.log(email, displayName, user);
+  // ...
 });
 // user profile
 const user = auth.currentUser;
 console.log(user);
 
 function Header() {
+  const [inputValue, setInputValue] = useState({
+    theme: "false",
+  });
+  const { theme } = inputValue;
   // signOut
   const signOUt = async () => {
     try {
@@ -38,7 +41,6 @@ function Header() {
       console.log(err.message);
     }
   };
-  // console.log(auth.currentUser);
 
   return (
     <Fragment>
@@ -61,15 +63,30 @@ function Header() {
         {/* search bar */}
         <nav>
           <div className="theme">
-            <input type="checkbox" id="check" className="checkbox" />
+            <input
+              type="checkbox"
+              id="check"
+              value={inputValue.theme}
+              className="checkbox"
+              onChange={(e) => {
+                setInputValue(() => {
+                  return {
+                    theme: "true",
+                  };
+                });
+                if (theme) {
+                  document.body.classList.toggle("bg");
+                }
+              }}
+            />
             <label htmlFor="check" className="theme-btn">
               <div className="sun">
                 {" "}
-                <FaSun />
+                <FaMoon color="#8f8f8f" />
               </div>
               <div className="moon">
                 {" "}
-                <FaMoon />
+                <FaSun color="#ff9e00" />
               </div>
               <div className="toggle-thumb"></div>
             </label>
