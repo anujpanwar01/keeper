@@ -10,6 +10,7 @@
     display: grid;
     grid-template-columns: repeat(4, 1fr);
     padding: 5rem 2rem;
+    align-items: flex-start;
   }
 }
 // .hidden-overlay {

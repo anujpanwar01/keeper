@@ -1,12 +1,10 @@
 import { useState } from "react";
-import { useSelector, useDispatch } from "react-redux";
+import { useDispatch } from "react-redux";
 import { addData } from "../../redux/cardSlice";
 // import { doc } from "firebase/firestore";
 import { FaImage, FaPlus, FaPalette } from "react-icons/fa";
 import CustomBtn from "../../component/custom-btn/CustomBtn";
 import CustomInput from "../../component/custom-input/CustomInut.component";
-import { query } from "../../routes/home/Home";
-// import Card from "../card/card.component";
 
 import "./task-adder.styles.scss";
 
@@ -16,16 +14,16 @@ const initialStates = {
   subTitle: "",
   color: "",
   file: "",
+  src: "",
 };
 
 const TaskAdder = () => {
   const [state, setState] = useState(initialStates);
-  //   const tasks = useSelector((state) => state.card);
-  //   console.log(tasks);
+
   const dispatch = useDispatch();
   //destructure
 
-  const { title, subTitle, file, color } = state;
+  const { title, subTitle, file, color, src } = state;
 
   const inputChangeHandler = (e) => {
     const { name, value } = e.target;
@@ -34,6 +32,24 @@ const TaskAdder = () => {
         ...state,
         [name]: value,
       };
+    });
+  };
+  // let src;
+  const fileReader = (e) => {
+    const file = e.target.files[0];
+    const render = new FileReader();
+    render.readAsDataURL(file);
+
+    render.addEventListener("load", function (e) {
+      const data = e.target.result;
+      setState(() => {
+        return {
+          ...state,
+          src: data,
+        };
+      });
+      // src = data;
+      // console.log(src);
     });
   };
 
@@ -47,6 +63,7 @@ const TaskAdder = () => {
         subTitle,
         color,
         file,
+        src: src,
       })
     );
     //clear input fields
@@ -87,10 +104,16 @@ const TaskAdder = () => {
                 name="file"
                 hidden
                 value={file}
-                handleChange={inputChangeHandler}
+                multiple
+                accept=".jpg, .jpeg, .png"
+                handleChange={(e) => {
+                  inputChangeHandler(e);
+                  fileReader(e);
+                }}
               />
               <label className="file" htmlFor="file">
                 <FaImage size={20} color="#555" />
+                <span className="file-text">choose your img</span>
               </label>
               {/* colors */}
               <CustomInput
@@ -103,10 +126,12 @@ const TaskAdder = () => {
               />
               <label htmlFor="color" className="label">
                 <FaPalette size={20} color="#555" />
+                <span className="label-text">choose fav color</span>
               </label>
             </div>
             <CustomBtn className="add-btn" type="submit">
-              <FaPlus size={20} color="#555" />
+              add data
+              {/* <FaPlus size={20} color="#555" /> */}
             </CustomBtn>
           </div>
           {/*  */}
