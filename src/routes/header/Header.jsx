@@ -1,13 +1,17 @@
-import React, { Fragment } from "react";
+import React, { Fragment, useContext } from "react";
+import { searchValue } from "../../redux/searchSlice";
+import { useSelector, useDispatch } from "react-redux";
+import { cardActions } from "../../redux/themeSlice";
 import { signOut } from "firebase/auth";
 import { auth } from "../../firebase/firebase.util";
 import { useState } from "react";
 import { Outlet, Link } from "react-router-dom";
 import { FaSearch, FaMoon, FaSun } from "react-icons/fa";
+import { SearchContext, ThemeContext } from "../../context/context";
 
 import CustomInput from "../../component/custom-input/CustomInut.component";
-import logo from "../../assester/th.jpg";
-import { userProfile } from "../../component/sign-in/SignIn";
+// import logo from "../../assester/th.jpg";
+// import { userProfile } from "../../component/sign-in/SignIn";
 import "./Header.styles.scss";
 import CustomBtn from "../../component/custom-btn/CustomBtn";
 import { onAuthStateChanged } from "firebase/auth";
@@ -24,26 +28,74 @@ onAuthStateChanged(auth, (user) => {
   // console.log(email, displayName, user);
   // ...
 });
+
 // user profile
 const user = auth.currentUser;
-console.log(user);
 
 function Header() {
+  //////redux
+  const dispatch = useDispatch();
+  const { searches } = useSelector((state) => state.search);
+  // console.log(search);
+  // const themes = useSelector((state) => state.search);
+  // console.log(themes);
+
+  const themeChanger = () => {
+    dispatch(cardActions.toggle());
+    // if (!themes) {
+    // document.body.classList.toggle("bg");
+    // }
+  };
+
+  ///////////////////////////////////////////////////////////////////////////////
+  // const { theme, setTheme } = useContext(ThemeContext);
+
+  //////
+  /////////
+  //////////
+
+  // const [theme, setTheme] = useState(true);
+
+  // const themeChange = () => {
+  //   setTheme((th) => !th);
+  //   if (theme === false) document.body.classList.toggle("bg");
+  //   console.log(theme);
+  //   // if (!theme) document.body.backgroundColor = "black";
+  // };
   const [inputValue, setInputValue] = useState({
-    theme: "false",
+    search: "",
   });
-  const { theme } = inputValue;
+  const { search } = inputValue;
+
+  // const { setSearchValue } = useContext(SearchContext);/
+  // setSearchValue(search);
   // signOut
   const signOUt = async () => {
     try {
-      const res = await signOut(auth);
+      await signOut(auth);
     } catch (err) {
       console.log(err.message);
     }
   };
 
-  const titles = document.querySelectorAll(".title");
-  console.log(titles);
+  const inputChangeHandler = (e) => {
+    const { value, name } = e.target;
+    console.log(value, name);
+
+    dispatch(
+      searchValue({
+        search,
+      })
+    );
+
+    setInputValue(() => {
+      return {
+        ...inputValue,
+        [name]: value,
+      };
+    });
+  };
+
   return (
     <Fragment>
       <header>
@@ -57,7 +109,10 @@ function Header() {
           </label>
           <CustomInput
             type="search"
+            name="search"
             id="search"
+            value={search}
+            handleChange={inputChangeHandler}
             placeholder="search"
             className="search-box"
           />
@@ -65,23 +120,26 @@ function Header() {
         {/* search bar */}
         <nav>
           <div className="theme">
+            {/* <button onClick={themeChanger}>toggle</button> */}
             <input
               type="checkbox"
               id="check"
-              value={inputValue.theme}
+              // value={inputValue.theme}/
               className="checkbox"
-              onChange={(e) => {
-                setInputValue(() => {
-                  return {
-                    theme: "true",
-                  };
-                });
-                if (theme) {
-                  document.body.classList.toggle("bg");
-                }
+              onClick={themeChanger}
+              // onChange={themeChanger}
+              // onChange={(e) => {
+              //   setInputValue(() => {
+              //     return {
+              //       theme: "true",
+              //     };
+              //   });
+              //   if (theme) {
+              //     document.body.classList.toggle("bg");
+              //   }
 
-                // document.querySelector(".card").classList.toggle("black");
-              }}
+              //   // document.querySelector(".card").classList.toggle("black");
+              // }}
             />
             <label htmlFor="check" className="theme-btn">
               <div className="sun">

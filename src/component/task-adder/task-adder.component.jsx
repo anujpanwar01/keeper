@@ -1,115 +1,118 @@
-// import { useState } from "react";
-// // import { doc } from "firebase/firestore";
-// import { FaImage, FaPlus, FaPalette } from "react-icons/fa";
-// import CustomBtn from "../../component/custom-btn/CustomBtn";
-// import CustomInput from "../../component/custom-input/CustomInut.component";
-// import { query, close } from "../../routes/home/Home";
+import { useState } from "react";
+import { useSelector, useDispatch } from "react-redux";
+import { addData } from "../../redux/cardSlice";
+// import { doc } from "firebase/firestore";
+import { FaImage, FaPlus, FaPalette } from "react-icons/fa";
+import CustomBtn from "../../component/custom-btn/CustomBtn";
+import CustomInput from "../../component/custom-input/CustomInut.component";
+import { query } from "../../routes/home/Home";
 // import Card from "../card/card.component";
 
-// import "./task-adder.styles.scss";
+import "./task-adder.styles.scss";
 
-// const TaskAdder = () => {
-//   const [state, setState] = useState({
-//     title: "",
-//     subTitle: "",
-//     task: [],
-//   });
+//initial states for the input fields
+const initialStates = {
+  title: "",
+  subTitle: "",
+  color: "",
+  file: "",
+};
 
-//   //destructure
-//   const { title, subTitle, task } = state;
+const TaskAdder = () => {
+  const [state, setState] = useState(initialStates);
+  //   const tasks = useSelector((state) => state.card);
+  //   console.log(tasks);
+  const dispatch = useDispatch();
+  //destructure
 
-//   const inputChangeHandler = (e) => {
-//     const { name, value } = e.target;
-//     setState(() => {
-//       return {
-//         ...state,
-//         [name]: value,
-//       };
-//     });
-//   };
+  const { title, subTitle, file, color } = state;
 
-//   /////////////////////////////////////////////////
-//   //open btn
-//   const expand = function () {
-//     query(".label", "input-title");
-//     query(".file", "abs-file");
-//     query(".close", "close-taskbar");
-//     query("#title", "input-title");
-//     query("#fileid", "input-width");
-//     query(".overlay", "hidden-overlay", "toggle");
-//     query(".flex", "remove-flex");
-//     query(".add-btn", "abs-btn");
-//   };
+  const inputChangeHandler = (e) => {
+    const { name, value } = e.target;
+    setState(() => {
+      return {
+        ...state,
+        [name]: value,
+      };
+    });
+  };
 
-//   /////////////////////////////////////////////////
-//   const addTask = () => {
-//     const titleInput = document.querySelector("#title");
-//     const subTitleInput = document.querySelector("#fileid");
-//     if (titleInput.value === "" || subTitleInput.value === "") {
-//       alert("Fill the input field");
-//       return;
-//     }
+  //   console.log(file, color);
+  const submitHandler = (e) => {
+    e.preventDefault();
+    dispatch(
+      addData({
+        id: Math.random() * 1000 * new Date(),
+        title,
+        subTitle,
+        color,
+        file,
+      })
+    );
+    //clear input fields
+    setState(initialStates);
+  };
 
-//     const data = {
-//       id: Math.random() * 10000,
-//       title,
-//       subTitle,
-//     };
-//     task.push(data);
-//     setState({
-//       ...state,
-//       title: "",
-//       subTitle: "",
-//     });
-//     console.log(task);
-//   };
-//   /////////////////////////////////////////////////////////////////////////
-//   return (
-//     <div className="task-adder">
-//       <CustomInput
-//         type="text"
-//         id="title"
-//         placeholder="Title"
-//         required
-//         name="title"
-//         value={title}
-//         handleChange={inputChangeHandler}
-//       />
-//       <div className="flex ">
-//         <CustomInput
-//           name="subTitle"
-//           value={subTitle}
-//           onClick={expand}
-//           type="text"
-//           placeholder="Take a note..."
-//           id="fileid"
-//           handleChange={inputChangeHandler}
-//           required
-//         />
-//         <CustomInput type="file" hidden id="file" />
-//         <CustomBtn className="add-btn" onClick={addTask}>
-//           <FaPlus size={20} color="#555" />
-//         </CustomBtn>
-//         <label className="file" htmlFor="file">
-//           <FaImage size={20} color="#555" />
-//         </label>
-//         <div className="task-menu">
-//           <div>
-//             {/* <span className="span">
-//               <FaImage size={20} color="#555" />
-//             </span> */}
+  return (
+    <div className="task-adder">
+      <form onSubmit={submitHandler}>
+        <CustomInput
+          type="text"
+          id="title"
+          placeholder="Title"
+          required
+          name="title"
+          className="title"
+          value={title}
+          handleChange={inputChangeHandler}
+        />
+        <div className="flex ">
+          <CustomInput
+            name="subTitle"
+            value={subTitle}
+            // onClick={expand}
+            type="text"
+            placeholder="Take a note..."
+            id="fileid"
+            handleChange={inputChangeHandler}
+            required
+          />
 
-//             <CustomInput type="color" id="color" hidden />
-//             <label htmlFor="color" className="label">
-//               <FaPalette size={20} color="#555" />
-//             </label>
-//           </div>
-//           <CustomBtn className="close" onClick={close}>
-//             Close
-//           </CustomBtn>
-//         </div>
-//       </div>
-//     </div>
-//   );
-// };
-// export default TaskAdder;
+          <div className="task-menu">
+            <div>
+              {/* files */}
+              <CustomInput
+                id="file"
+                type="file"
+                name="file"
+                hidden
+                value={file}
+                handleChange={inputChangeHandler}
+              />
+              <label className="file" htmlFor="file">
+                <FaImage size={20} color="#555" />
+              </label>
+              {/* colors */}
+              <CustomInput
+                type="color"
+                id="color"
+                name="color"
+                hidden
+                value={color}
+                handleChange={inputChangeHandler}
+              />
+              <label htmlFor="color" className="label">
+                <FaPalette size={20} color="#555" />
+              </label>
+            </div>
+            <CustomBtn className="add-btn" type="submit">
+              <FaPlus size={20} color="#555" />
+            </CustomBtn>
+          </div>
+          {/*  */}
+        </div>
+      </form>
+    </div>
+  );
+};
+export default TaskAdder;

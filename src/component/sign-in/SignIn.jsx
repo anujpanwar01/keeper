@@ -57,10 +57,10 @@ const SignIn = function () {
     }
   });
 
-  const eamilAndPassword = async (e) => {
+  const emailAndPassword = async (e) => {
     e.preventDefault();
     try {
-      const res = await signInWithEmailAndPassword(auth, email, password);
+      await signInWithEmailAndPassword(auth, email, password);
       // console.log(res);
     } catch (err) {
       console.log(err.message);
@@ -110,7 +110,7 @@ const SignIn = function () {
         </CustomBtn>
       </div>
       <h3>or use email and password</h3>
-      <CustomForm className="sign-in-form" handleChange={eamilAndPassword}>
+      <CustomForm className="sign-in-form" handleChange={emailAndPassword}>
         <CustomInput
           name="email"
           type="email"

@@ -6,9 +6,14 @@
 html {
   font-size: 62.5%;
 }
-body {
+.bg-white {
   font-family: "Montserrat", sans-serif;
   background: #eee;
+  color: #000;
+}
+.bg-black {
+  background-color: #474747;
+  color: #0fa70dee;
 }
 .form-btn {
   font-size: 1.6rem;
