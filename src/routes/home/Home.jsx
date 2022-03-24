@@ -14,29 +14,29 @@ export const query = function (name1, name2, className) {
 };
 
 //close the input field
-export const close = function (e) {
-  query(".overlay", "hidden-overlay", "toggle");
-  query("#title", "input-title", "remove");
-  query("#fileid", "input-width", "toggle");
-  query(".flex", "remove-flex", "toggle");
-  query(".add-btn", "abs-btn", "remove");
-  query(".file", "abs-file", "remove");
-  query(".label", "input-title", "remove");
-  query(".close", "close-taskbar", "toggle");
-};
-//open the input field
-export const expand = function () {
-  query(".label", "input-title");
-  query(".file", "abs-file");
-  query(".close", "close-taskbar");
-  query("#title", "input-title");
-  query("#fileid", "input-width");
-  query(".overlay", "hidden-overlay", "toggle");
-  query(".flex", "remove-flex");
-  query(".add-btn", "abs-btn");
-};
+// export const close = function (e) {
+//   query(".overlay", "hidden-overlay", "toggle");
+//   query("#title", "input-title", "remove");
+//   query("#fileid", "input-width", "toggle");
+//   query(".flex", "remove-flex", "toggle");
+//   query(".add-btn", "abs-btn", "remove");
+//   query(".file", "abs-file", "remove");
+//   query(".label", "input-title", "remove");
+//   query(".close", "close-taskbar", "toggle");
+// };
+// //open the input field
+// export const expand = function () {
+//   query(".label", "input-title");
+//   query(".file", "abs-file");
+//   query(".close", "close-taskbar");
+//   query("#title", "input-title");
+//   query("#fileid", "input-width");
+//   query(".overlay", "hidden-overlay", "toggle");
+//   query(".flex", "remove-flex");
+//   query(".add-btn", "abs-btn");
+// };
 const Home = () => {
-  const data = useSelector((state) => state.card);
+  const cardData = useSelector((state) => state.card);
   const { search } = useSelector((state) => state.search);
 
   /////////////////////////////////////////////////
@@ -45,7 +45,7 @@ const Home = () => {
       <TaskAdder />
 
       <div className="card-list">
-        {data
+        {cardData
           .filter((card) => card.title.toLowerCase().includes(search))
           .map((ele) => (
             <Card key={ele.id} {...ele} />

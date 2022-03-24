@@ -1,0 +1,111 @@
+.pop-up {
+  //   display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: absolute;
+  right: 2%;
+  top: 130%;
+  padding: 2rem 1rem 3rem;
+  width: 35rem;
+  height: 38rem;
+  border-radius: 0.5rem;
+  background-color: #fff;
+  letter-spacing: 1px;
+  justify-content: space-between;
+  box-shadow: 0 0 1rem #00000052;
+
+  display: none;
+  &::before {
+    content: "";
+    position: absolute;
+    bottom: 100%;
+    right: 4%;
+    margin-left: -5px;
+    border-width: 18px;
+    border-style: solid;
+    border-color: transparent transparent #fff transparent;
+  }
+
+  & > div:not(:first-child) {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 106.5%;
+
+    &::before {
+      margin-bottom: 2rem;
+      content: "";
+      display: block;
+      width: 100%;
+      height: 0.5px;
+      background-color: rgba(0, 0, 0, 0.164);
+    }
+  }
+  h2 {
+    font-size: 1.6rem;
+    margin-bottom: 1rem;
+  }
+  h3 {
+    font-size: 1.4rem;
+  }
+  .sign-out-btn {
+    // width: 105%;
+    &::after {
+      content: "";
+      display: block;
+      width: 100%;
+      height: 0.5px;
+      background-color: rgba(0, 0, 0, 0.164);
+    }
+    &::after {
+      margin-top: 2rem;
+    }
+  }
+  .sign-out {
+    font-size: 1.4rem;
+    border: none;
+    padding: 1.2rem 8rem;
+    cursor: pointer;
+    text-transform: uppercase;
+    background-color: #f5ba13;
+    border: 2px solid transparent;
+    color: white;
+    font-weight: 500;
+    &:hover {
+      color: black;
+      border: 2px solid #f5ba13;
+      background-color: transparent;
+    }
+    // margin-top: 2rem;
+  }
+  .user-profile {
+    height: 9rem;
+    width: 9rem;
+    // background-color: blue;
+    background-size: cover;
+    background-position: center;
+    display: block;
+    border-radius: 50%;
+    border: 2px solid rgb(145, 145, 145);
+    overflow: hidden;
+    // box-sizing: content-box;
+
+    // margin-bottom: 2rem;
+    &:hover {
+      box-shadow: 0 0 1rem rgb(157, 255, 0);
+    }
+  }
+}
+.open-pop-up {
+  display: flex !important;
+  opacity: 1;
+  //   display: none !important;
+  visibility: visible;
+  pointer-events: all;
+}
+.close-pop-up {
+  opacity: 0;
+  //   display: none !important;
+  visibility: hidden;
+  pointer-events: none;
+}

@@ -2,7 +2,22 @@
   display: flex;
   flex-direction: column;
   align-items: center;
+  background-color: rgb(218, 218, 255);
+  padding: 3rem 2rem 2rem;
+  border-radius: 0.5rem;
+  // align-self: center;
+  box-shadow: 0 0 1rem rgba(0, 0, 0, 0.733);
+  margin-top: 5rem;
+  a {
+    text-decoration: none;
+    font-size: 1.4rem;
+    color: black;
+    font-weight: 600;
 
+    &:hover {
+      text-decoration: underline;
+    }
+  }
   & > :not(:last-child) {
     margin-bottom: 2rem;
   }
@@ -25,10 +40,23 @@
       padding: 1.4rem;
       font-size: 1.6rem;
       width: 40rem;
+      border: 3px solid transparent;
     }
 
     & > * {
-      margin-bottom: 1.6rem;
+      margin-bottom: 2rem;
     }
   }
+  .form-btn {
+    text-transform: uppercase;
+    color: white;
+    & {
+      color: black;
+    }
+  }
+}
+.sign-up-page {
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }

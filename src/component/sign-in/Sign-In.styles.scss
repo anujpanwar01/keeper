@@ -23,6 +23,11 @@
   display: flex;
   flex-direction: column;
   align-items: center;
+  margin-top: 6rem;
+  background-color: rgb(212, 195, 250);
+  padding: 3rem 2.5rem 1rem;
+  border-radius: 0.5rem;
+  box-shadow: 0 0 1rem rgba(0, 0, 0, 0.733);
 
   & > * {
     margin-bottom: 2.4rem;
@@ -33,7 +38,14 @@
   h3 {
     font-size: 1.4rem;
   }
-
+  a {
+    color: black;
+    font-weight: 600;
+    font-size: 1.4rem;
+    &:hover {
+      text-decoration: underline;
+    }
+  }
   div {
     display: flex;
   }
@@ -51,9 +63,11 @@
     input {
       font-size: 1.6rem;
       color: #444;
-      width: 36rem;
+      width: 40rem;
       padding: 1.4rem;
       border-radius: 0.5rem;
+
+      border: 3px solid transparent;
     }
     // button {
     //   font-size: 1.6rem;
@@ -68,4 +82,9 @@
     //   }
     // }
   }
+}
+.sign-in-page {
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }

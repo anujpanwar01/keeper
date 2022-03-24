@@ -11,13 +11,14 @@ import {
 import {
   // createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
-  onAuthStateChanged,
+  // onAuthStateChanged,
 } from "firebase/auth";
 
 import CustomForm from "../custom-form/CustomForm";
 import CustomBtn from "../custom-btn/CustomBtn";
 import CustomInput from "../custom-input/CustomInut.component";
 import "./Sign-In.styles.scss";
+import { Link } from "react-router-dom";
 
 export let userProfile;
 
@@ -40,22 +41,22 @@ const SignIn = function () {
     });
   };
 
-  onAuthStateChanged(auth, (user) => {
-    if (user) {
-      //   const uid = user.uid;
-      const { email, displayName, photoURL } = user;
-      userProfile = {
-        name: displayName,
-        photo: photoURL,
-        email,
-      };
-      // console.log(email, displayName, user);
-      // ...
-    } else {
-      // User is signed out
-      // ...
-    }
-  });
+  // onAuthStateChanged(auth, (user) => {
+  //   if (user) {
+  //     //   const uid = user.uid;
+  //     const { email, displayName, photoURL } = user;
+  //     userProfile = {
+  //       name: displayName,
+  //       photo: photoURL,
+  //       email,
+  //     };
+  //     // console.log(email, displayName, user);
+  //     // ...
+  //   } else {
+  //     // User is signed out
+  //     // ...
+  //   }
+  // });
 
   const emailAndPassword = async (e) => {
     e.preventDefault();
@@ -78,61 +79,64 @@ const SignIn = function () {
   };
 
   return (
-    <div className="sign-in">
-      <h1>Sign In</h1>
-      <div>
-        <CustomBtn
-          className="social-btn"
-          handleChange={() => {
-            social(googleSignIn);
-          }}
-          type="button"
-        >
-          <FaGoogle />
-        </CustomBtn>
-        <CustomBtn
-          className="social-btn"
-          handleChange={() => {
-            social(githubSignIn);
-          }}
-          type="button"
-        >
-          <FaGithub />
-        </CustomBtn>
-        <CustomBtn
-          className="social-btn"
-          handleChange={() => {
-            social(facebookSignIn);
-          }}
-          type="button"
-        >
-          <FaFacebook />
-        </CustomBtn>
+    <section className="sign-in-page">
+      <div className="sign-in">
+        <h1>Sign In</h1>
+        <div>
+          <CustomBtn
+            className="social-btn"
+            handleChange={() => {
+              social(googleSignIn);
+            }}
+            type="button"
+          >
+            <FaGoogle />
+          </CustomBtn>
+          <CustomBtn
+            className="social-btn"
+            handleChange={() => {
+              social(githubSignIn);
+            }}
+            type="button"
+          >
+            <FaGithub />
+          </CustomBtn>
+          <CustomBtn
+            className="social-btn"
+            handleChange={() => {
+              social(facebookSignIn);
+            }}
+            type="button"
+          >
+            <FaFacebook />
+          </CustomBtn>
+        </div>
+        <h3>or use email and password</h3>
+        <CustomForm className="sign-in-form" handleChange={emailAndPassword}>
+          <CustomInput
+            name="email"
+            type="email"
+            placeholder="email"
+            value={email}
+            handleChange={inputChangeHandler}
+            required
+          />
+          <CustomInput
+            type="password"
+            name="password"
+            placeholder="password"
+            value={password}
+            handleChange={inputChangeHandler}
+            required
+          />
+          <h3>forget your password?</h3>
+          <CustomBtn className="form-btn" type="submit">
+            Sign in
+          </CustomBtn>
+          <Link to="/sign-up">Have no account? click me</Link>
+        </CustomForm>
       </div>
-      <h3>or use email and password</h3>
-      <CustomForm className="sign-in-form" handleChange={emailAndPassword}>
-        <CustomInput
-          name="email"
-          type="email"
-          placeholder="email"
-          value={email}
-          handleChange={inputChangeHandler}
-          required
-        />
-        <CustomInput
-          type="password"
-          name="password"
-          placeholder="password"
-          value={password}
-          handleChange={inputChangeHandler}
-          required
-        />
-        <h3>forget your password?</h3>
-        <CustomBtn className="form-btn" type="submit">
-          Sign in
-        </CustomBtn>
-      </CustomForm>
-    </div>
+    </section>
   );
 };
 

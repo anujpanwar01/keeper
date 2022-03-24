@@ -5,7 +5,6 @@ import {
   signInWithPopup,
   GoogleAuthProvider,
   FacebookAuthProvider,
-  signInWithRedirect,
 } from "firebase/auth";
 import { getFirestore, doc, setDoc, getDoc } from "firebase/firestore";
 // import { getAnalytics } from "firebase/analytics";
@@ -41,19 +40,19 @@ export const facebookSignIn = () => signInWithPopup(auth, facebookProvider);
 // new user auth
 export const userCredentail = async function (userAuth, additonalData) {
   //user detial
-  console.log(userAuth);
+  // console.log(userAuth);
 
   //if user is exist
   const uniqueUser = doc(db, "user", userAuth.uid);
   const getUser = await getDoc(uniqueUser);
-  console.log(getUser.data());
+  // console.log(getUser.data());
 
   //if user is not exist
   if (!getUser.exists()) {
     const { displayName, email, photoURL } = userAuth;
     const createAt = new Date();
     try {
-      const addData = await setDoc(uniqueUser, {
+      await setDoc(uniqueUser, {
         displayName,
         email,
         createAt,
