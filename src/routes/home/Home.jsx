@@ -38,13 +38,21 @@ export const query = function (name1, name2, className) {
 const Home = () => {
   const cardData = useSelector((state) => state.card);
   const { search } = useSelector((state) => state.search);
+  const { grid } = useSelector((state) => state.theme);
 
   /////////////////////////////////////////////////
   return (
     <section className="home">
       <TaskAdder />
 
-      <div className="card-list">
+      <div
+        className="card-list"
+        style={
+          grid
+            ? { gridTemplateColumns: "1fr" }
+            : { gridTemplateColumns: "repeat(4, 1fr)" }
+        }
+      >
         {cardData
           .filter((card) => card.title.toLowerCase().includes(search))
           .map((ele) => (

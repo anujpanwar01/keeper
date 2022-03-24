@@ -2,7 +2,7 @@ import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { addData } from "../../redux/cardSlice";
 // import { doc } from "firebase/firestore";
-import { FaImage, FaPlus, FaPalette } from "react-icons/fa";
+import { FaImage, FaPalette } from "react-icons/fa";
 import CustomBtn from "../../component/custom-btn/CustomBtn";
 import CustomInput from "../../component/custom-input/CustomInut.component";
 
@@ -129,9 +129,9 @@ const TaskAdder = () => {
                 <span className="label-text">choose fav color</span>
               </label>
             </div>
-            <CustomBtn className="add-btn" type="submit">
-              add data
-              {/* <FaPlus size={20} color="#555" /> */}
+            <CustomBtn className="add-btn btn" type="submit">
+              Add Task
+              <span className="add-btn-text">add your tasks</span>
             </CustomBtn>
           </div>
           {/*  */}

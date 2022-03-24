@@ -1,0 +1,46 @@
+////////////////////////////////////////////////////////////////////////////@at-root
+//variables
+$color-primary: #f5ba13;
+$color-secondary: #eee;
+
+$color-white: #fff;
+$color-black: #000;
+$color-grey: #555;
+$color-box-shadow: rgba(0, 0, 0, 30%);
+$color-hover: #e7e7e761;
+
+///
+$common-border-radius: 0.5rem;
+/////////////////////////////////////////////////////////////////////////////////@at-root//@at-root
+//mixins
+
+@mixin flex-center($position) {
+  display: flex;
+  justify-content: $position;
+  align-items: center;
+}
+@mixin flex-column {
+  display: flex;
+  flex-direction: column;
+}
+@mixin tool-tip {
+  font-size: 1.2rem;
+  visibility: hidden;
+  background-color: $color-grey;
+  color: $color-white;
+  text-align: center;
+  border-radius: 0.6rem;
+  padding: 1.2rem 0 !important;
+  position: absolute;
+  z-index: 1;
+  margin-left: -6rem;
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+@mixin tool-tip-after {
+  content: "";
+  position: absolute;
+  margin-left: -5px;
+  border-width: 5px;
+  border-style: solid;
+}

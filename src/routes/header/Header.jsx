@@ -2,12 +2,14 @@ import React, { Fragment, useEffect } from "react";
 import { setCurrentUser } from "../../redux/currentUserSlice"; //get current user
 import { searchValue } from "../../redux/searchSlice";
 import { useSelector, useDispatch } from "react-redux";
-import { cardActions } from "../../redux/themeSlice";
+import { toggle, cardToggle } from "../../redux/themeSlice";
 // import { signOut } from "firebase/auth";
 import { auth, userCredentail } from "../../firebase/firebase.util";
 import { useState } from "react";
 import { Outlet, Link } from "react-router-dom";
 import { FaSearch, FaMoon, FaSun } from "react-icons/fa";
+import { HiViewGrid } from "react-icons/hi";
+import { MdViewStream } from "react-icons/md";
 import UserProfilePopUp from "../../component/user-profile-popup/user-profile-pop-up";
 import CustomInput from "../../component/custom-input/CustomInut.component";
 import logo from "../../assester/th.jpg";
@@ -22,7 +24,7 @@ function Header() {
 
   //theme changer dispatch
   const themeChanger = () => {
-    dispatch(cardActions.toggle());
+    dispatch(toggle());
   };
   //get current user
   useEffect(() => {
@@ -37,6 +39,7 @@ function Header() {
   ///////////////////////////////////////////////////////////////////////////////
 
   const { currentUser } = useSelector((state) => state.currentUser);
+  const { grid } = useSelector((state) => state.theme);
 
   const [inputValue, setInputValue] = useState({
     search: "",
@@ -70,6 +73,17 @@ function Header() {
 
     popup.classList.toggle("open-pop-up");
   };
+
+  //grid 1
+
+  const card = document.querySelectorAll(".card");
+
+  const gridChanger = (e) => {
+    dispatch(cardToggle());
+    return !grid
+      ? card.forEach((ele) => ele.classList.add("grid-1"))
+      : card.forEach((ele) => ele.classList.remove("grid-1"));
+  };
   return (
     <Fragment>
       <header>
@@ -93,6 +107,14 @@ function Header() {
         </div>
         {/* search bar */}
         <nav>
+          <CustomBtn
+            className="grid-btn"
+            handleChange={card ? gridChanger : null}
+          >
+            {!grid ? <HiViewGrid size={32} /> : <MdViewStream size={32} />}
+            <span className="grid-btn-text">List view</span>
+          </CustomBtn>
+
           <div className="theme">
             {/* <button onClick={themeChanger}>toggle</button> */}
             <input
@@ -111,6 +133,7 @@ function Header() {
                 <FaSun color="#ff9e00" />
               </div>
               <div className="toggle-thumb"></div>
+              <span className="theme-btn-text">change Theme</span>
             </label>
           </div>
           {!currentUser ? (

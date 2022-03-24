@@ -1,32 +1,31 @@
+@import "../../common-sass//common.styles.scss";
+
 header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  background-color: #f5ba13;
+  @include flex-center(space-between);
+  // justify-content: space-between;
+  background-color: $color-primary;
   position: relative;
-  //   margin: auto -16px;
 
   padding: 1rem 4rem;
   box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.3);
   .logo {
+    color: $color-black;
     font-size: 2.4rem;
-    text-decoration: none;
-    color: black;
     font-weight: 600;
+    text-decoration: none;
   }
   nav {
-    display: flex;
-    align-items: center;
+    @include flex-center(center);
     font-size: 2rem;
     & > :not(:last-child) {
       margin-right: 5rem;
     }
     a {
-      text-transform: uppercase;
-      font-weight: 500;
-      color: rgb(0, 0, 0);
-      text-decoration: none;
+      color: $color-black;
       font-family: "Roboto", sans-serif;
+      font-weight: 500;
+      text-decoration: none;
+      text-transform: uppercase;
     }
     .sign-in-up {
       display: flex;
@@ -50,11 +49,11 @@ header {
       height: 4.4rem;
       width: 4.4rem;
 
+      display: block;
       background-size: cover;
       background-position: center;
-      display: block;
       border-radius: 50%;
-      border: 1px solid white;
+      border: 2px solid $color-white;
       box-sizing: content-box;
       cursor: pointer;
       &:hover {
@@ -69,9 +68,8 @@ header {
     border-radius: 0.5rem;
     overflow: hidden;
     label {
-      display: flex;
-      align-items: center;
-      background-color: #eee;
+      @include flex-center(center);
+      background-color: $color-secondary;
       padding: 1rem;
       cursor: pointer;
     }
@@ -80,10 +78,10 @@ header {
       padding: 1.4rem 0.7rem;
       border: none;
       outline: none;
-      background-color: #eee;
+      background-color: $color-secondary;
       width: 95%;
       &::placeholder {
-        color: #555;
+        color: $color-grey;
       }
     }
   }
@@ -95,13 +93,23 @@ header {
       width: 6rem;
       height: 3rem;
       border-radius: 10rem;
-      background-color: #eee;
+      background-color: $color-secondary;
       position: relative;
       cursor: pointer;
       // border: 1px solid transparent;
       &:hover {
         box-shadow: 0 0 0.8rem rgb(102, 255, 0);
         // border: 1px solid blue;
+      }
+      &-text {
+        width: 12rem;
+        padding: 1rem 0;
+        top: 190%;
+        left: 50%;
+      }
+      &:hover .theme-btn-text {
+        visibility: visible;
+        opacity: 1;
       }
       .moon,
       .sun {
@@ -133,20 +141,46 @@ header {
     //   display: block;
     // }
   }
-}
+  .grid-btn {
+    @include flex-center(center);
+    background-color: transparent;
+    border: none;
+    border-radius: 50%;
+    height: 5rem;
+    width: 5rem;
+    cursor: pointer;
+    position: relative;
+    &:hover {
+      background-color: #f7f7f74f;
+    }
+    &-text {
+      width: 9rem;
+    }
 
+    &:hover .grid-btn-text {
+      visibility: visible;
+      opacity: 1;
+    }
+  }
+}
 .checkbox {
   // opacity: 0;
   display: none;
 
   &:checked ~ .theme-btn > .toggle-thumb {
     transform: translateX(30px);
-    // right: 1px !important;
-    // left: 0;
-    // margin-left: auto;
   }
 }
-.bg {
-  color: rgb(255, 0, 0);
-  background-color: rgb(48, 48, 48);
+
+.grid-btn-text,
+.theme-btn-text {
+  @include tool-tip;
+  top: 132%;
+  left: 78%;
+  &::after {
+    @include tool-tip-after;
+    bottom: 100%;
+    left: 50%;
+    border-color: transparent transparent $color-grey transparent;
+  }
 }

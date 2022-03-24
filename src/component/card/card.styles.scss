@@ -1,3 +1,4 @@
+@import "../../common-sass/common.styles.scss";
 .card {
   width: 35rem;
   padding: 2rem 3rem;
@@ -5,7 +6,7 @@
   // background-color: #fff0f0;
   word-break: break-all;
   letter-spacing: 1px;
-  box-shadow: 0 0 1rem rgba(0, 0, 0, 0.445);
+  box-shadow: 0 0 1rem $color-box-shadow;
   margin-bottom: 3rem;
   .image {
     width: 100%;
@@ -29,5 +30,10 @@
   }
 }
 .black {
-  color: black !important;
+  color: $color-black !important;
+}
+.grid-1 {
+  justify-self: center;
+  width: 56rem;
+  margin-right: 0 !important;
 }

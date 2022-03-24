@@ -1,17 +1,18 @@
+@import "../../common-sass/common.styles.scss";
+
 .task-adder {
   align-self: center;
+  @include flex-column;
   position: relative;
   z-index: 400;
-  display: flex;
-  flex-direction: column;
-  box-shadow: 0 0 1rem #2928283d;
+
+  box-shadow: 0 0 1rem $color-box-shadow;
   width: 55rem;
-  border-radius: 0.5rem;
+  border-radius: $common-border-radius;
   overflow: hidden;
 
   .flex {
-    display: flex;
-    flex-direction: column;
+    @include flex-column;
   }
   input[type="text"] {
     padding: 1.4rem;
@@ -20,43 +21,15 @@
     outline: none;
     font-size: 1.6rem;
   }
-  button,
+
   .file {
-    display: flex;
-    align-items: center;
+    @include flex-center(center);
     border: none;
     padding: 0 2rem;
-    background-color: white;
+    background-color: $color-white;
     cursor: pointer;
     position: relative;
-    .file-text {
-      font-size: 1.2rem;
-      visibility: hidden;
-      visibility: hidden;
-      width: 120px;
-      background-color: #555;
-      color: #fff;
-      text-align: center;
-      border-radius: 6px;
-      padding: 5px 0;
-      position: absolute;
-      z-index: 1;
-      bottom: 125%;
-      left: 50%;
-      margin-left: -60px;
-      opacity: 0;
-      transition: opacity 0.3s;
-      &::after {
-        content: "";
-        position: absolute;
-        top: 100%;
-        left: 50%;
-        margin-left: -5px;
-        border-width: 5px;
-        border-style: solid;
-        border-color: #555 transparent transparent transparent;
-      }
-    }
+    margin-right: 2rem;
     &:hover .file-text {
       visibility: visible;
       opacity: 1;
@@ -64,34 +37,6 @@
   }
   .label {
     position: relative;
-    .label-text {
-      font-size: 1.2rem;
-      visibility: hidden;
-      visibility: hidden;
-      width: 120px;
-      background-color: #555;
-      color: #fff;
-      text-align: center;
-      border-radius: 6px;
-      padding: 5px 0;
-      position: absolute;
-      z-index: 1;
-      bottom: 125%;
-      left: 50%;
-      margin-left: -60px;
-      opacity: 0;
-      transition: opacity 0.3s;
-      &::after {
-        content: "";
-        position: absolute;
-        top: 100%;
-        left: 50%;
-        margin-left: -5px;
-        border-width: 5px;
-        border-style: solid;
-        border-color: #555 transparent transparent transparent;
-      }
-    }
     &:hover .label-text {
       visibility: visible;
       opacity: 1;
@@ -99,39 +44,34 @@
   }
 
   .task-menu {
-    display: flex;
-    background-color: white;
-    justify-content: space-between;
+    @include flex-center(space-between);
+
+    background-color: $color-white;
     padding: 0 0.6rem 0.6rem 1rem;
+
+    .add-btn {
+      padding: 1.2rem 3rem;
+      &:hover .add-btn-text {
+        visibility: visible;
+        opacity: 1;
+      }
+    }
     div {
       display: flex;
-    }
-    .close-btn {
-      font-size: 1.6rem;
-      padding: 1rem 3rem;
-      border-radius: 0.5rem;
-      &:hover {
-        // border-radius: 50%;
-        background-color: #e7e7e761;
-      }
-      //   display: none !important;
-    }
-    div {
       align-items: center;
       span {
         margin-right: 1rem;
       }
       span,
       label {
-        display: flex;
-        justify-content: center;
-        align-items: center;
+        @include flex-center(center);
         height: 4rem;
         width: 4rem;
         padding: 0 0.6rem;
+
         &:hover {
           border-radius: 50%;
-          background-color: #e7e7e761;
+          background-color: $color-hover;
         }
       }
     }
@@ -150,38 +90,18 @@
   width: 100% !important;
 }
 
-.close-taskbar {
-  font-size: 1.6rem;
-  display: block !important;
-  padding: 1rem 3.2rem;
-  border-radius: 0.5rem;
+.file-text,
+.label-text,
+.add-btn-text {
+  @include tool-tip;
+  width: 120px !important;
+  bottom: 125%;
+  left: 50%;
+  &::after {
+    @include tool-tip-after;
+    top: 100%;
+    left: 50%;
 
-  &:hover {
-    background-color: #e7e7e761;
-  }
-}
-.abs-btn {
-  height: 5.5rem;
-  width: 5.5rem;
-  position: absolute;
-  top: 1%;
-  right: 1%;
-  &:hover {
-    background-color: #e7e7e761;
-    border-radius: 50%;
-  }
-}
-.abs-file {
-  height: 4rem;
-  width: 4rem;
-  position: absolute;
-  bottom: 4%;
-  padding: 0 !important;
-  display: flex;
-  justify-content: center;
-  left: 10%;
-  &:hover {
-    border-radius: 50%;
-    background-color: #e7e7e761;
+    border-color: $color-grey transparent transparent transparent;
   }
 }

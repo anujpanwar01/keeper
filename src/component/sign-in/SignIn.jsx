@@ -130,7 +130,7 @@ const SignIn = function () {
             required
           />
           <h3>forget your password?</h3>
-          <CustomBtn className="form-btn" type="submit">
+          <CustomBtn className="form-btn btn" type="submit">
             Sign in
           </CustomBtn>
           <Link to="/sign-up">Have no account? click me</Link>
