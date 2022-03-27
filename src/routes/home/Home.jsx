@@ -1,17 +1,16 @@
 import { useSelector } from "react-redux";
-
 import Card from "../../component/card/card.component";
 import "./Home.styles.scss";
 
 import TaskAdder from "../../component/task-adder/task-adder.component";
 /////////////////////////////////////////////////////
-export const query = function (name1, name2, className) {
-  return !className
-    ? document.querySelector(`${name1}`).classList.add(`${name2}`) //if classname=undefined then run this
-    : className === "toggle"
-    ? document.querySelector(`${name1}`).classList.toggle(`${name2}`) //if classname=toggle then run this statement
-    : document.querySelector(`${name1}`).classList.remove(`${name2}`); //if classname=remove then run this statement
-};
+// export const query = function (name1, name2, className) {
+//   return !className
+//     ? document.querySelector(`${name1}`).classList.add(`${name2}`) //if classname=undefined then run this
+//     : className === "toggle"
+//     ? document.querySelector(`${name1}`).classList.toggle(`${name2}`) //if classname=toggle then run this statement
+//     : document.querySelector(`${name1}`).classList.remove(`${name2}`); //if classname=remove then run this statement
+// };
 
 //close the input field
 // export const close = function (e) {
@@ -36,10 +35,11 @@ export const query = function (name1, name2, className) {
 //   query(".add-btn", "abs-btn");
 // };
 const Home = () => {
-  const cardData = useSelector((state) => state.card);
+  const { store } = useSelector((state) => state.card);
   const { search } = useSelector((state) => state.search);
   const { grid } = useSelector((state) => state.theme);
 
+  // console.log(store);
   /////////////////////////////////////////////////
   return (
     <section className="home">
@@ -50,11 +50,13 @@ const Home = () => {
         style={
           grid
             ? { gridTemplateColumns: "1fr" }
-            : { gridTemplateColumns: "repeat(4, 1fr)" }
+            : { gridTemplateColumns: "repeat(3, 1fr)" }
         }
       >
-        {cardData
-          .filter((card) => card.title.toLowerCase().includes(search))
+        {store
+          .filter((card) =>
+            card.title.toLowerCase().includes(search.toLowerCase())
+          )
           .map((ele) => (
             <Card key={ele.id} {...ele} />
           ))}

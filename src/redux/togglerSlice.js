@@ -4,6 +4,7 @@ import { createSlice } from "@reduxjs/toolkit";
 const initialState = {
   theme: true,
   grid: false,
+  isDropDownOpen: false,
 };
 const cardSlice = createSlice({
   name: "card-slice",
@@ -21,8 +22,11 @@ const cardSlice = createSlice({
     cardToggle(state) {
       state.grid = !state.grid;
     },
+    dropDownOpen(state) {
+      state.isDropDownOpen = !state.isDropDownOpen;
+    },
   },
 });
-export const { toggle, cardToggle } = cardSlice.actions;
+export const { toggle, cardToggle, dropDownOpen } = cardSlice.actions;
 
 export default cardSlice.reducer;

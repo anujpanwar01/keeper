@@ -1,11 +1,13 @@
 import { auth } from "../../firebase/firebase.util";
 import { signOut } from "firebase/auth";
-
+import { useSelector } from "react-redux";
 import CustomBtn from "../custom-btn/CustomBtn";
 import logo from "../../assester/th.jpg";
 import "./user-profile-pop-up.styles.scss";
 
 const UserProfilePopUp = ({ displayName, photoURL, email }) => {
+  const { isDropDownOpen } = useSelector((state) => state.theme);
+  // console.log(isDropDownOpen);
   //   console.log(displayName, photoURL, email);
   //sign out
   const userSignOut = async () => {
@@ -18,7 +20,10 @@ const UserProfilePopUp = ({ displayName, photoURL, email }) => {
   };
 
   return (
-    <div className="pop-up">
+    <div
+      className="pop-up"
+      style={isDropDownOpen ? { display: "flex" } : { display: "none" }}
+    >
       <>
         <div
           className="user-profile"

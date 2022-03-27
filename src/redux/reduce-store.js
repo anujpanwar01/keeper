@@ -1,7 +1,7 @@
 import { configureStore, getDefaultMiddleware } from "@reduxjs/toolkit";
 import currentUserSlice from "./currentUserSlice";
 import cardSlice from "./cardSlice";
-import themeSlice from "./themeSlice";
+import themeSlice from "./togglerSlice";
 import searchSlice from "./searchSlice";
 ////////////////////////////////////////////////
 const store = configureStore({

@@ -13,7 +13,7 @@
   border-radius: $common-border-radius;
   background-color: $color-white;
   letter-spacing: 1px;
-
+  z-index: 2000;
   box-shadow: 0 0 1rem $color-box-shadow;
 
   display: none;
@@ -61,7 +61,7 @@
     }
   }
   .sign-out {
-    border: none;
+    // border: none;
     text-transform: uppercase;
     color: white;
     font-weight: 500;
@@ -78,9 +78,9 @@
     background-position: center;
     display: block;
     border-radius: 50%;
-    border: 2px solid rgb(145, 145, 145);
+    border: 4px solid $color-primary;
     overflow: hidden;
-    // box-sizing: content-box;
+    box-sizing: content-box;
 
     // margin-bottom: 2rem;
     &:hover {

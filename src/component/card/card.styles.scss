@@ -1,13 +1,18 @@
 @import "../../common-sass/common.styles.scss";
 .card {
-  width: 35rem;
+  // width: 40rem;
   padding: 2rem 3rem;
   border-radius: 1rem;
   // background-color: #fff0f0;
   word-break: break-all;
   letter-spacing: 1px;
   box-shadow: 0 0 1rem $color-box-shadow;
-  margin-bottom: 3rem;
+  // margin-bottom: 3rem;
+  position: relative;
+
+  &:hover .del-btn {
+    display: flex;
+  }
   .image {
     width: 100%;
     border-radius: 0.5rem;
@@ -16,9 +21,9 @@
     margin-bottom: 2rem;
     border: 2px solid #e600ff;
   }
-  &:not(:last-child) {
-    margin-right: 2rem;
-  }
+  // &:not(:last-child) {
+  //   // margin-right: 2rem;
+  // }
   h2 {
     font-size: 2rem;
     text-transform: uppercase;
@@ -27,6 +32,7 @@
   p {
     font-weight: 600;
     font-size: 1.6rem;
+    margin-bottom: 2rem;
   }
 }
 .black {
@@ -36,4 +42,8 @@
   justify-self: center;
   width: 56rem;
   margin-right: 0 !important;
+}
+.btn-container {
+  display: flex;
+  justify-content: space-between;
 }

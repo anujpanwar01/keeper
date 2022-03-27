@@ -1,0 +1,38 @@
+@import "../../common-sass/common.styles.scss";
+.edit-btn,
+.del-btn {
+  color: white;
+  background-color: #999;
+  border: none;
+  height: 4rem;
+  width: 4rem;
+  border-radius: 50%;
+  @include flex-center(center);
+  cursor: pointer;
+
+  position: relative;
+  transition: background-color 0.3s;
+}
+.edit-btn-text,
+.del-btn-text {
+  @include tool-tip;
+  width: 12rem;
+  top: 120%;
+  left: 50%;
+  &::after {
+    @include tool-tip-after;
+    bottom: 100%;
+    left: 50%;
+
+    border-color: transparent transparent $color-grey transparent;
+  }
+}
+.edit-btn:hover .edit-btn-text,
+.del-btn:hover .del-btn-text {
+  opacity: 1;
+  visibility: visible;
+}
+.edit-btn:hover,
+.del-btn:hover {
+  background-color: rgba(153, 153, 153, 0.822);
+}
