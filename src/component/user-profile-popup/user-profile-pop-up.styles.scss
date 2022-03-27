@@ -1,34 +1,33 @@
+@import "../../common-sass/common.styles.scss";
 .pop-up {
+  @include flex-center(space-between);
   //   display: flex;
   flex-direction: column;
-  align-items: center;
+
   position: absolute;
   right: 2%;
   top: 130%;
   padding: 2rem 1rem 3rem;
   width: 35rem;
   height: 38rem;
-  border-radius: 0.5rem;
-  background-color: #fff;
+  border-radius: $common-border-radius;
+  background-color: $color-white;
   letter-spacing: 1px;
-  justify-content: space-between;
-  box-shadow: 0 0 1rem #00000052;
+  z-index: 2000;
+  box-shadow: 0 0 1rem $color-box-shadow;
 
   display: none;
   &::before {
-    content: "";
+    @include tool-tip-after;
     position: absolute;
     bottom: 100%;
     right: 4%;
-    margin-left: -5px;
     border-width: 18px;
-    border-style: solid;
-    border-color: transparent transparent #fff transparent;
+    border-color: transparent transparent $color-white transparent;
   }
 
   & > div:not(:first-child) {
-    display: flex;
-    flex-direction: column;
+    @include flex-column;
     align-items: center;
     width: 106.5%;
 
@@ -62,33 +61,26 @@
     }
   }
   .sign-out {
-    font-size: 1.4rem;
-    border: none;
-    padding: 1.2rem 8rem;
-    cursor: pointer;
+    // border: none;
     text-transform: uppercase;
-    background-color: #f5ba13;
-    border: 2px solid transparent;
     color: white;
     font-weight: 500;
     &:hover {
       color: black;
-      border: 2px solid #f5ba13;
-      background-color: transparent;
     }
     // margin-top: 2rem;
   }
   .user-profile {
     height: 9rem;
     width: 9rem;
-    // background-color: blue;
+
     background-size: cover;
     background-position: center;
     display: block;
     border-radius: 50%;
-    border: 2px solid rgb(145, 145, 145);
+    border: 4px solid $color-primary;
     overflow: hidden;
-    // box-sizing: content-box;
+    box-sizing: content-box;
 
     // margin-bottom: 2rem;
     &:hover {

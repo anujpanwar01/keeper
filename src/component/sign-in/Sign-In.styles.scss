@@ -1,12 +1,13 @@
+@import "../../common-sass/common.styles.scss";
+
 .social-btn {
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  @include flex-center(center);
   font-size: 2.4rem;
   border: none;
   height: 5rem;
   width: 5rem;
-  border: 0.5px solid rgba(0, 0, 0, 0.747);
+  border: 0.5px solid $color-box-shadow;
+
   &:not(:last-child) {
     margin-right: 3rem;
   }
@@ -20,15 +21,7 @@
   }
 }
 .sign-in {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  margin-top: 6rem;
-  background-color: rgb(212, 195, 250);
-  padding: 3rem 2.5rem 1rem;
-  border-radius: 0.5rem;
-  box-shadow: 0 0 1rem rgba(0, 0, 0, 0.733);
-
+  background-color: rgb(222, 220, 252);
   & > * {
     margin-bottom: 2.4rem;
   }
@@ -53,8 +46,7 @@
     flex-direction: column;
   }
   .sign-in-form {
-    display: flex;
-    flex-direction: column;
+    @include flex-column;
     align-items: center;
     & > * {
       margin-bottom: 2rem;
@@ -65,26 +57,9 @@
       color: #444;
       width: 40rem;
       padding: 1.4rem;
-      border-radius: 0.5rem;
+      border-radius: $common-border-radius;
 
       border: 3px solid transparent;
     }
-    // button {
-    //   font-size: 1.6rem;
-    //   padding: 1.2rem 4.8rem;
-    //   cursor: pointer;
-    //   background-color: #f5ba13;
-    //   border: 3px solid #f5ba13;
-    //   border-radius: 0.5rem;
-
-    //   &:hover {
-    //     background-color: transparent;
-    //   }
-    // }
   }
-}
-.sign-in-page {
-  display: flex;
-  align-items: center;
-  justify-content: center;
 }

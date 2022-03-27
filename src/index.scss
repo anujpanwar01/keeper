@@ -1,4 +1,5 @@
 @import url("https://fonts.googleapis.com/css2?family=Roboto:wght@500&display=swap");
+@import "./common-sass/common.styles.scss";
 * {
   padding: 0;
   margin: 0;
@@ -6,6 +7,9 @@
 }
 html {
   font-size: 62.5%;
+}
+body {
+  overflow-x: hidden;
 }
 .bg-white {
   font-family: "Montserrat", sans-serif;
@@ -15,18 +19,18 @@ html {
 }
 .bg-black {
   background-color: #474747;
-  color: #0fa70dee;
   position: relative;
 }
-.form-btn {
+.btn {
   font-size: 1.6rem;
   padding: 1.2rem 6.4rem;
   cursor: pointer;
-  background-color: #f5ba13;
-  border: 3px solid #f5ba13;
-  border-radius: 0.5rem;
+  background-color: $color-primary;
+  border: 3px solid $color-primary;
+  border-radius: $common-border-radius;
 
   &:hover {
+    border: 3px solid $color-primary !important;
     background-color: transparent;
   }
 }
@@ -35,4 +39,18 @@ p {
 }
 a {
   text-decoration: none;
+}
+.sign-in-page,
+.sign-up-page {
+  @include flex-center(center);
+}
+.sign-in,
+.sign-up {
+  @include flex-column;
+  align-items: center;
+  margin-top: 6rem;
+
+  padding: 3rem 2.5rem 1rem;
+  border-radius: $common-border-radius;
+  box-shadow: 0 0 1rem $color-box-shadow;
 }

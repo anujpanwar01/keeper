@@ -90,7 +90,7 @@ const SignUp = () => {
             required
           />
           <Link to={"/signin"}>have an account ? click me</Link>
-          <CustomBtn className="form-btn" type="submit">
+          <CustomBtn className="form-btn btn" type="submit">
             Sign Up
           </CustomBtn>
         </CustomForm>

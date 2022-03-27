@@ -1,17 +1,12 @@
+@import "../../common-sass/common.styles.scss";
+
 .sign-up {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
   background-color: rgb(218, 218, 255);
-  padding: 3rem 2rem 2rem;
-  border-radius: 0.5rem;
-  // align-self: center;
-  box-shadow: 0 0 1rem rgba(0, 0, 0, 0.733);
-  margin-top: 5rem;
+
   a {
     text-decoration: none;
     font-size: 1.4rem;
-    color: black;
+    color: $color-black;
     font-weight: 600;
 
     &:hover {
@@ -29,12 +24,11 @@
     font-size: 1.6rem;
   }
   form {
-    display: flex;
-    flex-direction: column;
+    @include flex-column;
     align-items: center;
     input,
     button {
-      border-radius: 0.5rem;
+      border-radius: $common-border-radius;
     }
     input {
       padding: 1.4rem;
@@ -54,9 +48,4 @@
       color: black;
     }
   }
-}
-.sign-up-page {
-  display: flex;
-  justify-content: center;
-  align-items: center;
 }

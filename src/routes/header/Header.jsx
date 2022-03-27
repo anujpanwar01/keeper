@@ -1,17 +1,20 @@
-import React, { Fragment, useEffect } from "react";
+import React, { Fragment, useEffect, useState } from "react";
+import { Outlet, Link } from "react-router-dom";
+import { useSelector, useDispatch } from "react-redux";
+
 import { setCurrentUser } from "../../redux/currentUserSlice"; //get current user
 import { searchValue } from "../../redux/searchSlice";
-import { useSelector, useDispatch } from "react-redux";
-import { cardActions } from "../../redux/themeSlice";
-// import { signOut } from "firebase/auth";
+import { toggle, cardToggle, dropDownOpen } from "../../redux/togglerSlice";
+
 import { auth, userCredentail } from "../../firebase/firebase.util";
-import { useState } from "react";
-import { Outlet, Link } from "react-router-dom";
+
 import { FaSearch, FaMoon, FaSun } from "react-icons/fa";
+import { HiViewGrid } from "react-icons/hi";
+import { MdViewStream } from "react-icons/md";
 import UserProfilePopUp from "../../component/user-profile-popup/user-profile-pop-up";
 import CustomInput from "../../component/custom-input/CustomInut.component";
 import logo from "../../assester/th.jpg";
-// import { userProfile } from "../../component/sign-in/SignIn";
+
 import "./Header.styles.scss";
 import CustomBtn from "../../component/custom-btn/CustomBtn";
 import { onAuthStateChanged } from "firebase/auth";
@@ -22,7 +25,7 @@ function Header() {
 
   //theme changer dispatch
   const themeChanger = () => {
-    dispatch(cardActions.toggle());
+    dispatch(toggle());
   };
   //get current user
   useEffect(() => {
@@ -33,10 +36,11 @@ function Header() {
       dispatch(setCurrentUser(currentUser));
     });
     return unsubscribe;
-  });
+  }, [dispatch]);
   ///////////////////////////////////////////////////////////////////////////////
 
   const { currentUser } = useSelector((state) => state.currentUser);
+  const { grid } = useSelector((state) => state.theme);
 
   const [inputValue, setInputValue] = useState({
     search: "",
@@ -48,12 +52,6 @@ function Header() {
     const { value, name } = e.target;
     console.log(value, name);
 
-    dispatch(
-      searchValue({
-        search,
-      })
-    );
-
     setInputValue(() => {
       return {
         ...inputValue,
@@ -62,14 +60,23 @@ function Header() {
     });
   };
 
-  //open the user profile popup
-  const openUserProfilePopup = () => {
-    const popup = document.querySelector(".pop-up");
+  // set search value into the reducers
+  dispatch(
+    searchValue({
+      search,
+    })
+  );
 
-    document.querySelector(".pop-up").classList.remove("close-pop-up");
-
-    popup.classList.toggle("open-pop-up");
+  //openUserProfilePopUp the user profile popup
+  const openUserProfilePopUp = () => {
+    dispatch(dropDownOpen());
   };
+
+  //add the class into card
+  const gridChanger = () => {
+    dispatch(cardToggle());
+  };
+
   return (
     <Fragment>
       <header>
@@ -93,8 +100,12 @@ function Header() {
         </div>
         {/* search bar */}
         <nav>
+          <CustomBtn className="grid-btn" handleChange={gridChanger}>
+            {!grid ? <HiViewGrid size={32} /> : <MdViewStream size={32} />}
+            <span className="grid-btn-text">List view</span>
+          </CustomBtn>
+
           <div className="theme">
-            {/* <button onClick={themeChanger}>toggle</button> */}
             <input
               type="checkbox"
               id="check"
@@ -111,8 +122,10 @@ function Header() {
                 <FaSun color="#ff9e00" />
               </div>
               <div className="toggle-thumb"></div>
+              <span className="theme-btn-text">change Theme</span>
             </label>
           </div>
+
           {!currentUser ? (
             <div className="sign-in-up">
               <Link to={"/sign-in"}>sign in</Link>
@@ -124,12 +137,15 @@ function Header() {
               style={
                 !currentUser.photoURL
                   ? { backgroundImage: `url(${logo})` }
-                  : { backgroundImage: `url(${currentUser})` }
+                  : { backgroundImage: `url(${currentUser.photoURL})` }
               }
-              handleChange={openUserProfilePopup}
-            ></CustomBtn>
+              handleChange={openUserProfilePopUp}
+            >
+              {" "}
+            </CustomBtn>
           )}
         </nav>
+
         <UserProfilePopUp {...currentUser} />
       </header>
       <Outlet />
