@@ -1,5 +1,5 @@
 import { useSelector, useDispatch } from "react-redux";
-import { delCard } from "../../redux/cardSlice";
+import { delCard, editCard } from "../../redux/cardSlice";
 import { FaTrash } from "react-icons/fa";
 import { AiFillEdit } from "react-icons/ai";
 import CustomBtn from "../custom-btn/CustomBtn";
@@ -9,14 +9,17 @@ const Card = function (ele) {
   const dispatch = useDispatch();
   const { title, subTitle, file, color, src } = ele;
   const { grid } = useSelector((state) => state.theme);
+  const { edit } = useSelector((state) => state.card);
 
   const handleDelete = () => {
     dispatch(delCard({ id: ele.id }));
   };
-
+  const handleCardEdit = () => {
+    dispatch(editCard({ id: ele.id }));
+  };
   return (
     <div
-      className={`card ${grid ? "grid-1" : null}`}
+      className={`card ${grid ? "grid-1" : null} ${edit && "out-of-flow"}`}
       style={
         color ? { backgroundColor: color } : { backgroundColor: "#fff390" }
       }
@@ -39,7 +42,7 @@ const Card = function (ele) {
       <h2 className="card-title">{title}</h2>
       <p className="card-subTitle">{subTitle}</p>
       <div className="btn-container">
-        <CustomBtn className="edit-btn">
+        <CustomBtn className={`edit-btn `} handleChange={handleCardEdit}>
           <AiFillEdit size={20} />
           <span className="edit-btn-text">Edit The Note</span>
         </CustomBtn>
