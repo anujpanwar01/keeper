@@ -7,7 +7,7 @@ import "./user-profile-pop-up.styles.scss";
 
 const UserProfilePopUp = ({ displayName, photoURL, email }) => {
   const { isDropDownOpen } = useSelector((state) => state.theme);
-  // console.log(isDropDownOpen);
+  console.log(isDropDownOpen);
   //   console.log(displayName, photoURL, email);
   //sign out
   const userSignOut = async () => {
@@ -16,7 +16,6 @@ const UserProfilePopUp = ({ displayName, photoURL, email }) => {
     } catch (err) {
       console.log(err.message);
     }
-    document.querySelector(".pop-up").classList.add("close-pop-up");
   };
 
   return (
@@ -56,4 +55,5 @@ const UserProfilePopUp = ({ displayName, photoURL, email }) => {
     </div>
   );
 };
+
 export default UserProfilePopUp;
