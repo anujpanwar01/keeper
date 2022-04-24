@@ -5,7 +5,7 @@ import {
 } from "@reduxjs/toolkit";
 import currentUserSlice from "./currentUserSlice";
 import cardSlice from "./cardSlice";
-import themeSlice from "./togglerSlice";
+import toggleSlice from "./togglerSlice";
 import searchSlice from "./searchSlice";
 import storage from "redux-persist/lib/storage";
 import { persistReducer, persistStore } from "redux-persist";
@@ -13,7 +13,7 @@ import { persistReducer, persistStore } from "redux-persist";
 ////////////////////////////////////////////////
 const reducers = combineReducers({
   card: cardSlice,
-  theme: themeSlice,
+  theme: toggleSlice,
   search: searchSlice,
   currentUser: currentUserSlice,
 });
@@ -21,7 +21,8 @@ const reducers = combineReducers({
 const persistConfig = {
   key: "root",
   storage,
-  blackList: ["currentUser", "search"],
+
+  blacklist: ["theme", "search", "currentUser"],
 };
 
 const persistedReducer = persistReducer(persistConfig, reducers);

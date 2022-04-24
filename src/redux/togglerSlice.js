@@ -6,7 +6,7 @@ const initialState = {
   grid: false,
   isDropDownOpen: false,
 };
-const cardSlice = createSlice({
+const toggleSlice = createSlice({
   name: "card-slice",
   initialState,
   reducers: {
@@ -27,6 +27,6 @@ const cardSlice = createSlice({
     },
   },
 });
-export const { toggle, cardToggle, dropDownOpen } = cardSlice.actions;
+export const { toggle, cardToggle, dropDownOpen } = toggleSlice.actions;
 
-export default cardSlice.reducer;
+export default toggleSlice.reducer;

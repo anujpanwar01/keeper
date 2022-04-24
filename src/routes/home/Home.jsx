@@ -15,7 +15,7 @@ const Home = () => {
   const clearAllElement = () => {
     dispatch(resetAll());
   };
-  console.log(store);
+  // console.log(store);
   /////////////////////////////////////////////////
   return (
     <section className="home">
