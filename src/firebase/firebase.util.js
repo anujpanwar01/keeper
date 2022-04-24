@@ -65,3 +65,13 @@ export const userCredentail = async function (userAuth, additonalData) {
   } // if){}
   return uniqueUser;
 };
+
+export const addUserGeneratedData = async (userAuth, obj) => {
+  console.log(userAuth, obj);
+  const user = doc(db, "user", userAuth.uid);
+  try {
+    await setDoc(user, obj);
+  } catch (err) {
+    console.log(err);
+  }
+};

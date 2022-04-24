@@ -1,10 +1,11 @@
 import { useState } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { addData } from "../../redux/cardSlice";
 // import { doc } from "firebase/firestore";
 import { FaImage, FaPalette } from "react-icons/fa";
 import CustomBtn from "../../component/custom-btn/CustomBtn";
 import CustomInput from "../../component/custom-input/CustomInut.component";
+import { addUserGeneratedData } from "../../firebase/firebase.util";
 
 import "./task-adder.styles.scss";
 
@@ -20,6 +21,8 @@ const initialStates = {
 const TaskAdder = () => {
   const [state, setState] = useState(initialStates);
 
+  const { currentUser } = useSelector((state) => state.currentUser);
+  // console.log(currentUser.uid);
   const dispatch = useDispatch();
   //destructure
 
@@ -54,18 +57,23 @@ const TaskAdder = () => {
   };
 
   //   console.log(file, color);
-  const submitHandler = (e) => {
+  const submitHandler = async (e) => {
     e.preventDefault();
-    dispatch(
-      addData({
-        id: Math.random() * 1000 * new Date(),
-        title,
-        subTitle,
-        color,
-        file,
-        src: src,
-      })
-    );
+
+    const data = {
+      id: Math.random() * 1000 * new Date(),
+      title,
+      subTitle,
+      color,
+      file,
+      src: src,
+    };
+    dispatch(addData(data));
+    try {
+      await addUserGeneratedData(currentUser.uid, data);
+    } catch (err) {
+      console.log(err.message);
+    }
     //clear input fields
     setState(initialStates);
   };

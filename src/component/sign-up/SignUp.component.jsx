@@ -43,7 +43,7 @@ const SignUp = () => {
         email,
         password
       );
-      userCredentail(user, { displayName });
+      userCredentail(user, displayName);
       console.log(user);
     } catch (err) {
       console.log(err.message);
@@ -89,7 +89,7 @@ const SignUp = () => {
             onChange={inputChangeHandler}
             required
           />
-          <Link to={"/signin"}>have an account ? click me</Link>
+          <Link to={"/sign-in"}>have an account ? click me</Link>
           <CustomBtn className="form-btn btn" type="submit">
             Sign Up
           </CustomBtn>
