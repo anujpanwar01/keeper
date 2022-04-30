@@ -8,8 +8,7 @@ import "./user-profile-pop-up.styles.scss";
 const UserProfilePopUp = ({ displayName, photoURL, email }) => {
   const { isDropDownOpen } = useSelector((state) => state.theme);
   const { currentUser } = useSelector((state) => state.currentUser);
-  console.log(isDropDownOpen, currentUser);
-  //   console.log(displayName, photoURL, email);
+
   //sign out
   const userSignOut = async () => {
     try {
