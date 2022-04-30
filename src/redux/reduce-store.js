@@ -21,7 +21,6 @@ const reducers = combineReducers({
 const persistConfig = {
   key: "root",
   storage,
-
   blacklist: ["theme", "search", "currentUser"],
 };
 
@@ -29,6 +28,7 @@ const persistedReducer = persistReducer(persistConfig, reducers);
 
 const store = configureStore({
   reducer: persistedReducer,
+  devTools: process.env.NODE_ENV !== "production",
   middleware: getDefaultMiddleware({
     serializableCheck: false,
   }),
