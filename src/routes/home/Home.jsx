@@ -8,8 +8,12 @@ import CustomBtn from "../../component/custom-btn/CustomBtn";
 
 const Home = () => {
   const { store } = useSelector((state) => state.card);
+  // const { store } = useSelector((state) => state.card);
   const { search } = useSelector((state) => state.search);
+  // const { search } = useSelector((state) => state.search);
   const { grid } = useSelector((state) => state.theme);
+  const { edit } = useSelector((state) => state.card);
+
   const dispatch = useDispatch();
 
   const clearAllElement = () => {
@@ -42,7 +46,7 @@ const Home = () => {
           Clear All
         </CustomBtn>
       )}
-      <div className="overlay-button"></div>
+      {edit && <div className="overlay"></div>}
     </section>
   );
 };

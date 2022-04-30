@@ -27,6 +27,7 @@
     border-color: transparent transparent $color-grey transparent;
   }
 }
+
 .edit-btn:hover .edit-btn-text,
 .del-btn:hover .del-btn-text {
   opacity: 1;
@@ -35,4 +36,11 @@
 .edit-btn:hover,
 .del-btn:hover {
   background-color: rgba(153, 153, 153, 0.822);
+}
+
+.save-btn {
+  padding: 0.8rem 2rem;
+  border-radius: 0.5rem;
+  font-size: 1.6rem;
+  cursor: pointer;
 }

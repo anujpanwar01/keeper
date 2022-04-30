@@ -68,6 +68,7 @@ const TaskAdder = () => {
       file,
       src: src,
     };
+    console.log(data);
     dispatch(addData(data));
     try {
       await addUserGeneratedData(currentUser.uid, data);

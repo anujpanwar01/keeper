@@ -7,31 +7,29 @@ import "./user-profile-pop-up.styles.scss";
 
 const UserProfilePopUp = ({ displayName, photoURL, email }) => {
   const { isDropDownOpen } = useSelector((state) => state.theme);
-  console.log(isDropDownOpen);
+  const { currentUser } = useSelector((state) => state.currentUser);
+  console.log(isDropDownOpen, currentUser);
   //   console.log(displayName, photoURL, email);
   //sign out
   const userSignOut = async () => {
     try {
       await signOut(auth);
     } catch (err) {
-      console.log(err.message);
+      alert(err.message);
     }
   };
 
   return (
     <div
       className="pop-up"
-      style={isDropDownOpen ? { display: "flex" } : { display: "none" }}
+      style={
+        isDropDownOpen && currentUser
+          ? { display: "flex" }
+          : { display: "none" }
+      }
     >
       <>
-        <div
-          className="user-profile"
-          //   style={
-          //     !photoURL
-          //       ? { backgroundImage: `url(${logo})` }
-          //       : { backgroundImage: `url(${photoURL})` }
-          //   }
-        >
+        <div className="user-profile">
           <img
             style={{ width: "100%" }}
             src={!photoURL ? logo : photoURL}

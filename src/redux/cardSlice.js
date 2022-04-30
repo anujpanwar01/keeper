@@ -1,5 +1,4 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { act } from "react-dom/test-utils";
 
 const initialState = {
   store: [],
@@ -8,16 +7,6 @@ const initialState = {
 const cardSlice = createSlice({
   name: "cardSlice",
   initialState,
-  // initialState: [
-  //   // {
-  //   //   id: 1,
-  //   //   title: "running",
-  //   //   subTitle: "hello",
-  //   //   completed: false,
-  //   //   color: "#fff",
-  //   //   file: "https://www.koimoi.com/wp-content/new-galleries/2021/12/when-akshay-kumar-threw-an-impromptu-party-to-celebrate-the-success-of-kambakkht-ishq-001.jpg",
-  //   // },
-  // ],
   reducers: {
     addData: (state, action) => {
       const data = {
@@ -27,7 +16,6 @@ const cardSlice = createSlice({
         color: action.payload.color,
         file: action.payload.file,
         src: action.payload.src,
-        completed: false,
       };
       state.store.push(data);
     },
@@ -37,11 +25,14 @@ const cardSlice = createSlice({
 
       state.store = state.store.filter((ele) => ele.id !== action.payload.id);
     },
-    resetAll: (state, action) => {
+    resetAll: (state) => {
       state.store = [];
     },
     editCard(state, action) {
-      return state.store.find((ele) => ele.id === action.payload.id);
+      state.edit = action.payload;
+      // state.edit = state.store.find((ele) => ele.id === action.payload.id);
+      // console.log(state.edit);
+      // state.store = state.store.filter((ele) => ele.id === action.payload.id);
     },
   },
 });
