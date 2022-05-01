@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { delCard, editCard } from "../../redux/cardSlice";
+import { delCard, editCard, saveEditedValue } from "../../redux/cardSlice";
 import { FaTrash } from "react-icons/fa";
 import { AiFillEdit } from "react-icons/ai";
 import CustomBtn from "../custom-btn/CustomBtn";
@@ -23,18 +23,26 @@ const Card = function (ele) {
     cardEdit.setAttribute("contenteditable", true);
     cardEdit.focus();
 
+    // document.body.scrollTo(0, 0);
+    window.scrollTo(0, 0);
+    document.body.style.overflow = "hidden";
+
     dispatch(editCard(true));
   };
 
   const handleSave = function (e) {
+    console.log(ele.id);
     const cardEdit = e.currentTarget.closest(".card");
-
     cardEdit.removeAttribute("contenteditable");
-
     cardEdit.classList.remove("out-of-flow");
-
     cardEdit.blur(); //remove the focus
 
+    document.body.style.overflow = "visible";
+
+    const title = cardEdit.children[0].innerText;
+    const subTitle = cardEdit.children[1].innerText;
+
+    dispatch(saveEditedValue({ id: ele.id, title, subTitle }));
     dispatch(editCard(false));
   };
 
@@ -101,8 +109,6 @@ const Card = function (ele) {
             suppressContentEditableWarning="false"
           >
             save
-            {/* <AiFillSave size={20} />
-            <span className="save-btn-text">Save your Edit</span> */}
           </CustomBtn>
         )}
       </div>
