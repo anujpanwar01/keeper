@@ -20,6 +20,7 @@ const Home = () => {
   const clearAllElement = () => {
     dispatch(resetAll());
   };
+
   // console.log(store);
   /////////////////////////////////////////////////
   return (

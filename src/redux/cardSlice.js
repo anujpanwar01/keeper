@@ -1,5 +1,4 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { act } from "react-dom/test-utils";
 
 const initialState = {
   store: [],
@@ -34,16 +33,14 @@ const cardSlice = createSlice({
     },
 
     saveEditedValue: (state, action) => {
-      console.log(state, action.payload);
-
       const { title, subTitle } = action.payload;
 
-      state.store.find((ele) => {
-        console.log(ele.title);
+      state.store.map((ele) => {
         if (ele.id === action.payload.id) {
           ele.title = title;
           ele.subTitle = subTitle;
         }
+        return ele;
       });
     },
   },
