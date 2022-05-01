@@ -1,10 +1,11 @@
 import { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { delCard, editCard, saveEditedValue } from "../../redux/cardSlice";
-import { FaTrash } from "react-icons/fa";
+
 import { AiFillEdit } from "react-icons/ai";
 import CustomBtn from "../custom-btn/CustomBtn";
 import "./card.styles.scss";
+import DeleteButton from "../delete-btn/delete-btn.component";
 
 const Card = function (ele) {
   const dispatch = useDispatch();
@@ -16,14 +17,42 @@ const Card = function (ele) {
     dispatch(delCard({ id: ele.id }));
   };
 
-  const handleCardEdit = (e) => {
+  //////////////////////////////////////////
+  const editCommonCode = (e, add = undefined) => {
     const cardEdit = e.currentTarget.closest(".card");
 
-    cardEdit.classList.add("out-of-flow");
-    cardEdit.setAttribute("contenteditable", true);
-    cardEdit.focus();
+    const childrens = new Array(...cardEdit.children);
 
-    // document.body.scrollTo(0, 0);
+    childrens.forEach((ele) => {
+      if (
+        ele.classList.contains("card-title") ||
+        ele.classList.contains("card-subTitle")
+      ) {
+        if (add) {
+          ele.setAttribute("contenteditable", true);
+
+          // for set the focus onto ele
+          const range = document.createRange();
+          const selection = window.getSelection();
+          selection.removeAllRanges();
+          range.selectNodeContents(ele);
+          range.collapse(false);
+          selection.addRange(range);
+          ele.focus();
+        } else {
+          ele.removeAttribute("contenteditable", true);
+        }
+      }
+    });
+
+    return { childrens, cardEdit };
+  };
+
+  const handleCardEdit = (e) => {
+    const { cardEdit } = editCommonCode(e, "add");
+
+    cardEdit.classList.add("out-of-flow");
+
     window.scrollTo(0, 0);
     document.body.style.overflow = "hidden";
 
@@ -31,20 +60,26 @@ const Card = function (ele) {
   };
 
   const handleSave = function (e) {
-    console.log(ele.id);
-    const cardEdit = e.currentTarget.closest(".card");
-    cardEdit.removeAttribute("contenteditable");
+    const { cardEdit, childrens } = editCommonCode(e, undefined);
+
+    console.log(childrens);
     cardEdit.classList.remove("out-of-flow");
-    cardEdit.blur(); //remove the focus
+
+    let title;
+    let subTitle;
 
     document.body.style.overflow = "visible";
 
-    const title = cardEdit.children[0].innerText;
-    const subTitle = cardEdit.children[1].innerText;
+    childrens.forEach((ele) => {
+      if (ele.classList.contains("card-title")) title = ele.innerText;
+      else if (ele.classList.contains("card-subTitle"))
+        subTitle = ele.innerText;
+    });
 
     dispatch(saveEditedValue({ id: ele.id, title, subTitle }));
     dispatch(editCard(false));
   };
+  ////////////////////////////////////////////////
 
   /////////////////////////////
   useEffect(() => {
@@ -55,6 +90,7 @@ const Card = function (ele) {
       dispatch(editCard(false));
     };
   });
+
   /////////////////////////////
 
   return (
@@ -82,32 +118,15 @@ const Card = function (ele) {
       <h2 className="card-title">{title}</h2>
       <p className="card-subTitle">{subTitle}</p>
       <div className="btn-container">
-        <CustomBtn
-          className={`edit-btn `}
-          handleChange={handleCardEdit}
-          suppressContentEditableWarning="false"
-        >
+        <CustomBtn className={`edit-btn `} handleChange={handleCardEdit}>
           <AiFillEdit size={20} />
           <span className="edit-btn-text">Edit The Note</span>
         </CustomBtn>
 
-        {!edit && (
-          <CustomBtn
-            className="del-btn"
-            handleChange={handleDelete}
-            suppressContentEditableWarning="false"
-          >
-            <FaTrash size={20} />
-            <span className="del-btn-text">Delete The Note</span>
-          </CustomBtn>
-        )}
+        {!edit && <DeleteButton handleChange={handleDelete} />}
 
         {edit && (
-          <CustomBtn
-            className="save-btn"
-            handleChange={handleSave}
-            suppressContentEditableWarning="false"
-          >
+          <CustomBtn className="save-btn" handleChange={handleSave}>
             save
           </CustomBtn>
         )}
