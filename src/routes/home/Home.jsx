@@ -8,12 +8,13 @@ import CustomBtn from "../../component/custom-btn/CustomBtn";
 
 const Home = () => {
   const { store } = useSelector((state) => state.card);
-  // const { store } = useSelector((state) => state.card);
+
   const { search } = useSelector((state) => state.search);
-  // const { search } = useSelector((state) => state.search);
+
   const { grid } = useSelector((state) => state.theme);
   const { edit } = useSelector((state) => state.card);
 
+  console.log(store);
   const dispatch = useDispatch();
 
   const clearAllElement = () => {
