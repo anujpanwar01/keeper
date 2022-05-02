@@ -7,6 +7,7 @@ import {
   FacebookAuthProvider,
 } from "firebase/auth";
 import { getFirestore, doc, setDoc, getDoc } from "firebase/firestore";
+
 // import { getAnalytics } from "firebase/analytics";
 
 const firebaseConfig = {
@@ -26,8 +27,9 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 // const analytics = getAnalytics(app);
 
-export const auth = getAuth();
-export const db = getFirestore();
+export const auth = getAuth(app);
+// auth.currentUser.
+export const db = getFirestore(app);
 
 const githubProvider = new GithubAuthProvider();
 const googleProvider = new GoogleAuthProvider();
@@ -38,36 +40,42 @@ export const googleSignIn = () => signInWithPopup(auth, googleProvider);
 export const facebookSignIn = () => signInWithPopup(auth, facebookProvider);
 
 // new user auth
-export const userCredentail = async function (userAuth, additonalData) {
+export const userCredentail = async function (userAuth, additonalData = {}) {
+  if (!userAuth) return;
   //user detial
-  // console.log(userAuth);
 
   //if user is exist
   const uniqueUser = doc(db, "user", userAuth.uid);
   const getUser = await getDoc(uniqueUser);
-  // console.log(getUser.data());
 
+  // userDataIntoFirebase(getUser.data());
+
+  // const data2 = additonalData.displayName;
   //if user is not exist
   if (!getUser.exists()) {
     const { displayName, email, photoURL } = userAuth;
+
     const createAt = new Date();
+
+    const userData = {
+      displayName,
+      email,
+      createAt,
+      photoURL,
+      ...additonalData,
+    };
     try {
-      await setDoc(uniqueUser, {
-        displayName,
-        email,
-        createAt,
-        photoURL,
-        ...additonalData,
-      });
+      await setDoc(uniqueUser, userData);
     } catch (err) {
-      console.log(err);
+      console.log(err.message);
     }
-  } // if){}
+  }
+
+  // if){}
   return uniqueUser;
 };
 
 export const addUserGeneratedData = async (userAuth, obj) => {
-  console.log(userAuth, obj);
   const user = doc(db, "user", userAuth.uid);
   try {
     await setDoc(user, obj);

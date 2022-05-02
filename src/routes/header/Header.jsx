@@ -35,11 +35,14 @@ function Header() {
       }
       dispatch(setCurrentUser(currentUser));
     });
+
     return unsubscribe;
   }, [dispatch]);
+
   ///////////////////////////////////////////////////////////////////////////////
 
   const { currentUser } = useSelector((state) => state.currentUser);
+
   const { grid } = useSelector((state) => state.theme);
 
   const [inputValue, setInputValue] = useState({
