@@ -36,6 +36,7 @@ const SignUp = () => {
       alert("Password not match");
       return;
     }
+
     ///////////////////////////
     try {
       const { user } = await createUserWithEmailAndPassword(
@@ -43,10 +44,17 @@ const SignUp = () => {
         email,
         password
       );
-      userCredentail(user, displayName);
-      console.log(user);
+
+      const users = await userCredentail(user, { displayName });
+
+      console.log(users);
+      // auth.currentUser.photoURL=
     } catch (err) {
-      console.log(err.message);
+      if (err.code === "auth/email-already-in-use") {
+        alert(
+          "Email is Already exist try with different account or use new Email Address"
+        );
+      }
     }
     setState({ displayName: "", email: "", password: "", confirmPassword: "" });
   };

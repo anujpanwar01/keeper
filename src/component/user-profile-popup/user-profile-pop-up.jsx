@@ -7,6 +7,7 @@ import "./user-profile-pop-up.styles.scss";
 
 const UserProfilePopUp = ({ displayName, photoURL, email }) => {
   const { isDropDownOpen } = useSelector((state) => state.theme);
+
   const { currentUser } = useSelector((state) => state.currentUser);
 
   //sign out
@@ -36,7 +37,7 @@ const UserProfilePopUp = ({ displayName, photoURL, email }) => {
           />
         </div>
         <div>
-          <h2>{displayName ? displayName : "user"}</h2>
+          <h2>{displayName ? displayName : "user" + Math.random() * 90231}</h2>
           <h3>{email}</h3>
         </div>
       </>
