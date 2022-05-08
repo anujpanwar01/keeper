@@ -20,6 +20,10 @@
     border: none;
     outline: none;
     font-size: 1.6rem;
+
+    &::placeholder {
+      font-family: "Montserrat";
+    }
   }
 
   .file {
@@ -97,6 +101,9 @@
   width: 120px !important;
   bottom: 125%;
   left: 50%;
+  font-family: "Montserrat";
+
+  font-weight: 400;
   &::after {
     @include tool-tip-after;
     top: 100%;

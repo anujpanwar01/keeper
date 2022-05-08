@@ -7,8 +7,10 @@
   height: 4rem;
   width: 4rem;
   border-radius: 50%;
+
   @include flex-center(center);
   cursor: pointer;
+  font-weight: 200;
 
   position: relative;
   transition: background-color 0.3s;
@@ -16,6 +18,7 @@
 .edit-btn-text,
 .del-btn-text {
   @include tool-tip;
+  font-family: "Montserrat";
   width: 12rem;
   top: 120%;
   left: 50%;
@@ -29,7 +32,8 @@
 }
 
 .edit-btn:hover .edit-btn-text,
-.del-btn:hover .del-btn-text {
+.del-btn:hover .del-btn-text,
+.toggle-btn .toggle-btn-text {
   opacity: 1;
   visibility: visible;
 }
