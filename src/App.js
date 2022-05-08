@@ -9,8 +9,8 @@ import Home from "./routes/home/Home";
 import "./App.scss";
 
 function App() {
-  window.setTimeout(() => "hello", 3000);
-  console.log("hello");
+  // window.setTimeout(() => "hello", 3000);
+
   const { currentUser } = useSelector((state) => state.currentUser);
 
   const navigate = (element) => {

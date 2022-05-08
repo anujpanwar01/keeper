@@ -14,7 +14,7 @@ const UserProfilePopUp = ({ displayName, email, photoURL }) => {
   // const { displayName, email, photoURL } = providerData;
 
   const { isDropDownOpen } = useSelector((state) => state.theme);
-  console.log(isDropDownOpen);
+
   const { currentUser } = useSelector((state) => state.currentUser);
 
   //sign out

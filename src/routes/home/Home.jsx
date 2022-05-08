@@ -14,14 +14,12 @@ const Home = () => {
   const { grid } = useSelector((state) => state.theme);
   const { edit } = useSelector((state) => state.card);
 
-  console.log(store);
   const dispatch = useDispatch();
 
   const clearAllElement = () => {
     dispatch(resetAll());
   };
 
-  // console.log(store);
   /////////////////////////////////////////////////
   return (
     <section className="home">

@@ -44,7 +44,6 @@ function Header() {
   ///////////////////////////////////////////////////////////////////////////////
 
   const { currentUser, userDetail } = useSelector((state) => state.currentUser);
-  console.log(userDetail, currentUser);
 
   const { grid } = useSelector((state) => state.theme);
 
@@ -78,7 +77,6 @@ function Header() {
 
   const inputChangeHandler = (e) => {
     const { value, name } = e.target;
-    console.log(value, name);
 
     setInputValue(() => {
       return {
@@ -133,14 +131,14 @@ function Header() {
             <span className="grid-btn-text">List view</span>
           </CustomBtn>
 
-          <div className="theme">
+          <div className="theme ">
             <input
               type="checkbox"
               id="check"
               className="checkbox"
               onClick={themeChanger}
             />
-            <label htmlFor="check" className="theme-btn">
+            <label htmlFor="check" className="theme-btn toggle-btn">
               <div className="sun">
                 {" "}
                 <FaMoon color="#8f8f8f" />
@@ -149,7 +147,7 @@ function Header() {
                 {" "}
                 <FaSun color="#ff9e00" />
               </div>
-              <div className="toggle-thumb"></div>
+              <div className="toggle-thumb "></div>
               <span className="theme-btn-text">change Theme</span>
             </label>
           </div>

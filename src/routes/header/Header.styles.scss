@@ -10,8 +10,9 @@ header {
   box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.3);
   .logo {
     color: $color-black;
-    font-size: 2.4rem;
-    font-weight: 600;
+    font-size: 3.2rem;
+
+    font-family: "Leckerli One";
     text-decoration: none;
   }
   nav {
@@ -134,12 +135,6 @@ header {
       top: 1.8px;
       transition: transform 0.3s;
     }
-    // .profile {
-    //   height: 3rem;
-    //   width: 3rem;
-    //   background-color: blue;
-    //   display: block;
-    // }
   }
   .grid-btn {
     @include flex-center(center);
@@ -173,7 +168,9 @@ header {
 }
 
 .grid-btn-text,
-.theme-btn-text {
+.theme-btn-text,
+.toggle-btn-text {
+  font-family: "Montserrat";
   @include tool-tip;
   top: 132%;
   left: 78%;
