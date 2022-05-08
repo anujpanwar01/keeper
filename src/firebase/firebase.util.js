@@ -77,8 +77,10 @@ export const userCredentail = async function (userAuth, additonalData = {}) {
 
 export const addUserGeneratedData = async (userAuth, obj) => {
   const user = doc(db, "user", userAuth.uid);
+  const newObj = { userAuth, obj };
+  console.log(user, obj);
   try {
-    await setDoc(user, obj);
+    // await setDoc(user, newObj);
   } catch (err) {
     console.log(err);
   }

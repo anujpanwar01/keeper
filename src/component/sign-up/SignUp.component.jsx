@@ -8,6 +8,7 @@ import CustomForm from "../custom-form/CustomForm";
 import CustomInput from "../custom-input/CustomInut.component";
 
 import "./Sign-Up.styles.scss";
+
 import { Link } from "react-router-dom";
 
 const SignUp = () => {
@@ -45,10 +46,8 @@ const SignUp = () => {
         password
       );
 
-      const users = await userCredentail(user, { displayName });
-
-      console.log(users);
-      // auth.currentUser.photoURL=
+      await userCredentail(user, { displayName });
+      window.location.reload(true);
     } catch (err) {
       if (err.code === "auth/email-already-in-use") {
         alert(

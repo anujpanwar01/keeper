@@ -41,27 +41,11 @@ const SignIn = function () {
     });
   };
 
-  // onAuthStateChanged(auth, (user) => {
-  //   if (user) {
-  //     //   const uid = user.uid;
-  //     const { email, displayName, photoURL } = user;
-  //     userProfile = {
-  //       name: displayName,
-  //       photo: photoURL,
-  //       email,
-  //     };
-  //     // console.log(email, displayName, user);
-  //     // ...
-  //   } else {
-  //     // User is signed out
-  //     // ...
-  //   }
-  // });
-
   const emailAndPassword = async (e) => {
     e.preventDefault();
     try {
       await signInWithEmailAndPassword(auth, email, password);
+      window.location.reload(true);
       // console.log(res);
     } catch (err) {
       console.log(err.message);
