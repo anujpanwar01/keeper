@@ -8,6 +8,8 @@ import CustomInput from "../../component/custom-input/CustomInut.component";
 import { addUserGeneratedData } from "../../firebase/firebase.util";
 
 import "./task-adder.styles.scss";
+import { useNavigate } from "react-router-dom";
+
 
 //initial states for the input fields
 const initialStates = {
@@ -19,6 +21,7 @@ const initialStates = {
 };
 
 const TaskAdder = () => {
+  const navigate = useNavigate();
   const [state, setState] = useState(initialStates);
 
   const { currentUser } = useSelector((state) => state.currentUser);
@@ -60,23 +63,28 @@ const TaskAdder = () => {
   const submitHandler = async (e) => {
     e.preventDefault();
 
-    const data = {
-      id: Math.random() * 1000 * new Date(),
-      title,
-      subTitle,
-      color,
-      file,
-      src: src,
-    };
-    console.log(data);
-    dispatch(addData(data));
-    try {
-      await addUserGeneratedData(currentUser.uid, data);
-    } catch (err) {
-      console.log(err.message);
+    if (!currentUser) {
+      alert("Please first do sign-in or sign-up. For save your process.");
+      return navigate("/sign-up");
+    } else {
+      const data = {
+        id: Math.random() * 1000 * new Date(),
+        title,
+        subTitle,
+        color,
+        file,
+        src: src,
+      };
+      console.log(data);
+      dispatch(addData(data));
+      try {
+        await addUserGeneratedData(currentUser, data);
+      } catch (err) {
+        console.log(err.message);
+      }
+      //clear input fields
+      setState(initialStates);
     }
-    //clear input fields
-    setState(initialStates);
   };
 
   return (

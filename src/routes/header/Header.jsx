@@ -2,7 +2,7 @@ import React, { Fragment, useEffect, useState } from "react";
 import { Outlet, Link } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 
-import { setCurrentUser } from "../../redux/currentUserSlice"; //get current user
+import { setCurrentUser, setUserDetail } from "../../redux/currentUserSlice"; //get current user
 import { searchValue } from "../../redux/searchSlice";
 import { toggle, cardToggle, dropDownOpen } from "../../redux/togglerSlice";
 
@@ -18,6 +18,8 @@ import logo from "../../assester/th.jpg";
 import "./Header.styles.scss";
 import CustomBtn from "../../component/custom-btn/CustomBtn";
 import { onAuthStateChanged } from "firebase/auth";
+import { db } from "../../firebase/firebase.util";
+import { doc, getDoc } from "firebase/firestore";
 
 function Header() {
   //////redux
@@ -41,9 +43,32 @@ function Header() {
 
   ///////////////////////////////////////////////////////////////////////////////
 
-  const { currentUser } = useSelector((state) => state.currentUser);
+  const { currentUser, userDetail } = useSelector((state) => state.currentUser);
+  console.log(userDetail, currentUser);
 
   const { grid } = useSelector((state) => state.theme);
+
+  //get data from the firebase;
+
+  useEffect(() => {
+    let abortControllar;
+
+    const data = async function (userAuth) {
+      abortControllar = new AbortController();
+      let signal = abortControllar.signal;
+      if (!userAuth) return;
+
+      const uid = userAuth.uid;
+
+      const uniqueUser = doc(db, "user", uid);
+      const getUser = await getDoc(uniqueUser, { signal: signal });
+
+      dispatch(setUserDetail(getUser.data()));
+    };
+    data(currentUser);
+    // window.addEventListener("load", () => data(currentUser));
+    return () => abortControllar.abort();
+  }, [currentUser, dispatch]);
 
   const [inputValue, setInputValue] = useState({
     search: "",
@@ -149,7 +174,7 @@ function Header() {
           )}
         </nav>
 
-        <UserProfilePopUp {...currentUser} />
+        <UserProfilePopUp {...userDetail} />
       </header>
       <Outlet />
     </Fragment>
