@@ -1,3 +1,4 @@
+@import "../../common-sass/common.styles.scss";
 .home {
   display: flex;
   flex-direction: column;
@@ -5,6 +6,7 @@
   padding: 6rem 0;
   border-left: 4px solid #f5ba13;
   border-right: 4px solid #f5ba13;
+  min-height: 100vh;
   //   label {
   //     padding: 2rem;
   //   }
@@ -22,11 +24,55 @@
     position: absolute;
     top: 0;
     background-color: black;
-    opacity: 0.9;
+    opacity: 1;
     z-index: 15000;
     width: 100%;
     height: 100vh;
   }
+}
+.tool__tip {
+  background-color: #000000ab;
+  width: 40rem;
+  padding: 1.4rem 3rem;
+  color: white;
+  font-size: 1.6rem;
+  border-radius: 0.5rem;
+  position: absolute;
+  top: 9%;
+  box-shadow: 0 0 1rem rgb(0 0 0 / 30%);
+  &--btn {
+    position: absolute;
+    height: 3rem;
+    width: 3rem;
+    background-color: #eee;
+    border: none;
+    top: -25%;
+    border-radius: 50%;
+    @include flex-center(center);
+    right: -2%;
+    cursor: pointer;
+  }
+
+  span {
+    border: 1px solid white;
+    padding: 0.2rem 0.6rem;
+    border-radius: inherit;
+    margin: 0 0.6rem;
+  }
+}
+.hidden__tool--tip {
+  transform: translateX(-120%);
+  transition: transform 2s ease-in-out;
+}
+.close__tool--tip {
+  transform: translateX(0%);
+}
+.empty-content {
+  font-size: 2rem;
+  text-align: center;
+  padding: 20rem 0 0;
+}.bb-empty-content{
+  color: white;
 }
 // .hidden-overlay {
 //   display: none;

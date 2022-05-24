@@ -12,9 +12,9 @@ const toggleSlice = createSlice({
   reducers: {
     toggle(state) {
       state.theme = !state.theme;
-      state.theme
-        ? document.body.classList.remove("bg-black")
-        : document.body.classList.add("bg-black");
+      // state.theme
+      //   ? document.body.classList.remove("bg-black")
+      //   : document.body.classList.add("bg-black");
       // if (state.theme) {
       //   document.body.classList.toggle("bg");
       // }

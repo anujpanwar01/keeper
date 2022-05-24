@@ -34,6 +34,15 @@
     <title>Keeper</title>
 
     <style>
+        .overlay {
+    position: absolute;
+    top: 0;
+    background-color: black;
+    opacity: 0.9;
+    z-index: 15000;
+    width: 100%;
+    height: 100vh;
+  }
       .svgLoader {
         animation: spin 0.5s linear infinite;
         margin: auto;
@@ -57,6 +66,9 @@
   </head>
   <body class="bg-white">
     <noscript>You need to enable JavaScript to run this app.</noscript>
+   <div id="overlay"></div>
+   <div id="user-overlay"></div>
+   <div id="task-overlay"></div>
     <div id="root">
       <div class="loader">
         <img src="./Spinner.svg" alt="spinner">

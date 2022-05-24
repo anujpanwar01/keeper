@@ -1,17 +1,16 @@
-import React, { useState } from "react";
+import React, { memo, useState } from "react";
 import { auth, userCredentail } from "../../firebase/firebase.util";
 import { createUserWithEmailAndPassword } from "firebase/auth";
-// import { collection, addDoc } from "firebase/firestore";
-
 import CustomBtn from "../custom-btn/CustomBtn";
 import CustomForm from "../custom-form/CustomForm";
 import CustomInput from "../custom-input/CustomInut.component";
 
 import "./Sign-Up.styles.scss";
 
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 const SignUp = () => {
+  const navigate = useNavigate();
   const [state, setState] = useState({
     displayName: "",
     email: "",
@@ -45,17 +44,16 @@ const SignUp = () => {
         email,
         password
       );
-
+      console.log(displayName);
       await userCredentail(user, { displayName });
-      window.location.reload(true);
     } catch (err) {
       if (err.code === "auth/email-already-in-use") {
         alert(
           "Email is Already exist try with different account or use new Email Address"
         );
+        navigate("/sign-in");
       }
     }
-    setState({ displayName: "", email: "", password: "", confirmPassword: "" });
   };
 
   return (
@@ -105,4 +103,4 @@ const SignUp = () => {
     </section>
   );
 };
-export default SignUp;
+export default memo(SignUp);

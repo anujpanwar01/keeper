@@ -7,9 +7,14 @@
 }
 html {
   font-size: 62.5%;
+  @media only screen and (max-width: 500px) {
+    font-size: 56.25%;
+  }
 }
 body {
   overflow-x: hidden;
+  position: relative;
+  @include scroll-bar;
 }
 .bg-white {
   font-family: "Montserrat", sans-serif;

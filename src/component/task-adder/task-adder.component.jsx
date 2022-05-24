@@ -1,18 +1,14 @@
-import { useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { addData } from "../../redux/cardSlice";
-// import { doc } from "firebase/firestore";
-import { FaImage, FaPalette } from "react-icons/fa";
-import CustomBtn from "../../component/custom-btn/CustomBtn";
-import CustomInput from "../../component/custom-input/CustomInut.component";
+import { useContext, useState } from "react";
 import { addUserGeneratedData } from "../../firebase/firebase.util";
-
 import "./task-adder.styles.scss";
 import { useNavigate } from "react-router-dom";
-
+import CardContext from "../../context/card-context/card-context";
+import UserContext from "../../context/user-context/user-context";
+import { createPortal } from "react-dom";
+import TaskInput from "../task-input/task-input.component";
 
 //initial states for the input fields
-const initialStates = {
+const initStates = {
   title: "",
   subTitle: "",
   color: "",
@@ -21,13 +17,16 @@ const initialStates = {
 };
 
 const TaskAdder = () => {
-  const navigate = useNavigate();
-  const [state, setState] = useState(initialStates);
+  //context
+  const { addItem } = useContext(CardContext);
+  const { isTaskOpen, setIsTaskOpen } = useContext(CardContext);
+  const { currentUser } = useContext(UserContext);
 
-  const { currentUser } = useSelector((state) => state.currentUser);
-  // console.log(currentUser.uid);
-  const dispatch = useDispatch();
-  //destructure
+  //state
+  const navigate = useNavigate();
+  const [state, setState] = useState(initStates);
+
+  // const dispatch = useDispatch();
 
   const { title, subTitle, file, color, src } = state;
 
@@ -54,12 +53,9 @@ const TaskAdder = () => {
           src: data,
         };
       });
-      // src = data;
-      // console.log(src);
     });
   };
 
-  //   console.log(file, color);
   const submitHandler = async (e) => {
     e.preventDefault();
 
@@ -75,85 +71,63 @@ const TaskAdder = () => {
         file,
         src: src,
       };
-      console.log(data);
-      dispatch(addData(data));
+      addItem(data);
       try {
         await addUserGeneratedData(currentUser, data);
       } catch (err) {
         console.log(err.message);
       }
       //clear input fields
-      setState(initialStates);
+      setState(initStates);
     }
+    setIsTaskOpen(false);
   };
+  // fetch("https://keeper-app-7a3fe-default-rtdb.firebaseio.com/notes", {
+  //   method: "POST",
+  //   body: JSON.stringify({
+  //     note: {
+  //       title,
+  //       subTitle,
+  //       color,
+  //       file,
+  //       src,
+  //     },
+  //   }),
+  // })
+  //   .then((res) => res.json())
+  //   .then((data) => console.log(data));
+
+  const taskOverlay = createPortal(
+    <div
+      className="task-overlay"
+      onClick={() => {
+        setIsTaskOpen(false);
+      }}
+    />,
+    document.getElementById("task-overlay")
+  );
+
+  // for keyboard events
+  (() =>
+    (document.onkeydown = (e) => {
+      if (e.key === "t" || e.key === "T") {
+        document.getElementById("title").focus();
+        setIsTaskOpen(true);
+      } else if (e.key === "/") {
+        document.getElementById("search").focus();
+      }
+    }))();
 
   return (
     <div className="task-adder">
       <form onSubmit={submitHandler}>
-        <CustomInput
-          type="text"
-          id="title"
-          placeholder="Title"
-          required
-          name="title"
-          className="title"
-          value={title}
-          handleChange={inputChangeHandler}
+        <TaskInput
+          onInputChangeHandler={inputChangeHandler}
+          onFileReader={fileReader}
+          {...state}
         />
-        <div className="flex ">
-          <CustomInput
-            name="subTitle"
-            value={subTitle}
-            // onClick={expand}
-            type="text"
-            placeholder="Take a note..."
-            id="fileid"
-            handleChange={inputChangeHandler}
-            required
-          />
-
-          <div className="task-menu">
-            <div>
-              {/* files */}
-              <CustomInput
-                id="file"
-                type="file"
-                name="file"
-                hidden
-                value={file}
-                multiple
-                accept=".jpg, .jpeg, .png"
-                handleChange={(e) => {
-                  inputChangeHandler(e);
-                  fileReader(e);
-                }}
-              />
-              <label className="file" htmlFor="file">
-                <FaImage size={20} color="#555" />
-                <span className="file-text">choose your img</span>
-              </label>
-              {/* colors */}
-              <CustomInput
-                type="color"
-                id="color"
-                name="color"
-                hidden
-                value={color}
-                handleChange={inputChangeHandler}
-              />
-              <label htmlFor="color" className="label">
-                <FaPalette size={20} color="#555" />
-                <span className="label-text">choose fav color</span>
-              </label>
-            </div>
-            <CustomBtn className="add-btn btn" type="submit">
-              Add Task
-              <span className="add-btn-text">add your tasks</span>
-            </CustomBtn>
-          </div>
-          {/*  */}
-        </div>
       </form>
+      {isTaskOpen && taskOverlay}
     </div>
   );
 };

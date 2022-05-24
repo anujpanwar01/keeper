@@ -1,182 +1,75 @@
-import React, { Fragment, useEffect, useState } from "react";
+import React, {
+  Fragment,
+  useEffect,
+  useContext,
+  useRef,
+  useCallback,
+} from "react";
 import { Outlet, Link } from "react-router-dom";
-import { useSelector, useDispatch } from "react-redux";
-
-import { setCurrentUser, setUserDetail } from "../../redux/currentUserSlice"; //get current user
-import { searchValue } from "../../redux/searchSlice";
-import { toggle, cardToggle, dropDownOpen } from "../../redux/togglerSlice";
-
+import Navigation from "../../component/navigation/Navigation.Component";
 import { auth, userCredentail } from "../../firebase/firebase.util";
-
-import { FaSearch, FaMoon, FaSun } from "react-icons/fa";
-import { HiViewGrid } from "react-icons/hi";
-import { MdViewStream } from "react-icons/md";
+import SearchContainer from "../../component/search/SerachContainer.Component";
 import UserProfilePopUp from "../../component/user-profile-popup/user-profile-pop-up";
-import CustomInput from "../../component/custom-input/CustomInut.component";
-import logo from "../../assester/th.jpg";
-
-import "./Header.styles.scss";
-import CustomBtn from "../../component/custom-btn/CustomBtn";
 import { onAuthStateChanged } from "firebase/auth";
 import { db } from "../../firebase/firebase.util";
 import { doc, getDoc } from "firebase/firestore";
+import "./Header.styles.scss";
+import UserContext from "../../context/user-context/user-context";
+// import { async } from "@firebase/util";
 
-function Header() {
-  //////redux
-  const dispatch = useDispatch();
+const Header = () => {
+  const { userDetail, currentUser, setUserDetail, setCurrentUser } =
+    useContext(UserContext);
 
-  //theme changer dispatch
-  const themeChanger = () => {
-    dispatch(toggle());
-  };
-  //get current user
+  const isCancelled = useRef(false);
+
   useEffect(() => {
+    console.log("user");
     const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
       if (currentUser) {
         userCredentail(currentUser);
       }
-      dispatch(setCurrentUser(currentUser));
+      setCurrentUser(currentUser);
     });
 
     return unsubscribe;
-  }, [dispatch]);
+  }, [currentUser]);
 
   ///////////////////////////////////////////////////////////////////////////////
 
-  const { currentUser, userDetail } = useSelector((state) => state.currentUser);
-
-  const { grid } = useSelector((state) => state.theme);
+  // const { userDetail } = useSelector((state) => state.currentUser);
 
   //get data from the firebase;
 
+  const userProfileData = useCallback(async (currentUser) => {
+    if (!currentUser) return;
+    // console.log(!isCancelled.current.value);
+    if (!isCancelled.current.value) {
+      const user = doc(db, "user", currentUser.uid);
+      const getUser = await getDoc(user);
+      setUserDetail(getUser.data());
+    }
+  }, []);
+
   useEffect(() => {
-    let abortControllar;
-
-    const data = async function (userAuth) {
-      abortControllar = new AbortController();
-      let signal = abortControllar.signal;
-      if (!userAuth) return;
-
-      const uid = userAuth.uid;
-
-      const uniqueUser = doc(db, "user", uid);
-      const getUser = await getDoc(uniqueUser, { signal: signal });
-
-      dispatch(setUserDetail(getUser.data()));
+    userProfileData(currentUser);
+    return () => {
+      isCancelled.current = true;
     };
-    data(currentUser);
-    // window.addEventListener("load", () => data(currentUser));
-    return () => abortControllar.abort();
-  }, [currentUser, dispatch]);
-
-  const [inputValue, setInputValue] = useState({
-    search: "",
-  });
-
-  const { search } = inputValue;
-
-  const inputChangeHandler = (e) => {
-    const { value, name } = e.target;
-
-    setInputValue(() => {
-      return {
-        ...inputValue,
-        [name]: value,
-      };
-    });
-  };
-
-  // set search value into the reducers
-  dispatch(
-    searchValue({
-      search,
-    })
-  );
-
-  //openUserProfilePopUp the user profile popup
-  const openUserProfilePopUp = () => {
-    dispatch(dropDownOpen());
-  };
-
-  //add the class into card
-  const gridChanger = () => {
-    dispatch(cardToggle());
-  };
+  }, [currentUser, userProfileData]);
 
   return (
     <Fragment>
       <header>
         <Link className="logo" to={"/"}>
-          Keeper App
+          Keeper
         </Link>
-        {/* for search bar */}
-        <div className="search-container">
-          <label htmlFor="search">
-            <FaSearch size={16} fill={"#555"} />
-          </label>
-          <CustomInput
-            type="search"
-            name="search"
-            id="search"
-            value={search}
-            handleChange={inputChangeHandler}
-            placeholder="search"
-            className="search-box"
-          />
-        </div>
-        {/* search bar */}
-        <nav>
-          <CustomBtn className="grid-btn" handleChange={gridChanger}>
-            {!grid ? <HiViewGrid size={32} /> : <MdViewStream size={32} />}
-            <span className="grid-btn-text">List view</span>
-          </CustomBtn>
-
-          <div className="theme ">
-            <input
-              type="checkbox"
-              id="check"
-              className="checkbox"
-              onClick={themeChanger}
-            />
-            <label htmlFor="check" className="theme-btn toggle-btn">
-              <div className="sun">
-                {" "}
-                <FaMoon color="#8f8f8f" />
-              </div>
-              <div className="moon">
-                {" "}
-                <FaSun color="#ff9e00" />
-              </div>
-              <div className="toggle-thumb "></div>
-              <span className="theme-btn-text">change Theme</span>
-            </label>
-          </div>
-
-          {!currentUser ? (
-            <div className="sign-in-up">
-              <Link to={"/sign-in"}>sign in</Link>
-              <Link to={"/sign-up"}>Sign Up</Link>
-            </div>
-          ) : (
-            <CustomBtn
-              className="profile"
-              style={
-                !currentUser.photoURL
-                  ? { backgroundImage: `url(${logo})` }
-                  : { backgroundImage: `url(${currentUser.photoURL})` }
-              }
-              handleChange={openUserProfilePopUp}
-            >
-              {" "}
-            </CustomBtn>
-          )}
-        </nav>
-
+        <SearchContainer />
+        <Navigation />
         <UserProfilePopUp {...userDetail} />
       </header>
       <Outlet />
     </Fragment>
   );
-}
-
+};
 export default Header;
