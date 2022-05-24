@@ -1,0 +1,28 @@
+@import "../../common-sass/common.styles.scss";
+.footer {
+  background-color: rgb(255, 255, 255);
+  //   border-top: 3px solid $color-primary;
+  padding: 0.6rem 0;
+  & > div {
+    @include flex-center(space-between);
+    padding: 0 3rem;
+  }
+  &-logo {
+    font-size: 2.4rem;
+    color: black;
+    font-weight: 600;
+  }
+  p {
+    font-size: 1.4rem;
+  }
+  &-social {
+    font-size: 1.6rem;
+    color: black;
+    @include flex-center(center);
+
+    img {
+      height: 5rem;
+      margin-right: 1rem;
+    }
+  }
+}

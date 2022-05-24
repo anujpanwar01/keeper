@@ -1,0 +1,83 @@
+@import "../../common-sass/common.styles.scss";
+.close-task-adder {
+  height: 3rem;
+  width: 3rem;
+  position: absolute;
+  top: 0;
+  background-color: orange;
+  right: 0;
+  border: none;
+  font-size: 1.8rem;
+  cursor: pointer;
+}
+.task-menu {
+  @include flex-center(space-between);
+
+  background-color: $color-white;
+  padding: 0 0.6rem 0.6rem 1rem;
+
+  .add-btn {
+    padding: 1.2rem 3rem;
+    &:hover .add-btn-text {
+      visibility: visible;
+      opacity: 1;
+    }
+  }
+  div {
+    display: flex;
+    align-items: center;
+    span {
+      margin-right: 1rem;
+    }
+    span,
+    label {
+      @include flex-center(center);
+      height: 4rem;
+      width: 4rem;
+      padding: 0 0.6rem;
+
+      &:hover {
+        border-radius: 50%;
+        background-color: $color-hover;
+      }
+    }
+  }
+}
+.file {
+  @include flex-center(center);
+  border: none;
+  padding: 0 2rem;
+  background-color: $color-white;
+  cursor: pointer;
+  position: relative;
+  margin-right: 2rem;
+  &:hover .file-text {
+    visibility: visible;
+    opacity: 1;
+  }
+}
+.label {
+  position: relative;
+  &:hover .label-text {
+    visibility: visible;
+    opacity: 1;
+  }
+}
+
+.file-text,
+.label-text {
+  @include tool-tip;
+  width: 120px !important;
+  bottom: 125%;
+  left: 50%;
+  font-family: "Montserrat";
+
+  font-weight: 400;
+  &::after {
+    @include tool-tip-after;
+    top: 100%;
+    left: 50%;
+
+    border-color: $color-grey transparent transparent transparent;
+  }
+}

@@ -1,7 +1,7 @@
 @import "../../common-sass/common.styles.scss";
 .pop-up {
   @include flex-center(space-between);
-  //   display: flex;
+  display: flex;
   flex-direction: column;
 
   position: absolute;
@@ -17,7 +17,9 @@
   box-shadow: 0 0 1rem $color-box-shadow;
   font-family: "Montserrat";
   font-weight: 500;
-  display: none;
+  // display: none;
+  animation: profile 2s ease;
+
   &::before {
     @include tool-tip-after;
     position: absolute;
@@ -110,13 +112,152 @@
 .open-pop-up {
   display: flex !important;
   opacity: 1;
-  //   display: none !important;
   visibility: visible;
   pointer-events: all;
 }
 .close-pop-up {
   opacity: 0;
-  //   display: none !important;
   visibility: hidden;
   pointer-events: none;
+}
+.user-overlay-btn {
+  transform: translateX(-150%);
+  transition: transform 1s ease-out;
+  // animation: start-overlay-btn 1s ease-in;
+}
+@keyframes start-overlay-btn {
+  0% {
+    opacity: 0;
+  }
+  50% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 1;
+    // transform: translateX(20%);
+  }
+}
+.overlay-btn {
+  height: 6rem;
+  width: 6rem;
+  border-radius: 50%;
+  z-index: 1000;
+  position: absolute;
+  background-color: #eee;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  left: 2%;
+  top: 2%;
+  border: none;
+  box-shadow: 0 1rem 1rem rgba(0, 0, 0, 0.413);
+
+  &::before,
+  &::after {
+    position: absolute;
+    content: "";
+    width: 60%;
+    height: 2px;
+    background-color: black;
+  }
+
+  &::before {
+    transform: rotate(45deg);
+  }
+
+  &::after {
+    transform: rotate(-45deg);
+  }
+}
+.close-user-overlay {
+  opacity: 1;
+
+  transform: translateX(20%);
+  transition: transform 1s ease-in;
+
+  span {
+    position: absolute;
+    height: 4rem;
+    width: 0.2rem;
+    background-color: black;
+  }
+}
+.user-overlay {
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  background-color: black;
+  z-index: 500;
+  opacity: 0.9;
+}
+.user-pop-up-overlay {
+  transform: translateX(100%);
+  transition: transform 1s ease-out;
+
+  // animation: toLeft 1s ease;
+}
+
+@keyframes toLeft {
+  0% {
+    transform: translateX(100%);
+    opacity: 0;
+  }
+  30% {
+    opacity: 0;
+  }
+  60% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+// @keyframes toRight {
+//   from {
+//     transform: translateX(-100%);
+//   }
+//   to {
+//     transform: translateX(0);
+//   }
+// }
+
+@keyframes profile {
+  0% {
+    transform: translateY(-30%);
+    opacity: 0;
+  }
+  30% {
+    opacity: 0;
+  }
+  60% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.pop-up-2 {
+  transform: translateY(-130%);
+  transition: transform 1s ease-in-out;
+  animation: remove-profile 1s ease;
+}
+.remove-overlay {
+  transform: translateX(0%);
+  transition: transform 1s ease-in;
+}
+@keyframes remove-profile {
+  0% {
+    transform: translateY(0);
+  }
+
+  100% {
+    opacity: 0;
+    transform: translateY(-130%);
+    display: none;
+  }
 }

@@ -1,0 +1,26 @@
+@import "../../common-sass//common.styles.scss";
+
+.profile {
+  height: 4.4rem;
+  width: 4.4rem;
+
+  display: block;
+  background-size: cover;
+  background-position: center;
+  border-radius: 50%;
+  border: 1px solid $color-white;
+  overflow: hidden;
+  cursor: pointer;
+  &:hover {
+    box-shadow: 0 0 1rem #f7f7f7;
+  }
+}
+
+.sign-in-up {
+  display: flex;
+  font-size: 1.8rem;
+  padding: 0 1rem 0 0;
+  & a:not(:last-child) {
+    margin-right: 6rem;
+  }
+}

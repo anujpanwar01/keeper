@@ -1,27 +1,72 @@
 @import "../../common-sass/common.styles.scss";
+.card-container {
+  box-shadow: 0 0 1rem $color-box-shadow;
+  border-radius: 1rem;
+  overflow: hidden;
+
+  // &::scr {
+  //   background: orange; /* color of the tracking area */
+  // }
+  // &::-webkit-scrollbar-thumb {
+  //   background-color: blue; /* color of the scroll thumb */
+  //   border-radius: 20px; /* roundness of the scroll thumb */
+  //   border: 3px solid orange; /* creates padding around scroll thumb */
+  // }
+}
 .card {
+  @include flex-column;
   // width: 40rem;
-  padding: 2rem 3rem;
+  // padding: 2rem 3rem 0;
   border-radius: 1rem;
   // background-color: #fff0f0;
   word-break: break-all;
   letter-spacing: 1px;
-  box-shadow: 0 0 1rem $color-box-shadow;
   // margin-bottom: 3rem;
   position: relative;
   font-family: "Montserrat";
   font-weight: 500;
+  height: 28rem;
+  overflow-y: scroll;
+  overflow-x: hidden;
+  @include scroll-bar;
+  & > .card-text {
+    padding: 1rem 2rem;
+  }
+
+  textarea {
+    border: none;
+    background: inherit;
+    line-break: anywhere;
+
+    min-height: 15vh;
+    height: unset;
+    resize: none;
+    overflow: hidden;
+    font-size: 1.8rem;
+    font-family: "Montserrat";
+  }
+  input {
+    font-size: 3rem;
+  }
+  input,
+  textarea {
+    color: black;
+    line-height: 1.7;
+    width: 100%;
+    letter-spacing: 1px;
+  }
 
   &:hover .del-btn {
     display: flex;
   }
+
   .image {
     width: 100%;
     border-radius: 0.5rem;
     background-size: cover;
     background-position: center;
     margin-bottom: 2rem;
-    border: 2px solid #e600ff;
+    // border: 2px solid #e600ff;
   }
   // &:not(:last-child) {
   //   // margin-right: 2rem;
@@ -45,10 +90,7 @@
   width: 56rem;
   margin-right: 0 !important;
 }
-.btn-container {
-  display: flex;
-  justify-content: space-between;
-}
+
 .out-of-flow {
   position: fixed;
   top: 48%;
@@ -56,5 +98,47 @@
   transform: translate(-50%, -50%);
   z-index: 1000000;
   max-height: 600px;
-  overflow: scroll;
+  overflow: hidden scroll;
+  width: 50%;
+}
+.read-me-btn {
+  padding: 0 0 0 1rem;
+}
+.read-me-btn,
+.close-read-me {
+  border: none;
+  font-size: 1.8rem;
+  background-color: transparent;
+  color: white;
+  cursor: pointer;
+
+  &:hover ~ span {
+    transform: scale(1);
+  }
+}
+.read-me {
+  display: flex;
+  flex-direction: column;
+  width: 10rem;
+  margin-left: 0.6rem;
+  span {
+    transform: scale(0);
+    width: 100%;
+    transform: scale(0);
+    width: 100%;
+    background: rgb(255, 255, 255);
+    height: 3px;
+    display: block;
+    transition: transform 1s ease;
+    transform-origin: left;
+    border-radius: 1rem;
+    margin-left: 0.8rem;
+  }
+}
+.close-read-me {
+  align-self: flex-end;
+}
+.close-read {
+  align-self: flex-end;
+  margin: 0 18rem;
 }

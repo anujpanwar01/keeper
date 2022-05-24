@@ -1,21 +1,19 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import { BrowserRouter } from "react-router-dom";
-import { Provider } from "react-redux";
 import "./index.scss";
 import App from "./App";
-import store from "./redux/reduce-store";
-import { PersistGate } from "redux-persist/integration/react";
-import { persistor } from "./redux/reduce-store";
+import UserProvider from "./context/user-context/user-provider";
+import CardProvider from "./context/card-context/card-provider";
 
 ReactDOM.render(
   <React.StrictMode>
     <BrowserRouter>
-      <Provider store={store}>
-        <PersistGate loading={null} persistor={persistor}>
+      <UserProvider>
+        <CardProvider>
           <App />
-        </PersistGate>
-      </Provider>
+        </CardProvider>
+      </UserProvider>
     </BrowserRouter>
   </React.StrictMode>,
   document.getElementById("root")

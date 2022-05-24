@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { memo, useState, useCallback } from "react";
 import { FaGithub, FaFacebook, FaGoogle } from "react-icons/fa";
 import {
   githubSignIn,
@@ -8,11 +8,8 @@ import {
   userCredentail,
 } from "../../firebase/firebase.util";
 
-import {
-  // createUserWithEmailAndPassword,
-  signInWithEmailAndPassword,
-  // onAuthStateChanged,
-} from "firebase/auth";
+import { signInWithEmailAndPassword } from "firebase/auth";
+import { useNavigate } from "react-router-dom";
 
 import CustomForm from "../custom-form/CustomForm";
 import CustomBtn from "../custom-btn/CustomBtn";
@@ -21,12 +18,14 @@ import "./Sign-In.styles.scss";
 import { Link } from "react-router-dom";
 
 export let userProfile;
+const initial = {
+  email: "",
+  password: "",
+};
 
-const SignIn = function () {
-  const [state, setState] = useState({
-    email: "",
-    password: "",
-  });
+const SignIn = function (props) {
+  const navigate = useNavigate();
+  const [state, setState] = useState(initial);
 
   //destructure
   const { email, password } = state;
@@ -45,22 +44,25 @@ const SignIn = function () {
     e.preventDefault();
     try {
       await signInWithEmailAndPassword(auth, email, password);
-      window.location.reload(true);
-      // console.log(res);
+      // setState(() => init);
     } catch (err) {
-      console.log(err.message);
+      if (err.code === "auth/wrong-password") {
+        alert("Password not match. Do forget password");
+      } else if (err.code === "auth/account-exists-with-different-credential") {
+        alert("You account is already exist with different credentials.");
+      } else if (err.code === "auth/user-not-found") {
+        alert("Your account is not exist please do first sign up.");
+        navigate("/sign-up");
+      }
     }
-    setState({
-      email: "",
-      password: "",
-    });
+    console.log(props);
   };
 
   //sign in with social
-  const social = async (data) => {
+  const social = useCallback(async (data) => {
     const { user } = await data();
     userCredentail(user);
-  };
+  }, []);
 
   return (
     <section className="sign-in-page">
@@ -124,4 +126,4 @@ const SignIn = function () {
   );
 };
 
-export default SignIn;
+export default memo(SignIn);

@@ -1,6 +1,6 @@
 import React from "react";
 
-const CustomInput = ({ handleChange, ...otherProps }) => {
-  return <input onChange={handleChange} {...otherProps} />;
-};
+const CustomInput = React.forwardRef(({ handleChange, ...otherProps }, ref) => {
+  return <input ref={ref} onChange={handleChange} {...otherProps} />;
+});
 export default CustomInput;

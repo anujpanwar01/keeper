@@ -1,31 +1,39 @@
-import { useSelector } from "react-redux";
+import React, { useCallback, useContext } from "react";
 import { Route, Routes, Navigate } from "react-router-dom";
-
+import TogglerProvider from "./context/toggler-context/toggler-provider";
 import SignUp from "./component/sign-up/SignUp.component";
 import SignIn from "./component/sign-in/SignIn";
-
 import Header from "./routes/header/Header";
 import Home from "./routes/home/Home";
 import "./App.scss";
+import UserContext from "./context/user-context/user-context";
+import Overlay from "./component/overlay/overlay.component";
+import Footer from "./routes/footer/footer";
 
-function App() {
-  // window.setTimeout(() => "hello", 3000);
+const App = () => {
+  const { currentUser } = useContext(UserContext);
 
-  const { currentUser } = useSelector((state) => state.currentUser);
-
-  const navigate = (element) => {
-    return currentUser ? <Navigate to={"/"} /> : element;
-  };
+  const navigate = useCallback(
+    (element) => {
+      console.log("nav");
+      return currentUser ? <Navigate to={"/"} /> : element;
+    },
+    [currentUser]
+  );
 
   return (
-    <Routes>
-      <Route path="/" element={<Header />}>
-        <Route index path="/" element={<Home />} />
-        <Route path="/sign-up" element={navigate(<SignUp />)} />
-        <Route path="/sign-in" element={navigate(<SignIn />)} />
-      </Route>
-    </Routes>
+    <TogglerProvider>
+      <Routes>
+        <Route path="/" element={<Header />}>
+          <Route index path="/" element={<Home />} />
+          <Route path="/sign-up" element={navigate(<SignUp />)} />
+          <Route path="/sign-in" element={navigate(<SignIn />)} />
+        </Route>
+      </Routes>
+      {<Overlay target={"overlay"} className="checkbox-overlay" />}
+      <Footer />
+    </TogglerProvider>
   );
-}
+};
 
 export default App;

@@ -1,0 +1,60 @@
+@import "../../common-sass//common.styles.scss";
+
+//   background-color: $color-primary;
+
+.theme {
+  display: flex;
+  flex-direction: row-reverse;
+
+  &-btn {
+    width: 6rem;
+    height: 3rem;
+    border-radius: 10rem;
+    background-color: $color-secondary;
+    position: relative;
+    cursor: pointer;
+    // border: 1px solid transparent;
+    &:hover {
+      box-shadow: 0 0rem 0.6rem rgba(255, 255, 255, 0.35);
+    }
+    &-text {
+      width: 12rem;
+      padding: 1rem 0;
+      top: 190% !important;
+      left: 50% !important;
+    }
+    &:hover .theme-btn-text {
+      visibility: visible;
+      opacity: 1;
+    }
+    .moon,
+    .sun {
+      position: absolute;
+      top: 5px;
+    }
+    .sun {
+      left: 3px;
+    }
+    .moon {
+      right: 3px;
+    }
+  }
+  .toggle-thumb {
+    height: 2.6rem;
+    width: 2.6rem;
+    border-radius: 10rem;
+    background-color: #ff9e00;
+    position: absolute;
+    left: 2px;
+    top: 1.8px;
+    transition: transform 0.3s;
+  }
+}
+
+.check-box {
+  display: none;
+
+  &:checked ~ .theme-btn > .toggle-thumb {
+    transform: translateX(30px);
+  }
+}

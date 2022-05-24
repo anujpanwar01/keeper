@@ -1,0 +1,21 @@
+@import "../../common-sass//common.styles.scss";
+input[type="text"] {
+  padding: 1.4rem;
+  width: 100%;
+  border: none;
+  outline: none;
+  font-size: 1.6rem;
+
+  &::placeholder {
+    font-family: "Montserrat";
+  }
+}
+.task-key {
+  @include key;
+  position: absolute;
+  right: 2%;
+  transform: translateY(25%);
+  border-radius: 0.5rem;
+  padding: 0.2rem 1.4rem;
+  transition: all 1s ease;
+}

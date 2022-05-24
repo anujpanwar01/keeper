@@ -8,154 +8,15 @@ header {
 
   padding: 1rem 4rem;
   box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.3);
+  @media only screen and (max-width: 500px) {
+    padding: 1rem 2rem;
+  }
   .logo {
     color: $color-black;
     font-size: 3.2rem;
 
     font-family: "Leckerli One";
     text-decoration: none;
-  }
-  nav {
-    @include flex-center(center);
-    font-size: 2rem;
-    & > :not(:last-child) {
-      margin-right: 5rem;
-    }
-    a {
-      color: $color-black;
-      font-family: "Roboto", sans-serif;
-      font-weight: 500;
-      text-decoration: none;
-      text-transform: uppercase;
-    }
-    .sign-in-up {
-      display: flex;
-      font-size: 1.8rem;
-      padding: 0 1rem 0 0;
-      // letter-spacing: 1px;
-      & a:not(:last-child) {
-        margin-right: 6rem;
-      }
-    }
-    .img-container {
-      display: flex;
-      margin-left: 4rem;
-      height: 5rem;
-      width: 5rem;
-      border-radius: 50%;
-      background-size: cover;
-      background-position: center;
-    }
-    .profile {
-      height: 4.4rem;
-      width: 4.4rem;
-
-      display: block;
-      background-size: cover;
-      background-position: center;
-      border-radius: 50%;
-      border: 2px solid $color-white;
-      box-sizing: content-box;
-      cursor: pointer;
-      &:hover {
-        box-shadow: 0 0 1rem rgb(157, 255, 0);
-      }
-    }
-  }
-  .search-container {
-    display: flex;
-    width: 50rem;
-    justify-content: center;
-    border-radius: 0.5rem;
-    overflow: hidden;
-    label {
-      @include flex-center(center);
-      background-color: $color-secondary;
-      padding: 1rem;
-      cursor: pointer;
-    }
-    .search-box {
-      font-size: 1.6rem;
-      padding: 1.4rem 0.7rem;
-      border: none;
-      outline: none;
-      background-color: $color-secondary;
-      width: 95%;
-      &::placeholder {
-        color: $color-grey;
-      }
-    }
-  }
-  .theme {
-    display: flex;
-    flex-direction: row-reverse;
-
-    &-btn {
-      width: 6rem;
-      height: 3rem;
-      border-radius: 10rem;
-      background-color: $color-secondary;
-      position: relative;
-      cursor: pointer;
-      // border: 1px solid transparent;
-      &:hover {
-        box-shadow: 0 0 0.8rem rgb(102, 255, 0);
-        // border: 1px solid blue;
-      }
-      &-text {
-        width: 12rem;
-        padding: 1rem 0;
-        top: 190%;
-        left: 50%;
-      }
-      &:hover .theme-btn-text {
-        visibility: visible;
-        opacity: 1;
-      }
-      .moon,
-      .sun {
-        position: absolute;
-        top: 5px;
-        // right: 3px;
-      }
-      .sun {
-        left: 3px;
-      }
-      .moon {
-        right: 3px;
-      }
-    }
-    .toggle-thumb {
-      height: 2.6rem;
-      width: 2.6rem;
-      border-radius: 10rem;
-      background-color: #ff9e00;
-      position: absolute;
-      left: 2px;
-      top: 1.8px;
-      transition: transform 0.3s;
-    }
-  }
-  .grid-btn {
-    @include flex-center(center);
-    background-color: transparent;
-    border: none;
-    border-radius: 50%;
-    height: 5rem;
-    width: 5rem;
-    cursor: pointer;
-    position: relative;
-    &:hover {
-      background-color: #f7f7f74f;
-    }
-    &-text {
-      width: 9rem;
-    }
-
-    &:hover .grid-btn-text {
-      visibility: visible;
-      opacity: 1;
-    }
   }
 }
 .checkbox {

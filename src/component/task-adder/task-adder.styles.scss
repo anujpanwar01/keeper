@@ -14,72 +14,7 @@
   .flex {
     @include flex-column;
   }
-  input[type="text"] {
-    padding: 1.4rem;
-    width: 100%;
-    border: none;
-    outline: none;
-    font-size: 1.6rem;
 
-    &::placeholder {
-      font-family: "Montserrat";
-    }
-  }
-
-  .file {
-    @include flex-center(center);
-    border: none;
-    padding: 0 2rem;
-    background-color: $color-white;
-    cursor: pointer;
-    position: relative;
-    margin-right: 2rem;
-    &:hover .file-text {
-      visibility: visible;
-      opacity: 1;
-    }
-  }
-  .label {
-    position: relative;
-    &:hover .label-text {
-      visibility: visible;
-      opacity: 1;
-    }
-  }
-
-  .task-menu {
-    @include flex-center(space-between);
-
-    background-color: $color-white;
-    padding: 0 0.6rem 0.6rem 1rem;
-
-    .add-btn {
-      padding: 1.2rem 3rem;
-      &:hover .add-btn-text {
-        visibility: visible;
-        opacity: 1;
-      }
-    }
-    div {
-      display: flex;
-      align-items: center;
-      span {
-        margin-right: 1rem;
-      }
-      span,
-      label {
-        @include flex-center(center);
-        height: 4rem;
-        width: 4rem;
-        padding: 0 0.6rem;
-
-        &:hover {
-          border-radius: 50%;
-          background-color: $color-hover;
-        }
-      }
-    }
-  }
   .add-none {
     display: none !important;
   }
@@ -94,21 +29,24 @@
   width: 100% !important;
 }
 
-.file-text,
-.label-text,
-.add-btn-text {
-  @include tool-tip;
-  width: 120px !important;
-  bottom: 125%;
-  left: 50%;
-  font-family: "Montserrat";
-
-  font-weight: 400;
-  &::after {
-    @include tool-tip-after;
-    top: 100%;
-    left: 50%;
-
-    border-color: $color-grey transparent transparent transparent;
+.open-task-btn {
+  position: absolute;
+  right: 18%;
+  border: none;
+  height: 4rem;
+  width: 4rem;
+  font-size: 3rem;
+  border-radius: 100%;
+  background-color: transparent;
+  transform: translateY(8%);
+  transition: all 0.6s ease;
+  cursor: pointer;
+  &:hover {
+    background-color: #eee;
   }
+}
+.task-overlay {
+  height: 100%;
+  width: 100%;
+  position: absolute;
 }
