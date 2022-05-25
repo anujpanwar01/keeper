@@ -22,6 +22,11 @@
 }
 .sign-in {
   background-color: rgb(222, 220, 252);
+  @media only screen and (max-width: 500px) {
+    width: 90%;
+    margin-top: 2rem;
+    margin-bottom: 4rem;
+  }
   & > * {
     margin-bottom: 2.4rem;
   }
@@ -51,6 +56,9 @@
     & > * {
       margin-bottom: 2rem;
     }
+    @media only screen and (max-width: 500px) {
+      width: 100%;
+    }
 
     input {
       font-size: 1.6rem;
@@ -60,6 +68,9 @@
       border-radius: $common-border-radius;
 
       border: 3px solid transparent;
+      @media only screen and (max-width: 500px) {
+        width: 100%;
+      }
     }
   }
 }

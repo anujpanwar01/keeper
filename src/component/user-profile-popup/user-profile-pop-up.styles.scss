@@ -19,6 +19,10 @@
   font-weight: 500;
   // display: none;
   animation: profile 2s ease;
+  @media only screen and (max-width: 400px) {
+    padding: 2rem 1rem 1rem;
+    top: 150%;
+  }
 
   &::before {
     @include tool-tip-after;
@@ -138,37 +142,7 @@
   }
 }
 .overlay-btn {
-  height: 6rem;
-  width: 6rem;
-  border-radius: 50%;
-  z-index: 1000;
-  position: absolute;
-  background-color: #eee;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  cursor: pointer;
-  left: 2%;
-  top: 2%;
-  border: none;
-  box-shadow: 0 1rem 1rem rgba(0, 0, 0, 0.413);
-
-  &::before,
-  &::after {
-    position: absolute;
-    content: "";
-    width: 60%;
-    height: 2px;
-    background-color: black;
-  }
-
-  &::before {
-    transform: rotate(45deg);
-  }
-
-  &::after {
-    transform: rotate(-45deg);
-  }
+  @include ovelay-btn;
 }
 .close-user-overlay {
   opacity: 1;
@@ -184,12 +158,7 @@
   }
 }
 .user-overlay {
-  position: absolute;
-  height: 100%;
-  width: 100%;
-  background-color: black;
-  z-index: 500;
-  opacity: 0.9;
+  @include overlay;
 }
 .user-pop-up-overlay {
   transform: translateX(100%);

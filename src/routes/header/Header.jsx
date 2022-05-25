@@ -18,9 +18,9 @@ import UserContext from "../../context/user-context/user-context";
 // import { async } from "@firebase/util";
 
 const Header = () => {
-  const { userDetail, currentUser, setUserDetail, setCurrentUser } =
+  const { currentUser, setUserDetail, setCurrentUser } =
     useContext(UserContext);
-
+  console.log(currentUser);
   const isCancelled = useRef(false);
 
   useEffect(() => {
@@ -33,7 +33,7 @@ const Header = () => {
     });
 
     return unsubscribe;
-  }, [currentUser]);
+  }, []);
 
   ///////////////////////////////////////////////////////////////////////////////
 
@@ -66,7 +66,7 @@ const Header = () => {
         </Link>
         <SearchContainer />
         <Navigation />
-        <UserProfilePopUp {...userDetail} />
+        <UserProfilePopUp {...currentUser} />
       </header>
       <Outlet />
     </Fragment>

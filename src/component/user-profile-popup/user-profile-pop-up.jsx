@@ -36,33 +36,33 @@ const UserProfilePopUp = ({ displayName, email, photoURL }) => {
       className={`pop-up ${!dropDown && "pop-up-2"}`}
       // style={dropDown && currentUser && { display: "flex" }}
     >
-      {/* {!displayName ? ( */}
-      {/* <Spinner /> */}
-      {/* ) : ( */}
-      <>
-        <div className="user-profile">
-          <img
-            style={{ width: "100%" }}
-            src={!photoURL ? logo : photoURL}
-            alt="user"
-          />
-        </div>
-        <div>
-          <h2>{displayName}</h2>
-          <h3>{email}</h3>
-        </div>
+      {!email ? (
+        <Spinner />
+      ) : (
+        <>
+          <div className="user-profile">
+            <img
+              style={{ width: "100%" }}
+              src={!photoURL ? logo : photoURL}
+              alt="user"
+            />
+          </div>
+          <div>
+            {/* <h2>{displayName}</h2> */}
+            <h3>{email}</h3>
+          </div>
 
-        <div className="sign-out-btn">
-          <CustomBtn
-            className="sign-out btn"
-            handleChange={userSignOut}
-            type="button"
-          >
-            sign out
-          </CustomBtn>
-        </div>
-      </>
-      {/* )} */}
+          <div className="sign-out-btn">
+            <CustomBtn
+              className="sign-out btn"
+              handleChange={userSignOut}
+              type="button"
+            >
+              sign out
+            </CustomBtn>
+          </div>
+        </>
+      )}
       {createPortal(
         <>
           <div

@@ -16,6 +16,9 @@
     padding: 5rem 2rem;
     align-items: flex-start;
     gap: 3rem;
+    @media only screen and (max-width: 550px) {
+      grid-template-columns: 1fr !important;
+    }
   }
   .clear-all-btn {
     align-self: center;
@@ -71,7 +74,8 @@
   font-size: 2rem;
   text-align: center;
   padding: 20rem 0 0;
-}.bb-empty-content{
+}
+.bb-empty-content {
   color: white;
 }
 // .hidden-overlay {

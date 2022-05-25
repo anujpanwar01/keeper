@@ -23,4 +23,7 @@
   & a:not(:last-child) {
     margin-right: 6rem;
   }
+  @media only screen and (max-width: 550px) {
+    font-size: 1.6rem;
+  }
 }

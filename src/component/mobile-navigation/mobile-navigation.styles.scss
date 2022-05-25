@@ -1,0 +1,76 @@
+@import "../../common-sass//common.styles.scss";
+.remove-mobile-nav {
+  // animation: moveToDown 0.5s ease-out 0.75s;
+  transform: translateY(-300%);
+}
+.add-mobile-nav {
+  transform: translateY(0%);
+  // opacity: 0;
+  // animation: moveToTop 0.5s ease-out 0.75s;
+}
+.mobile-navigation {
+  @include flex-center(center);
+  flex-direction: column;
+  position: absolute;
+  top: 120%;
+  z-index: 100000;
+  margin: 0 !important;
+  padding: 2rem 3.2rem;
+  border-radius: 1rem;
+  background-color: $color-primary;
+  transition: transform 1s ease;
+  right: 4%;
+
+  a {
+    margin-top: 2rem;
+    @media only screen and (max-width: 400px) {
+      font-size: 1.6rem;
+    }
+  }
+
+  &::after {
+    @include tool-tip-after;
+    border-style: solid;
+    position: absolute;
+    bottom: 94%;
+    right: 3%;
+    border-width: 18px;
+    border-color: transparent transparent $color-primary transparent;
+  }
+}
+.mobile-overlay {
+  @include overlay;
+  z-index: 10000;
+  transition: transform 1s ease-out;
+}
+.add-mobile-overlay {
+  transform: translateX(0%);
+  // transition: transform 1s ease-in;
+}
+.close-overlay-btn {
+  @include ovelay-btn;
+  transition: transform 1s ease-in;
+}
+.close-mobile-overlay {
+  transform: translateX(-100%) !important;
+
+  // animation: toLeft 1s ease;
+}
+.close-moblie-overlay-btn {
+  opacity: 1;
+
+  transform: translateY(20%);
+  // transition: transform 1s ease-in;
+
+  span {
+    position: absolute;
+    height: 4rem;
+    width: 0.2rem;
+    background-color: black;
+  }
+}
+.moblie-overlay-btn {
+  transform: translateY(-150%);
+  transition: transform 1s ease-out;
+  // animation: start-overlay-btn 1s ease-in;
+}
