@@ -63,24 +63,25 @@ const UserProfilePopUp = ({ displayName, email, photoURL }) => {
           </div>
         </>
       )}
-      {createPortal(
-        <>
-          <div
-            className={`user-overlay ${!dropDown && "user-pop-up-overlay"} ${
-              dropDown && "remove-overlay"
-            }`}
-            onClick={closeDropDown}
-          />
-          <CustomBtn
-            type="button"
-            className={`overlay-btn user-overlay-btn ${
-              dropDown && "close-user-overlay"
-            }`}
-            handleChange={closeDropDown}
-          />
-        </>,
-        document.getElementById("user-overlay")
-      )}
+      {dropDown &&
+        createPortal(
+          <>
+            <div
+              className={`user-overlay ${!dropDown && "user-pop-up-overlay"} ${
+                dropDown && "remove-overlay"
+              }`}
+              onClick={closeDropDown}
+            />
+            <CustomBtn
+              type="button"
+              className={`overlay-btn user-overlay-btn ${
+                dropDown && "close-user-overlay"
+              }`}
+              handleChange={closeDropDown}
+            />
+          </>,
+          document.getElementById("user-overlay")
+        )}
     </div>
   );
 };

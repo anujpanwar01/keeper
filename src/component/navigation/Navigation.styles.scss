@@ -43,15 +43,20 @@ nav {
     }
   }
   .dots {
-    flex-direction: column !important;
-    gap: 0.4rem;
-    margin-right: 0 !important;
+    display: none;
+    @media only screen and (max-width: 550px) {
+      flex-direction: column !important;
+      margin-right: 0 !important;
 
-    & span {
-      width: 0.7rem;
-      height: 0.7rem;
-      border-radius: 10rem;
-      background-color: black;
+      & span {
+        width: 0.7rem;
+        height: 0.7rem;
+        border-radius: 10rem;
+        background-color: black;
+      }
+      & span:not(:last-child) {
+        margin-bottom: 0.4rem;
+      }
     }
   }
   .grid-btn {
@@ -67,5 +72,10 @@ nav {
       visibility: visible;
       opacity: 1;
     }
+  }
+}
+.big-theme {
+  @media only screen and (max-width: 550px) {
+    display: none !important;
   }
 }
