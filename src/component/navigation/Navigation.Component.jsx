@@ -26,7 +26,7 @@ const Navigation = () => {
         {!grid ? <HiViewGrid size={32} /> : <MdViewStream size={32} />}
         <span className="grid-btn-text">List view</span>
       </CustomBtn>
-      {width > 550 && <ThemeComponent />}
+      {width > 550 && <ThemeComponent className="big-theme"/>}
       <ShowUserProfileComponent />
       {width < 551 && (
         <CustomBtn className="dots" handleChange={mobileNav}>

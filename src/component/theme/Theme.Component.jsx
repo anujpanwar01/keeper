@@ -4,7 +4,7 @@ import CustomInput from "../custom-input/CustomInut.component";
 import { FaMoon, FaSun } from "react-icons/fa";
 import "./Theme.styles.scss";
 
-const ThemeComponent = () => {
+const ThemeComponent = (props) => {
   console.log("theme");
   const { theme, setTheme } = useContext(TogglerContext);
 
@@ -17,7 +17,7 @@ const ThemeComponent = () => {
   theme && body.classList.remove("bg-black");
 
   return (
-    <div className="theme">
+    <div className={`theme ${props.className}`}>
       <CustomInput
         id="check"
         className={"check-box"}

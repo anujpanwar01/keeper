@@ -2,10 +2,10 @@
 
 .sign-up {
   background-color: rgb(218, 218, 255);
+  margin-top: 2rem;
+  margin-bottom: 4rem;
   @media only screen and (max-width: 500px) {
     width: 95%;
-    margin-top: 2rem;
-    margin-bottom: 4rem;
   }
   a {
     text-decoration: none;
