@@ -50,13 +50,13 @@ nav {
       display: flex !important;
 
       & span {
-        width: 0.7rem;
-        height: 0.7rem;
+        width: 0.6rem;
+        height: 0.6rem;
         border-radius: 10rem;
         background-color: black;
       }
       & span:not(:last-child) {
-        margin-bottom: 0.4rem;
+        margin-bottom: 0.3rem;
       }
     }
   }

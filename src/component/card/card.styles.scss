@@ -68,9 +68,7 @@
     margin-bottom: 2rem;
     // border: 2px solid #e600ff;
   }
-  // &:not(:last-child) {
-  //   // margin-right: 2rem;
-  // }
+
   h2 {
     font-size: 2.4rem;
     text-transform: capitalize;
@@ -100,6 +98,9 @@
   max-height: 600px;
   overflow: hidden scroll;
   width: 50%;
+  @media only screen and (max-width: 550px) {
+    width: 90%;
+  }
 }
 .read-me-btn {
   padding: 0 0 0 1rem;

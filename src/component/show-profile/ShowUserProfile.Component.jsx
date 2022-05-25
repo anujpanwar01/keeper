@@ -29,7 +29,6 @@ const ShowUserProfileComponent = () => {
   };
 
   const handleImgError = () => {
-    console.log("Image did'nt load");
     setPhotoLink(logo);
   };
 
