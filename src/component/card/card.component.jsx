@@ -70,15 +70,7 @@ const Card = function (ele) {
   };
   ////////////////////////////////////////////////
 
-  /////////////////////////////
-  // useEffect(() => {
-  //   // if user the refresh page between editing section
-  //   // to remove overlay this is imporatant
 
-  //   window.onload = function () {
-  //     dispatch(editCard(false));
-  //   };
-  // });
 
   const isCardEdit = (e) => {
     editItem(true);
