@@ -1,14 +1,15 @@
 import React, { useCallback, useContext, useEffect } from "react";
-
 import { Link } from "react-router-dom";
 import CustomBtn from "../custom-btn/CustomBtn";
 import TogglerContext from "../../context/toggler-context/toggler-context";
 import logo from "../../assester/th.jpg";
 import "./ShowUserProfile.styles.scss";
 import UserContext from "../../context/user-context/user-context";
+import ResizeObserverContext from "../../context/resize-context/resize-observer.context";
 
 const ShowUserProfileComponent = () => {
   const { dropDown, setDropDown } = useContext(TogglerContext);
+  const width = useContext(ResizeObserverContext);
 
   const { currentUser, photoLink, setPhotoLink } = useContext(UserContext);
 
@@ -35,7 +36,7 @@ const ShowUserProfileComponent = () => {
   const btns = (
     <div className="sign-in-up">
       <Link to={"/sign-in"}>sign in</Link>
-      <Link to={"/sign-up"}>Sign Up</Link>
+      {width > 550 && <Link to={"/sign-up"}>Sign Up</Link>}
     </div>
   );
 

@@ -1,4 +1,4 @@
-import { useContext } from "react";
+import { useContext, useEffect, useState } from "react";
 import { FaSearch } from "react-icons/fa";
 import TogglerContext from "../../context/toggler-context/toggler-context";
 import CustomInput from "../custom-input/CustomInut.component";
@@ -6,6 +6,15 @@ import "./SearchContainer.styles.scss";
 
 const SearchContainer = () => {
   const { searchValue, setSearchValue } = useContext(TogglerContext);
+
+  const [width, setWidth] = useState(window.innerWidth);
+
+  useEffect(() => {
+    const resize = () => setWidth(() => window.innerWidth);
+    window.addEventListener("resize", resize);
+    return () => window.removeEventListener("resize", resize);
+  }, []);
+  console.log(width);
 
   const forCheckBox = function (e) {
     // const checkbox = document.querySelector(".checkbox");
@@ -21,7 +30,7 @@ const SearchContainer = () => {
 
   return (
     <div className="search-container" onClick={forCheckBox}>
-      <label htmlFor="search">
+      <label className="search-icon" htmlFor="search">
         <FaSearch size={16} fill={"#555"} />
       </label>
       <CustomInput type="checkbox" className="checkbox" />

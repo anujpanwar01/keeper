@@ -4,6 +4,12 @@ nav {
   font-size: 2rem;
   & > :not(:last-child) {
     margin-right: 5rem;
+    @media only screen and (max-width: 550px) {
+      margin-right: 3rem;
+    }
+    @media only screen and (max-width: 400px) {
+      margin-right: 1rem;
+    }
   }
   a {
     color: $color-black;
@@ -22,6 +28,7 @@ nav {
     background-size: cover;
     background-position: center;
   }
+  .dots,
   .grid-btn {
     @include flex-center(center);
     background-color: transparent;
@@ -34,6 +41,24 @@ nav {
     &:hover {
       background-color: #f7f7f74f;
     }
+  }
+  .dots {
+    flex-direction: column !important;
+    gap: 0.4rem;
+    margin-right: 0 !important;
+
+    & span {
+      width: 0.7rem;
+      height: 0.7rem;
+      border-radius: 10rem;
+      background-color: black;
+    }
+  }
+  .grid-btn {
+    @media only screen and (max-width: 550px) {
+      display: none;
+    }
+
     &-text {
       width: 9rem;
     }

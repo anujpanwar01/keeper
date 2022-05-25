@@ -2,7 +2,11 @@
 
 .sign-up {
   background-color: rgb(218, 218, 255);
-
+  @media only screen and (max-width: 500px) {
+    width: 95%;
+    margin-top: 2rem;
+    margin-bottom: 4rem;
+  }
   a {
     text-decoration: none;
     font-size: 1.4rem;
@@ -25,6 +29,9 @@
   }
   form {
     @include flex-column;
+    @media only screen and (max-width: 500px) {
+      width: 100%;
+    }
     align-items: center;
     input,
     button {
@@ -35,6 +42,9 @@
       font-size: 1.6rem;
       width: 40rem;
       border: 3px solid transparent;
+      @media only screen and (max-width: 500px) {
+        width: 100%;
+      }
     }
 
     & > * {

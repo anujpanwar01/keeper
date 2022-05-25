@@ -6,15 +6,34 @@
   border-radius: 0.5rem;
   overflow: hidden;
   position: relative;
+  @media only screen and (max-width: 550px) {
+    width: 15rem;
+    overflow: visible;
+  }
+  @media only screen and (max-width: 400px) {
+    width: 10rem;
+  }
+  .search-icon {
+    @media only screen and (max-width: 550px) {
+      background-color: transparent;
+      z-index: 10;
+      color: black;
+      margin-right: auto;
+
+      // position: absolute;
+    }
+    @media only screen and (max-width: 400px) {
+      // opacity: 0;
+      // visibility: hidden;
+      // user-select: none;
+    }
+  }
   label {
     @include flex-center(center);
     background-color: $color-secondary;
     padding: 1rem;
     cursor: pointer;
-    @media only screen and (max-width: 500px) {
-      background-color: transparent;
-      color: black;
-    }
+
     svg {
       @media only screen and (max-width: 500px) {
         fill: black;
@@ -46,10 +65,14 @@
     width: 95%;
     transition: transform 1s ease;
     transform-origin: left;
-    @media only screen and (max-width: 500px) {
+    @media only screen and (max-width: 550px) {
       transform: scale(0);
+      width: 100%;
+      padding: 1rem 0.7rem;
       position: absolute;
+      border-radius: 10rem;
     }
+
     &::placeholder {
       color: $color-grey;
     }
@@ -69,4 +92,16 @@
   &:focus {
     transform: translateY(2px) !important;
   }
+  @media only screen and (max-width: 550px) {
+    display: none !important;
+    // right: 6%;
+    // font-size: 1.4rem;
+    // padding: 0.2rem 1.2rem !important;
+  }
+  // @media only screen and (max-width: 400px) {
+  //   right: 1%;
+  //   font-size: 1rem;
+  //   padding: 0.3rem 1rem !important;
+  //   top: 25%;
+  // }
 }
