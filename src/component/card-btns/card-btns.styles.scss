@@ -2,4 +2,26 @@
   display: flex;
   justify-content: space-between;
   padding: 0.6rem 2rem 1.4rem;
+  .edit-btn-text {
+    top: 0;
+    left: 300%;
+    &::after {
+      bottom: 56%;
+      right: 105%;
+      left: 0;
+      margin-left: -6px;
+      border-width: 6px;
+    }
+  }
+}
+.del-btn-text {
+  top: 0;
+  left: -180%;
+  &::after {
+    bottom: 56%;
+    border-color: transparent transparent transparent #555;
+    left: 105%;
+    margin-left: -6px;
+    border-width: 6px;
+  }
 }

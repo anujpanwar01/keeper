@@ -6,22 +6,25 @@
   border-radius: 0.5rem;
   overflow: hidden;
   position: relative;
+  transition: transform 1s ease;
   @media only screen and (max-width: 550px) {
     width: 15rem;
-    overflow: visible;
+
+    transform: scale(0);
+    border-radius: 1rem;
   }
   @media only screen and (max-width: 400px) {
     width: 10rem;
   }
   .search-icon {
-    @media only screen and (max-width: 550px) {
-      background-color: transparent;
-      z-index: 10;
-      color: black;
-      margin-right: auto;
+    // @media only screen and (max-width: 550px) {
+    //   background-color: transparent;
+    //   z-index: 10;
+    //   color: black;
+    //   margin-right: auto;
 
-      // position: absolute;
-    }
+    //   // position: absolute;
+    // }
     @media only screen and (max-width: 400px) {
       // opacity: 0;
       // visibility: hidden;
@@ -65,13 +68,6 @@
     width: 95%;
     transition: transform 1s ease;
     transform-origin: left;
-    @media only screen and (max-width: 550px) {
-      transform: scale(0);
-      width: 100%;
-      padding: 1rem 0.7rem;
-      position: absolute;
-      border-radius: 10rem;
-    }
 
     &::placeholder {
       color: $color-grey;

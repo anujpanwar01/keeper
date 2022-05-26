@@ -5,7 +5,6 @@ import { FaMoon, FaSun } from "react-icons/fa";
 import "./Theme.styles.scss";
 
 const ThemeComponent = (props) => {
-  console.log("theme");
   const { theme, setTheme } = useContext(TogglerContext);
 
   const themeChanger = () => {
