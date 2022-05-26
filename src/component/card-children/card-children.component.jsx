@@ -20,9 +20,7 @@ const CardChildren = (props) => {
           }
         >
           {(props.src || props.file) && (
-            <div
-              className="image"
-            >
+            <div className="image">
               <img
                 src={props.src}
                 style={{ width: "100%" }}
@@ -34,7 +32,7 @@ const CardChildren = (props) => {
 
           {(!props.src || props.read) && (
             <div className="card-text">
-              <input
+              <textarea
                 className="title"
                 value={props.inputValue.title}
                 name="title"
@@ -65,7 +63,7 @@ const CardChildren = (props) => {
                     className="close-read-me"
                     handleChange={props.closeText}
                   >
-                    Close me 🠕
+                    Close me &uarr;
                   </CustomBtn>
                   <span />
                 </div>
@@ -76,7 +74,7 @@ const CardChildren = (props) => {
           {props.src && !props.read && (
             <div className="read-me">
               <CustomBtn className="read-me-btn" handleChange={props.openText}>
-                Read me 🠗
+                Read me &darr;
               </CustomBtn>
               <span />
             </div>
