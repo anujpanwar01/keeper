@@ -3,15 +3,6 @@
   box-shadow: 0 0 1rem $color-box-shadow;
   border-radius: 1rem;
   overflow: hidden;
-
-  // &::scr {
-  //   background: orange; /* color of the tracking area */
-  // }
-  // &::-webkit-scrollbar-thumb {
-  //   background-color: blue; /* color of the scroll thumb */
-  //   border-radius: 20px; /* roundness of the scroll thumb */
-  //   border: 3px solid orange; /* creates padding around scroll thumb */
-  // }
 }
 .card {
   @include flex-column;
@@ -28,26 +19,41 @@
   height: 28rem;
   overflow-y: scroll;
   overflow-x: hidden;
-  @include scroll-bar;
+  // @include scroll-bar;
+  &::-webkit-scrollbar {
+    width: 0;
+  }
   & > .card-text {
+    @include flex-column;
     padding: 1rem 2rem;
   }
 
+  .title {
+    font-weight: 600;
+    font-size: 2rem;
+    white-space: nowrap;
+    overflow-y: hidden;
+    overflow-x: scroll;
+    height: 5rem;
+    min-height: 0;
+    // cursor: pointer;
+    &::-webkit-scrollbar {
+      width: 0;
+    }
+  }
   textarea {
     border: none;
     background: inherit;
     line-break: anywhere;
 
-    min-height: 15vh;
+    min-height: 12vh;
     height: unset;
     resize: none;
     overflow: hidden;
     font-size: 1.8rem;
     font-family: "Montserrat";
   }
-  input {
-    font-size: 3rem;
-  }
+
   input,
   textarea {
     color: black;
@@ -110,7 +116,7 @@
   border: none;
   font-size: 1.8rem;
   background-color: transparent;
-  color: white;
+  color: rgb(0, 0, 0);
   cursor: pointer;
 
   &:hover ~ span {
@@ -127,8 +133,9 @@
     width: 100%;
     transform: scale(0);
     width: 100%;
-    background: rgb(255, 255, 255);
-    height: 3px;
+    background: rgb(0, 0, 0);
+    height: 2px;
+    margin-top: 1px;
     display: block;
     transition: transform 1s ease;
     transform-origin: left;
@@ -141,5 +148,5 @@
 }
 .close-read {
   align-self: flex-end;
-  margin: 0 18rem;
+  margin-top: 2rem;
 }
