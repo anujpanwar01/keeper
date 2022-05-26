@@ -80,3 +80,32 @@ nav {
     display: none !important;
   }
 }
+.open-search-box {
+  background-color: transparent;
+  display: none;
+  border: none;
+  @media only screen and (max-width: 550px) {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: transparent;
+    border: none;
+    border-radius: 50%;
+    height: 5rem;
+    width: 5rem;
+    cursor: pointer;
+    position: relative;
+  }
+  &:hover {
+    background-color: #f7f7f74f;
+  }
+}
+.open-search {
+  transform: scale(1) !important;
+  position: absolute !important;
+  width: 95% !important;
+  z-index: 100000;
+}
+.visi-checkbox-overlay {
+  display: block !important;
+}

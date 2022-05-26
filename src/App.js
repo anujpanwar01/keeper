@@ -15,7 +15,7 @@ const App = () => {
 
   const navigate = useCallback(
     (element) => {
-      console.log("nav");
+      // console.log("nav");
       return currentUser ? <Navigate to={"/"} /> : element;
     },
     [currentUser]
@@ -30,7 +30,18 @@ const App = () => {
           <Route path="/sign-in" element={navigate(<SignIn />)} />
         </Route>
       </Routes>
-      {<Overlay target={"overlay"} className="checkbox-overlay" />}
+      {
+        <Overlay
+          target={"overlay"}
+          onClick={(e) => {
+            document
+              .querySelector(".search-container")
+              .classList.toggle("open-search");
+            e.target.classList.toggle("visi-checkbox-overlay");
+          }}
+          className="checkbox-overlay"
+        />
+      }
       <Footer />
     </TogglerProvider>
   );

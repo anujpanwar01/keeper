@@ -4,7 +4,6 @@ import "./footer.styles.scss";
 import { memo } from "react";
 
 const Footer = function () {
-  console.log("footer");
   return (
     <section className="footer">
       <div>

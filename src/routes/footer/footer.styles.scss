@@ -6,11 +6,18 @@
   & > div {
     @include flex-center(space-between);
     padding: 0 3rem;
+    @media only screen and (max-width: 550px) {
+      padding: 0 1rem;
+      font-size: 1.2rem;
+    }
   }
   &-logo {
     font-size: 2.4rem;
     color: black;
     font-weight: 600;
+    @media only screen and (max-width: 550px) {
+      font-size: 1.6rem;
+    }
   }
   p {
     font-size: 1.4rem;
@@ -19,10 +26,17 @@
     font-size: 1.6rem;
     color: black;
     @include flex-center(center);
+    @media only screen and (max-width: 550px) {
+      font-size: 1.4rem;
+    }
 
     img {
       height: 5rem;
       margin-right: 1rem;
+      @media only screen and (max-width: 550px) {
+        height: 3rem;
+        margin-right: 0.6rem;
+      }
     }
   }
 }

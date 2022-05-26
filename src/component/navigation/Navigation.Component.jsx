@@ -3,6 +3,7 @@ import TogglerContext from "../../context/toggler-context/toggler-context";
 import ThemeComponent from "../theme/Theme.Component";
 import CustomBtn from "../custom-btn/CustomBtn";
 import { HiViewGrid } from "react-icons/hi";
+import { FaSearch } from "react-icons/fa";
 import { MdViewStream } from "react-icons/md";
 import ShowUserProfileComponent from "../show-profile/ShowUserProfile.Component";
 import "./Navigation.styles.scss";
@@ -17,16 +18,28 @@ const Navigation = () => {
   const { grid, setGrid } = useContext(TogglerContext);
   const width = useContext(ResizeObserverContext);
 
-  console.log("navigation", openMobileNav);
   const gridChanger = () => setGrid(!grid);
   const mobileNav = () => setOpenMobileNav((prev) => !prev);
+
+  const openSearchContainer = () => {
+    document.querySelector(".search-container").classList.toggle("open-search");
+
+    document
+      .querySelector(".checkbox-overlay")
+      .classList.toggle("visi-checkbox-overlay");
+  };
   return (
     <nav>
+      {width < 551 && (
+        <CustomBtn className="open-search-box" onClick={openSearchContainer}>
+          <FaSearch size={16} fill={"#000"} />
+        </CustomBtn>
+      )}
       <CustomBtn className="grid-btn" handleChange={gridChanger}>
         {!grid ? <HiViewGrid size={32} /> : <MdViewStream size={32} />}
         <span className="grid-btn-text">List view</span>
       </CustomBtn>
-      {width > 550 && <ThemeComponent className="big-theme"/>}
+      {width > 550 && <ThemeComponent className="big-theme" />}
       <ShowUserProfileComponent />
       {width < 551 && (
         <CustomBtn className="dots" handleChange={mobileNav}>

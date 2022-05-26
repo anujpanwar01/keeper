@@ -1,15 +1,16 @@
 .checkbox-overlay {
-  @media only screen and (max-width: 500px) {
+  display: none;
+  @media only screen and (max-width: 550px) {
     position: absolute;
 
-    height: 100vh;
+    height: 100%;
     width: 100%;
 
-    background-color: black;
-    opacity: 0.8;
+    // background-color: black;
+    // opacity: 0.8;
     transition: bottom 2s ease;
-    display: none;
-    z-index: 1000;
+    // display: none;
+    // z-index: 1000;
   }
 }
 .checkbox-up {

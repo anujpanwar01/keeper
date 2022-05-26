@@ -20,11 +20,10 @@ import UserContext from "../../context/user-context/user-context";
 const Header = () => {
   const { currentUser, setUserDetail, setCurrentUser } =
     useContext(UserContext);
-  console.log(currentUser);
+
   const isCancelled = useRef(false);
 
   useEffect(() => {
-    console.log("user");
     const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
       if (currentUser) {
         userCredentail(currentUser);
@@ -36,8 +35,6 @@ const Header = () => {
   }, []);
 
   ///////////////////////////////////////////////////////////////////////////////
-
-  // const { userDetail } = useSelector((state) => state.currentUser);
 
   //get data from the firebase;
 

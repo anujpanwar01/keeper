@@ -8,7 +8,6 @@ import "./Home.styles.scss";
 import Overlay from "../../component/overlay/overlay.component";
 
 const Home = () => {
-  console.log("home");
   const { items, isEdit, deleteAll, editItem } = useContext(CardContext);
   const { grid, searchValue, theme } = useContext(TogglerContext);
   const [toolTip, setToolTip] = useState(true);

@@ -36,7 +36,6 @@ const reducer = (state, action) => {
         items: payload,
       };
     case "EDIT_ITEM_DETAIL":
-      console.log(payload);
       //1 find the that item which we want edit;
       //2 after find that item update the items
 
@@ -45,7 +44,7 @@ const reducer = (state, action) => {
       );
 
       const updatedItems = [...state.items];
-      console.log(updatedItems);
+
       updatedItems[updatedItem] = payload;
 
       return {
@@ -93,7 +92,7 @@ const CardProvider = ({ children }) => {
     deleteAll,
     editItemDetail,
   };
-  console.log(value);
+  // console.log(value);
 
   return <CardContext.Provider value={value}>{children}</CardContext.Provider>;
 };
