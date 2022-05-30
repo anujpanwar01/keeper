@@ -23,6 +23,11 @@ const TaskInput = ({
         placeholder="Title"
         required
         name="title"
+        style={
+          !isTaskOpen
+            ? { borderRadius: "0.5rem" }
+            : { borderTopRightRadius: "0.5rem", borderTopLeftRadius: "0.5rem" }
+        }
         className="title"
         value={title}
         handleChange={onInputChangeHandler}
@@ -41,7 +46,10 @@ const TaskInput = ({
       )}
       {!isTaskOpen && (
         <label htmlFor="title" className="task-key">
-          t
+          |
+          <span>
+            press <strong>|</strong> to direct jump to task-adder
+          </span>
         </label>
       )}
       {isTaskOpen && (

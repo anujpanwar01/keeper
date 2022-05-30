@@ -21,24 +21,31 @@
   }
 }
 .sign-in {
-  background-color: rgb(222, 220, 252);
+  background-color: #dedcfc59;
   margin-top: 2rem;
   margin-bottom: 4rem;
-  @media only screen and (max-width: 500px) {
-    width: 90%;
+  @media only screen and (max-width: 550px) {
+    width: 80%;
+  }
+  @media only screen and (max-width: 400px) {
+    width: 95%;
   }
   & > * {
-    margin-bottom: 2.4rem;
+    margin-bottom: 2rem;
   }
   h1 {
-    font-size: 3rem;
+    font-size: 2.4rem;
+  }
+  h3,
+  h1 {
+    font-weight: 500;
   }
   h3 {
     font-size: 1.4rem;
   }
   a {
     color: black;
-    font-weight: 600;
+    font-weight: 500;
     font-size: 1.4rem;
     &:hover {
       text-decoration: underline;
@@ -54,7 +61,7 @@
     @include flex-column;
     align-items: center;
     & > * {
-      margin-bottom: 2rem;
+      margin-bottom: 1.2rem;
     }
     @media only screen and (max-width: 500px) {
       width: 100%;
@@ -62,15 +69,30 @@
 
     input {
       font-size: 1.6rem;
-      color: #444;
+      color: rgb(0, 0, 0);
       width: 40rem;
-      padding: 1.4rem;
+      padding: 1.6rem;
       border-radius: $common-border-radius;
 
-      border: 3px solid transparent;
-      @media only screen and (max-width: 500px) {
+      border: 1px solid black;
+      @media only screen and (max-width: 550px) {
         width: 100%;
       }
+    }
+  }
+  .password {
+    border: none;
+    background-color: inherit;
+    font-size: 1.6rem;
+  }
+  .reset-pass {
+    cursor: not-allowed;
+  }
+  .rm-reset-pass {
+    cursor: pointer;
+    &:hover,
+    &:active {
+      text-decoration: underline;
     }
   }
 }

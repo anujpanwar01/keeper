@@ -1,4 +1,5 @@
-import React, { memo, useState, useCallback } from "react";
+import React, { memo, useCallback } from "react";
+import useInput from "../../hooks/use-input";
 import { FaGithub, FaFacebook, FaGoogle } from "react-icons/fa";
 import {
   githubSignIn,
@@ -8,7 +9,10 @@ import {
   userCredentail,
 } from "../../firebase/firebase.util";
 
-import { signInWithEmailAndPassword } from "firebase/auth";
+import {
+  signInWithEmailAndPassword,
+  sendPasswordResetEmail,
+} from "firebase/auth";
 import { useNavigate } from "react-router-dom";
 
 import CustomForm from "../custom-form/CustomForm";
@@ -16,34 +20,41 @@ import CustomBtn from "../custom-btn/CustomBtn";
 import CustomInput from "../custom-input/CustomInut.component";
 import "./Sign-In.styles.scss";
 import { Link } from "react-router-dom";
-
 export let userProfile;
-const initial = {
-  email: "",
-  password: "",
-};
 
-const SignIn = function (props) {
+const SignIn = function () {
   const navigate = useNavigate();
-  const [state, setState] = useState(initial);
 
+  const {
+    value: enteredEmail,
+    hasError: emailHasError,
+    inputBlurHandler: emailBlurHanlder,
+    vaildValue: emailIsValid,
+    inputChangeHandler: emailChangeHandler,
+    reset: resetEmailHandler,
+  } = useInput((value) => value.trim().includes("@"));
+
+  const {
+    value: enteredPassword,
+    hasError: passwordHasError,
+    vaildValue: passwordIsValid,
+    inputBlurHandler: passwordBlurHanlder,
+    inputChangeHandler: passwordChangeHandler,
+    reset: resetPasswordHandler,
+  } = useInput((value) => value.trim().length >= 6);
   //destructure
-  const { email, password } = state;
-
-  const inputChangeHandler = (e) => {
-    const { name, value } = e.target;
-    setState(() => {
-      return {
-        ...state,
-        [name]: value,
-      };
-    });
-  };
 
   const emailAndPassword = async (e) => {
     e.preventDefault();
+
+    if (!emailIsValid || !passwordIsValid) {
+      passwordBlurHanlder();
+      emailBlurHanlder();
+      return;
+    }
+
     try {
-      await signInWithEmailAndPassword(auth, email, password);
+      await signInWithEmailAndPassword(auth, enteredEmail, enteredPassword);
       // setState(() => init);
     } catch (err) {
       if (err.code === "auth/wrong-password") {
@@ -54,11 +65,29 @@ const SignIn = function (props) {
         alert("Your account is not exist please do first sign up.");
         navigate("/sign-up");
       }
+      // why reset inside the err
+      resetEmailHandler();
+      resetPasswordHandler();
     }
-    console.log(props);
+    // console.log(props);
   };
 
-  //sign in with social
+  ///////////////////////////////////////////////////////////////////////////
+  //reset user password
+  const resetPassword = !emailHasError && enteredEmail.includes("@");
+
+  const resetUserPassword = async () => {
+    try {
+      sendPasswordResetEmail(auth, enteredEmail);
+      alert(
+        "Reset password link send to your email box. kindly check your email..."
+      );
+    } catch (err) {
+      alert(err);
+    }
+  };
+  ///////////////////////////////////////////////////////
+  //sign in with socialf
   const social = useCallback(async (data) => {
     const { user } = await data();
     userCredentail(user);
@@ -98,24 +127,50 @@ const SignIn = function (props) {
           </CustomBtn>
         </div>
         <h3>or use email and password</h3>
+
         <CustomForm className="sign-in-form" handleChange={emailAndPassword}>
-          <CustomInput
-            name="email"
-            type="email"
-            placeholder="email"
-            value={email}
-            handleChange={inputChangeHandler}
-            required
-          />
-          <CustomInput
-            type="password"
-            name="password"
-            placeholder="password"
-            value={password}
-            handleChange={inputChangeHandler}
-            required
-          />
-          <h3>forget your password?</h3>
+          <div className={`form-valid ${!emailHasError ? "valid" : "invalid"}`}>
+            <label htmlFor="email">E-mail</label>
+            <CustomInput
+              name="email"
+              type="email"
+              id="email"
+              value={enteredEmail}
+              handleChange={emailChangeHandler}
+              onBlur={emailBlurHanlder}
+            />
+
+            {emailHasError && (
+              <p className="error-text">Email must contain @ symbol</p>
+            )}
+          </div>
+
+          <div
+            className={`form-valid ${!passwordHasError ? "valid" : "invalid"}`}
+          >
+            <label htmlFor="password">Password</label>
+            <CustomInput
+              name="password"
+              type="password"
+              id="password"
+              value={enteredPassword}
+              handleChange={passwordChangeHandler}
+              onBlur={passwordBlurHanlder}
+            />
+            {passwordHasError && (
+              <p className="error-text">Password length must be 8 to 13.</p>
+            )}
+          </div>
+          <CustomBtn
+            className={`password ${
+              resetPassword ? "rm-reset-pass" : "reset-pass"
+            }`}
+            type="button"
+            disabled={!resetPassword}
+            handleChange={resetUserPassword}
+          >
+            Forget password?
+          </CustomBtn>
           <CustomBtn className="form-btn btn" type="submit">
             Sign in
           </CustomBtn>

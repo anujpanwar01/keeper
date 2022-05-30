@@ -9,7 +9,7 @@
   box-shadow: 0 0 1rem $color-box-shadow;
   width: 55rem;
   border-radius: $common-border-radius;
-  overflow: hidden;
+  // overflow: hidden;
 
   @media only screen and (max-width: 550px) {
     width: 90%;
