@@ -84,9 +84,8 @@ const DeleteUser = () => {
                 <div className="del-user-descrip">
                   <p>
                     This action cannot be undone. This will permanently delete
-                    the anujpanwar01/keeper repository, wiki, issues, comments,
-                    packages, secrets, workflow runs, and remove all
-                    collaborator associations.
+                    your account {userEmail} your saved data, comments, secrets,
+                    photos and important notes.
                   </p>
                 </div>
                 <p className="confirm-text">

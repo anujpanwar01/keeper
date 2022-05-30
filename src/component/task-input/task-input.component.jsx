@@ -48,7 +48,7 @@ const TaskInput = ({
         <label htmlFor="title" className="task-key">
           |
           <span>
-            press <strong>|</strong> to direct jump to task-adder
+            Press <strong>|</strong> to direct jump to task-adder
           </span>
         </label>
       )}
