@@ -5,12 +5,12 @@ import TogglerContext from "../../context/toggler-context/toggler-context";
 import logo from "../../assester/th.jpg";
 import "./ShowUserProfile.styles.scss";
 import UserContext from "../../context/user-context/user-context";
-import ResizeObserverContext from "../../context/resize-context/resize-observer.context";
+import useResize from "../../hooks/use-resize";
 
 const ShowUserProfileComponent = () => {
   const { dropDown, setDropDown } = useContext(TogglerContext);
-  const width = useContext(ResizeObserverContext);
 
+  const width = useResize();
   const { currentUser, photoLink, setPhotoLink } = useContext(UserContext);
 
   const photoHandler = useCallback(() => {
@@ -35,7 +35,7 @@ const ShowUserProfileComponent = () => {
   const btns = (
     <div className="sign-in-up">
       <Link to={"/sign-in"}>sign in</Link>
-      {width > 550 && <Link to={"/sign-up"}>Sign Up</Link>}
+      {width > 900 && <Link to={"/sign-up"}>Sign Up</Link>}
     </div>
   );
 

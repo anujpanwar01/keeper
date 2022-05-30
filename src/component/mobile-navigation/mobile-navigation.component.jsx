@@ -4,6 +4,7 @@ import Overlay from "../overlay/overlay.component";
 import React from "react";
 import "./mobile-navigation.styles.scss";
 import CustomBtn from "../custom-btn/CustomBtn";
+import GridBtn from "../grid-btn/grid-btn.component";
 
 const MobileNavigation = (props) => {
   const { openNav, user } = props;
@@ -17,6 +18,7 @@ const MobileNavigation = (props) => {
       }`}
     >
       <ThemeComponent />
+      <GridBtn onGrid={props.onGrid} className="grid" grid={props.grid} />
       {!user && <Link to={"/sign-up"}>Sign Up</Link>}
       {
         <>

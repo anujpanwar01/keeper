@@ -5,6 +5,8 @@ export const init = {
   currentUser: null,
   photoLink: "",
   userDetail: "",
+  deleteUserAcc: false,
+  didUserDelete: false,
 };
 
 const reducer = (state, action) => {
@@ -23,6 +25,12 @@ const reducer = (state, action) => {
       };
     case "USER_DETAIL":
       return { ...state, userDetail: payload };
+
+    case "DELETE_USER":
+      return { ...state, deleteUserAcc: payload };
+
+    case "DID_DEL_USER":
+      return { ...state, didUserDelete: payload };
     default:
       return init;
   }
@@ -41,13 +49,25 @@ const UserProvider = ({ children }) => {
   const setUserDetail = (auth) => {
     dispatchUser({ type: "USER_DETAIL", payload: auth });
   };
+
+  const deleteUser = (bool) => {
+    dispatchUser({ type: "DELETE_USER", payload: bool });
+  };
+
+  const userDoneDeleted = (bool) => {
+    dispatchUser({ type: "DID_DEL_USER", payload: bool });
+  };
   const value = {
     currentUser: user.currentUser,
     photoLink: user.photoLink,
     userDetail: user.userDetail,
+    deleteUserAcc: user.deleteUserAcc,
+    didUserDelete: user.didUserDelete,
     setCurrentUser: auth,
     setPhotoLink: authProfile,
     setUserDetail,
+    setDeleteUserAcc: deleteUser,
+    setDidUserDelete: userDoneDeleted,
   };
 
   return <UserContext.Provider value={value}>{children}</UserContext.Provider>;

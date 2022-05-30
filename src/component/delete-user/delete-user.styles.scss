@@ -1,0 +1,217 @@
+@import "../../common-sass/common.styles.scss";
+.del-user-container {
+  position: fixed;
+  top: 15vh;
+  left: 40vw;
+  // transform: translate(50%, -50%);
+  width: 40rem;
+  background-color: #eee;
+  border-radius: 0.5rem;
+  z-index: 100000;
+  // padding: 1.2rem 1.4rem 1.6rem;
+  overflow: hidden;
+  @media only screen and (max-width: 900px) {
+    left: 25vw;
+  }
+  @media only screen and (max-width: 650px) {
+    left: 20vw;
+  }
+  @media only screen and (max-width: 550px) {
+    width: 80%;
+    left: 10vw;
+  }
+  @media only screen and (max-width: 400px) {
+    left: 5vw;
+    width: 90%;
+    padding: 1rem 0.7rem 1rem;
+  }
+  p {
+    letter-spacing: 1px;
+    hyphens: auto;
+  }
+}
+.del-user-success {
+  font-size: 1.6rem;
+  color: #008100;
+  @include flex-column;
+  padding: 1rem;
+  & div {
+    display: flex;
+    align-items: center;
+    svg {
+      margin-right: 1rem;
+    }
+  }
+
+  p {
+    font-weight: 600;
+  }
+  & button {
+    align-self: flex-end;
+    margin-top: 2rem;
+    border-radius: 0.5rem;
+    background-color: transparent;
+    border: 2px solid #008100;
+    padding: 0.8rem 2rem;
+    cursor: pointer;
+    font-size: inherit;
+    text-transform: capitalize;
+    &:hover,
+    &:active {
+      background-color: #008100;
+      color: white;
+    }
+  }
+}
+.animation-del-success {
+  animation: bounce 300ms;
+}
+.del-user {
+  @media only screen and (max-width: 550px) {
+    width: 100%;
+    padding: 1rem;
+  }
+  .warning {
+    font-size: 1.2rem;
+    background-color: #f0b7b1;
+    p {
+      padding: 1.6rem 1rem;
+      font-size: 1.2rem;
+      color: #d50000;
+      font-weight: 600;
+      letter-spacing: 0.1px !important;
+    }
+  }
+  & > div {
+    @include flex-center(space-between);
+  }
+  p {
+    font-size: 1.4rem;
+  }
+  .del-user-head {
+    padding: 1.6rem 1rem;
+  }
+  .del-user-descrip {
+    margin-bottom: 1rem;
+    padding: 0 1rem;
+  }
+  .confirm-text {
+    margin-bottom: 1rem;
+    padding: 1rem 1rem 0;
+    letter-spacing: 0.1px !important;
+  }
+  .del-user-form {
+    padding: 0 1rem 2rem;
+    button,
+    input {
+      padding: 0.7rem;
+      border-radius: 0.5rem;
+      border: 1px solid rgb(187, 187, 187);
+    }
+    & input:focus {
+      background-color: #e1f5fe;
+      border-color: blue;
+    }
+
+    & button:disabled {
+      cursor: default;
+
+      background-color: #89898942;
+      &:hover {
+        color: rgb(208, 40, 40);
+        background-color: #89898942;
+      }
+    }
+    & button {
+      color: rgb(208, 40, 40);
+      font-weight: 500;
+      font-size: 1.4rem;
+      cursor: pointer;
+      margin-top: 1rem;
+      &:hover,
+      &:active {
+        color: white;
+        background-color: #a40e26;
+        border: 1px solid inherit;
+      }
+    }
+  }
+  .close-del-user {
+    @include flex-center(center);
+    color: rgb(222, 8, 8);
+    position: relative;
+    background-color: transparent;
+    border: none;
+    height: 2rem;
+    width: 2rem;
+    cursor: pointer;
+    &:hover,
+    &:active {
+      background-color: #a40e26;
+      border-radius: 50%;
+
+      &::after,
+      &::before {
+        background-color: white;
+      }
+    }
+    &::after,
+    &::before {
+      content: "";
+      display: block;
+      background-color: #a40e26;
+      width: 60%;
+      height: 1.5px;
+      position: absolute;
+    }
+    &::after {
+      transform: rotate(45deg);
+    }
+    &::before {
+      transform: rotate(-45deg);
+    }
+  }
+  h3 {
+    font-size: 1.4rem;
+    letter-spacing: 1px;
+    font-weight: 500;
+  }
+}
+.del-overlay {
+  @include overlay;
+  opacity: 0.7;
+}
+.del-user-animation {
+  animation: show-del-user 300ms ease-in;
+}
+@keyframes show-del-user {
+  0% {
+    transform: scale(0);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+@keyframes bounce {
+  0% {
+    transform: translateY(-4rem);
+  }
+  33% {
+    transform: translateY(0);
+  }
+  35% {
+    opacity: 0;
+  }
+  66% {
+    opacity: 1;
+    transform: translateY(-4rem);
+  }
+  67% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+    transform: translate(0);
+  }
+}

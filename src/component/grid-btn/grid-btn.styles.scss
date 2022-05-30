@@ -1,0 +1,28 @@
+@import "../../common-sass//common.styles.scss";
+
+.grid-btn {
+  @include flex-center(center);
+  background-color: transparent;
+  border: none;
+  border-radius: 50%;
+  height: 5rem;
+  width: 5rem;
+  cursor: pointer;
+  position: relative;
+  &:hover {
+    background-color: #f7f7f74f;
+  }
+
+  @media only screen and (max-width: 550px) {
+    display: none;
+  }
+
+  &-text {
+    width: 9rem;
+  }
+
+  &:hover .grid-btn-text {
+    visibility: visible;
+    opacity: 1;
+  }
+}

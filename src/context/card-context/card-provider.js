@@ -12,6 +12,7 @@ const reducer = (state, action) => {
   switch (type) {
     case "ADD_CARD":
       const items = state.items.concat(payload);
+      console.log(items);
       return { ...state, items };
 
     case "TASK":

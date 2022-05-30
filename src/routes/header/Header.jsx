@@ -15,12 +15,22 @@ import { db } from "../../firebase/firebase.util";
 import { doc, getDoc } from "firebase/firestore";
 import "./Header.styles.scss";
 import UserContext from "../../context/user-context/user-context";
+import {
+  ref,
+  set,
+  onValue,
+  push,
+  child,
+  query,
+  orderByKey,
+} from "firebase/database";
+import { database } from "../../firebase/firebase.util";
 // import { async } from "@firebase/util";
 
 const Header = () => {
   const { currentUser, setUserDetail, setCurrentUser } =
     useContext(UserContext);
-
+  // const [a, setA] = useState([]);
   const isCancelled = useRef(false);
 
   useEffect(() => {
@@ -30,10 +40,52 @@ const Header = () => {
       }
       setCurrentUser(currentUser);
     });
+    const notesRef = ref(database, `notes/ ${currentUser?.uid}`);
+    console.log(query(notesRef), orderByKey(currentUser?.uid));
+    // console.log(notesRef);
+    // let self = this;
+    // notesRef.on("value", function (snap) {
+    //   let value = snap.val();
+    //   self.$store.dispatch("setUserData", value);
+    // });
+    // onValue(notesRef, (snapshot) => {
+    //   setA([]);
+    //   console.log(snapshot.exists());
+    //   const { notes } = snapshot.val();
+
+    //   if (!notes) return;
+    //   let transformData = {};
+    //   Object.values(notes).map((key) => {
+    //     console.log(key);
+    //     for (const note in key) {
+    //       console.log(note, key);
+    //       // console.log(key[note].subTitle, note);
+    //       transformData.id = note;
+    //       transformData.title = key[note].title;
+    //       transformData.color = key[note].color;
+    //       transformData.file = key[note].file;
+    //       transformData.src = key[note].src;
+    //       transformData.subTitle = key[note].subTitle;
+
+    //       //   // const transformData = {
+    //       //   //   id: note,
+    //       //   //   title: key[note].data.title,
+    //       //   //   color: key[note].data.color,
+    //       //   //   file: key[note].data.file,
+    //       //   //   src: key[note].data.src,
+    //       //   //   subTitle: key[note].data.subTitle,
+    //       //   // };
+    //       //   // d.push(transformData);
+    //     }
+    //     return setA((prev) => [...prev, transformData]);
+    //     // return d;
+    //     // console.log(Object.values(key).map((ele) => ele));
+    //   });
+    // });
 
     return unsubscribe;
   }, []);
-
+  // console.log(a);
   ///////////////////////////////////////////////////////////////////////////////
 
   //get data from the firebase;

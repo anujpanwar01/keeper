@@ -16,6 +16,31 @@ input[type="text"] {
   right: 2%;
   transform: translateY(25%);
   border-radius: 0.5rem;
-  padding: 0.2rem 1.4rem;
+  padding: 0.4rem 1.6rem;
   transition: all 1s ease;
+
+  // position: relative;
+  &:hover span {
+    visibility: visible;
+    opacity: 1;
+  }
+
+  span {
+    @include tool-tip;
+
+    width: 200px !important;
+    bottom: 150%;
+    left: -20vw;
+    font-family: "Montserrat";
+    padding: 1rem 2rem;
+
+    font-weight: 400;
+    &::after {
+      @include tool-tip-after;
+      top: 100%;
+      left: 84%;
+
+      border-color: $color-grey transparent transparent transparent;
+    }
+  }
 }

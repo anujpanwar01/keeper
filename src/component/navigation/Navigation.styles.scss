@@ -4,11 +4,17 @@ nav {
   font-size: 2rem;
   & > :not(:last-child) {
     margin-right: 5rem;
+    @media only screen and (max-width: 900px) {
+      margin-right: 8rem;
+    }
+    @media only screen and (max-width: 750px) {
+      margin-right: 5rem;
+    }
     @media only screen and (max-width: 550px) {
-      margin-right: 3rem;
+      margin-right: 4rem;
     }
     @media only screen and (max-width: 400px) {
-      margin-right: 1rem;
+      margin-right: 2.4rem;
     }
   }
   a {
@@ -43,22 +49,22 @@ nav {
     }
   }
   .dots {
-    display: none;
-    @media only screen and (max-width: 550px) {
-      flex-direction: column !important;
-      margin-right: 0 !important;
-      display: flex !important;
+    display: flex t;
+    // @media only screen and (max-width: 550px) {
+    flex-direction: column !important;
+    margin-right: 0 !important;
+    display: flex !important;
 
-      & span {
-        width: 0.6rem;
-        height: 0.6rem;
-        border-radius: 10rem;
-        background-color: black;
-      }
-      & span:not(:last-child) {
-        margin-bottom: 0.3rem;
-      }
+    & span {
+      width: 0.6rem;
+      height: 0.6rem;
+      border-radius: 10rem;
+      background-color: black;
     }
+    & span:not(:last-child) {
+      margin-bottom: 0.3rem;
+    }
+    // }
   }
   .grid-btn {
     @media only screen and (max-width: 550px) {
@@ -82,19 +88,19 @@ nav {
 }
 .open-search-box {
   background-color: transparent;
-  display: none;
+  cursor: pointer;
   border: none;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: transparent;
+  border: none;
+  border-radius: 50%;
+  height: 5rem;
+  width: 5rem;
+  cursor: pointer;
+  position: relative;
   @media only screen and (max-width: 550px) {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background-color: transparent;
-    border: none;
-    border-radius: 50%;
-    height: 5rem;
-    width: 5rem;
-    cursor: pointer;
-    position: relative;
   }
   &:hover {
     background-color: #f7f7f74f;

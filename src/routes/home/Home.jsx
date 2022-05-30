@@ -6,12 +6,17 @@ import CustomBtn from "../../component/custom-btn/CustomBtn";
 import CardContext from "../../context/card-context/card-context";
 import "./Home.styles.scss";
 import Overlay from "../../component/overlay/overlay.component";
+import DeleteUser from "../../component/delete-user/delete-user.component";
+import UserContext from "../../context/user-context/user-context";
+
+import useResize from "../../hooks/use-resize";
 
 const Home = () => {
+  const { didUserDelete, setDidUserDelete } = useContext(UserContext);
   const { items, isEdit, deleteAll, editItem } = useContext(CardContext);
   const { grid, searchValue, theme } = useContext(TogglerContext);
   const [toolTip, setToolTip] = useState(true);
-
+  const width = useResize();
   ///////////////////////////////////////////////////////
 
   //Tool-tip
@@ -70,14 +75,18 @@ const Home = () => {
     </>
   );
   // if one items added then paragraph will be removed
+  let classListStyle = "repeat(4,1fr)";
   if (items.length > 0) {
+    if (width < 901) {
+      classListStyle = "repeat(2,1fr)";
+    }
     content = (
       <div
         className="card-list"
         style={
           grid
             ? { gridTemplateColumns: "1fr" }
-            : { gridTemplateColumns: "repeat(4, 1fr)" }
+            : { gridTemplateColumns: classListStyle }
         }
       >
         {items
@@ -103,11 +112,13 @@ const Home = () => {
       .forEach((ele) => (ele.style.overflow = "hidden"));
   };
   /////////////////////////////////////////////////
+
   return (
     <section className="home">
       <TaskAdder />
       {content}
       {toolTipContent}
+      <DeleteUser />
 
       {items.length >= 1 && (
         <CustomBtn className="btn clear-all-btn" onClick={clearAllElement}>

@@ -48,6 +48,7 @@ a {
 .sign-in-page,
 .sign-up-page {
   @include flex-center(center);
+  padding: 4rem 0rem;
 }
 .sign-in,
 .sign-up {
@@ -58,4 +59,29 @@ a {
   padding: 3rem 2.5rem 1rem;
   border-radius: $common-border-radius;
   box-shadow: 0 0 1rem $color-box-shadow;
+}
+//for sign in and sign up
+.valid input:focus {
+  background-color: #e1f5fe;
+}
+.invalid input {
+  background-color: #ff333354;
+}
+.error-text {
+  font-size: 1.4rem;
+  font-weight: 500;
+  color: #ff3333;
+  margin-top: 0.6rem;
+}
+.form-valid {
+  @include flex-column;
+  @media only screen and (max-width: 550px) {
+    width: 100%;
+  }
+
+  & label {
+    font-size: 1.4rem;
+    margin-bottom: 1rem;
+    font-weight: 500;
+  }
 }

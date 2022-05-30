@@ -19,7 +19,10 @@
   height: 28rem;
   overflow-y: scroll;
   overflow-x: hidden;
-  // @include scroll-bar;
+  // @include scroll-bar
+  @media only screen and (max-width: 550px) {
+    height: 20rem;
+  }
   &::-webkit-scrollbar {
     width: 0;
   }
@@ -104,6 +107,12 @@
   max-height: 600px;
   overflow: hidden scroll;
   width: 50%;
+  @media only screen and (max-width: 900px) {
+    width: 70%;
+  }
+  @media only screen and (max-width: 700px) {
+    width: 80%;
+  }
   @media only screen and (max-width: 550px) {
     width: 90%;
   }

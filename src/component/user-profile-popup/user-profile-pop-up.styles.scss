@@ -23,6 +23,22 @@
     padding: 2rem 1rem 1rem;
     top: 150%;
   }
+  .del-user-btn {
+    font-size: 1.6rem;
+    padding: 1rem 2rem;
+    color: #ff0000;
+    background: #eaeaea;
+    border-radius: 0.5rem;
+    border: 1px solid #33333332;
+    cursor: pointer;
+
+    &:hover,
+    &:active {
+      background-color: #a40e26;
+      color: #eaeaea;
+      border: 1px solid inherit;
+    }
+  }
 
   &::before {
     @include tool-tip-after;
@@ -126,8 +142,8 @@
 }
 .user-overlay-btn {
   transform: translateX(-150%);
-  transition: transform 1s ease-out;
-  // animation: start-overlay-btn 1s ease-in;
+  transition: transform 300ms ease-out;
+
 }
 @keyframes start-overlay-btn {
   0% {
@@ -148,7 +164,7 @@
   opacity: 1;
 
   transform: translateX(20%);
-  transition: transform 1s ease-in;
+  transition: transform 300ms ease-in;
 
   span {
     position: absolute;
