@@ -9,7 +9,8 @@ const CardContext = createContext({
   removeItem: (id) => {},
   removeAllItem: (items) => {},
   editItem: (bool) => {},
-  editItemDetail:(itemsDetails)=>{},
+  editItemDetail: (itemsDetails) => {},
   deleteAll: (array) => {},
+  replaceItems: (items) => {},
 });
 export default CardContext;

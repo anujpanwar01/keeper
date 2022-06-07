@@ -20,7 +20,6 @@ const DeleteUser = () => {
     setDidUserDelete,
   } = useContext(UserContext);
 
-  console.log(didUserDelete, deleteUserAcc);
   const userEmail = currentUser?.email;
 
   const {

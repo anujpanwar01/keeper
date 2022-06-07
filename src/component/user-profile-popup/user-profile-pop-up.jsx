@@ -8,11 +8,12 @@ import logo from "../../assester/th.jpg";
 import Spinner from "../spinner/spinner.component";
 import "./user-profile-pop-up.styles.scss";
 import UserContext from "../../context/user-context/user-context";
+import CardContext from "../../context/card-context/card-context";
 
-const UserProfilePopUp = ({ displayName, email, photoURL }) => {
+const UserProfilePopUp = ({ email, photoURL }) => {
   const { setUserDetail, setCurrentUser, setPhotoLink, setDeleteUserAcc } =
     useContext(UserContext);
-
+  const { replaceItems } = useContext(CardContext);
   const { dropDown, setDropDown } = useContext(TogglerContext);
 
   const clearDelUserOverlay = () => setDeleteUserAcc(true);
@@ -24,6 +25,7 @@ const UserProfilePopUp = ({ displayName, email, photoURL }) => {
       setCurrentUser(null);
       setPhotoLink("");
       setUserDetail("");
+      replaceItems([]);
     } catch (err) {
       alert(err.message);
     }
