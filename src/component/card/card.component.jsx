@@ -1,22 +1,20 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext, useState } from "react";
 import CardContext from "../../context/card-context/card-context";
 import TogglerContext from "../../context/toggler-context/toggler-context";
 import CardChildren from "../card-children/card-children.component";
+import { updateCard, deleteCard } from "../../firebase/firebase.util";
 import "./card.styles.scss";
 
 const Card = function (ele) {
-
   const [inputValue, setInputValue] = useState({
     title: ele.title,
     subTitle: ele.subTitle,
   });
-  const [data, setData] = useState({});
+
   const [read, setRead] = useState(false);
 
-  const { items, removeItem, editItem, isEdit, editItemDetail } =
-    useContext(CardContext);
+  const { items, removeItem, editItem, isEdit } = useContext(CardContext);
   const { grid } = useContext(TogglerContext);
-
 
   //////////////////////////////////////////
 
@@ -33,44 +31,20 @@ const Card = function (ele) {
   const submitHandler = (e) => {
     e.preventDefault();
   };
-  const { title, subTitle } = inputValue;
-
-  useEffect(() => {
-    const time = setTimeout(() => {
-      setData((prev) => {
-        return {
-          ...prev,
-          id: ele.id,
-          title,
-          subTitle,
-          ...ele,
-        };
-      });
-    }, 500);
-    return () => clearTimeout(time);
-  }, [title, subTitle, ele]);
 
   const handleSave = function (e) {
     e.currentTarget.closest(".card-container").classList.remove("out-of-flow");
     document.querySelectorAll(".card").forEach((card) => card.scrollTo(0, 0));
 
-    // const { cardEdit } = cardList(e);
-    // cardEdit.classList.remove("out-of-flow");
-    // cardEdit.scrollTo(0, 0);
-
-    // data2.forEach((ele) => {
-    //   ele.style.overflow = "hidden";
-    //   ele.scrollTo(0, 0);
-    // });
-    // cardEdit.children[0].children[0].scrollTo(0, 0);
-
     document.body.style.overflow = "hidden visible";
     editItem(false);
-    editItemDetail(data);
+    updateCard(ele.id, {
+      ...ele,
+      title: inputValue.title,
+      subTitle: inputValue.subTitle,
+    });
   };
   ////////////////////////////////////////////////
-
-
 
   const isCardEdit = (e) => {
     editItem(true);
@@ -84,6 +58,7 @@ const Card = function (ele) {
   };
 
   const handleDelete = () => {
+    // deleteCard(ele.id);
     removeItem(ele.id);
   };
 

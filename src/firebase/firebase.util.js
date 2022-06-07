@@ -6,7 +6,7 @@ import {
   GoogleAuthProvider,
   FacebookAuthProvider,
 } from "firebase/auth";
-import { getDatabase, set, ref } from "firebase/database";
+import { getDatabase, ref, remove, update } from "firebase/database";
 import { getFirestore, doc, setDoc, getDoc } from "firebase/firestore";
 
 // import { getAnalytics } from "firebase/analytics";
@@ -44,7 +44,6 @@ export const facebookSignIn = () => signInWithPopup(auth, facebookProvider);
 
 // new user auth
 export const userCredentail = async function (userAuth, additonalData) {
-  console.log(additonalData);
   if (!userAuth) return;
   //user detial
 
@@ -72,34 +71,41 @@ export const userCredentail = async function (userAuth, additonalData) {
     try {
       await setDoc(uniqueUser, userData);
     } catch (err) {
-      console.log(err.code);
+      alert(err.code);
     }
   }
 
   // if){}
   return uniqueUser;
 };
+//updata card
+export const updateCard = async (cardId, data) => {
+  const refCard = ref(database, `/notes/${auth?.currentUser?.uid}/${cardId}`);
 
-// export const addNotes = async (userAuth, note) => {
-//   console.log(note, userAuth.uid);
-//   const user = doc(db, "notes", userAuth.uid);
-//   try {
-//     const data = await setDoc(user, note);
-//     console.log(data);
-//   } catch (err) {
-//     console.log(err);
-//   }
-//   // const data = await set(ref(db, "user/" + userAuth.uid), note);
-//   // console.log(data);
-// };
+  try {
+    await update(refCard, data);
+  } catch (err) {
+    alert(err.message);
+  }
+};
 
-// export const userProfile = async (userAuth) => {
-//   const ref = doc(db, "user", userAuth.uid);
-//   const userDoc = await getDoc(ref);
-//   console.log(userDoc.data());
-//   return userDoc.data();
-// };
-// console.log(userProfile());
+//delete the card from firebase;
+export const deleteCard = async (cardId) => {
+  try {
+    await remove(ref(database, `/notes/${auth?.currentUser?.uid}/${cardId}`));
+  } catch (err) {
+    alert(err.message);
+  }
+};
+
+export const deleteAllCard = async () => {
+  try {
+    await remove(ref(database, `/notes/${auth?.currentUser?.uid}`));
+  } catch (err) {
+    alert(err.message);
+  }
+};
+
 export const addUserGeneratedData = async (userAuth, obj) => {
   const user = doc(db, "user", userAuth.uid);
   // const newObj = { userAuth, obj };

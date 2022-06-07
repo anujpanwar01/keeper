@@ -28,12 +28,20 @@ input[type="text"] {
   span {
     @include tool-tip;
 
-    width: 200px !important;
+    width: 250px !important;
     bottom: 150%;
-    left: -20vw;
+    left: -9vw;
     font-family: "Montserrat";
     padding: 1rem 2rem;
+    color: white;
 
+    @media only screen and (max-width: 900px) {
+      left: -18vw;
+    }
+    @media only screen and (max-width: 550px) {
+      left: -28vw;
+      width: 200px;
+    }
     font-weight: 400;
     &::after {
       @include tool-tip-after;
