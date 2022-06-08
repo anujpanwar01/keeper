@@ -59,15 +59,17 @@ const SignIn = function () {
     } catch (err) {
       if (err.code === "auth/wrong-password") {
         alert("Password not match. Do forget password");
+        resetPasswordHandler();
       } else if (err.code === "auth/account-exists-with-different-credential") {
         alert("You account is already exist with different credentials.");
+        resetEmailHandler();
+        resetPasswordHandler();
       } else if (err.code === "auth/user-not-found") {
         alert("Your account is not exist please do first sign up.");
         navigate("/sign-up");
+      } else {
+        alert(err.code);
       }
-      // why reset inside the err
-      resetEmailHandler();
-      resetPasswordHandler();
     }
     // console.log(props);
   };

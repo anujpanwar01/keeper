@@ -8,7 +8,6 @@ import "./Home.styles.scss";
 import Overlay from "../../component/overlay/overlay.component";
 import DeleteUser from "../../component/delete-user/delete-user.component";
 import UserContext from "../../context/user-context/user-context";
-import { deleteAllCard } from "../../firebase/firebase.util";
 import useResize from "../../hooks/use-resize";
 
 const Home = () => {
@@ -56,7 +55,6 @@ const Home = () => {
   /////////////////////////////////////////////////////////////////////////////////////
   const clearAllElement = () => {
     deleteAll([]);
-    deleteAllCard();
   };
 
   let content = (

@@ -5,11 +5,9 @@ const CardContext = createContext({
   isTaskOpen: false,
   isEdit: false,
   setIsTaskOpen: (bool) => {},
-  addItem: (item) => {},
-  removeItem: (id) => {},
   removeAllItem: (items) => {},
+  removeItem: (id) => {},
   editItem: (bool) => {},
-  editItemDetail: (itemsDetails) => {},
   deleteAll: (array) => {},
   replaceItems: (items) => {},
 });
