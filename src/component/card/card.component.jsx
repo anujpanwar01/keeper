@@ -2,7 +2,7 @@ import React, { useContext, useState } from "react";
 import CardContext from "../../context/card-context/card-context";
 import TogglerContext from "../../context/toggler-context/toggler-context";
 import CardChildren from "../card-children/card-children.component";
-import { updateCard, deleteCard } from "../../firebase/firebase.util";
+import { updateCard } from "../../firebase/firebase.util";
 import "./card.styles.scss";
 
 const Card = function (ele) {
@@ -58,7 +58,6 @@ const Card = function (ele) {
   };
 
   const handleDelete = () => {
-    // deleteCard(ele.id);
     removeItem(ele.id);
   };
 

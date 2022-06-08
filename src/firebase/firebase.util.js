@@ -5,9 +5,17 @@ import {
   signInWithPopup,
   GoogleAuthProvider,
   FacebookAuthProvider,
+  EmailAuthProvider,
+  reauthenticateWithCredential,
 } from "firebase/auth";
 import { getDatabase, ref, remove, update } from "firebase/database";
-import { getFirestore, doc, setDoc, getDoc } from "firebase/firestore";
+import {
+  getFirestore,
+  doc,
+  setDoc,
+  getDoc,
+  deleteDoc,
+} from "firebase/firestore";
 
 // import { getAnalytics } from "firebase/analytics";
 
@@ -77,6 +85,20 @@ export const userCredentail = async function (userAuth, additonalData) {
 
   // if){}
   return uniqueUser;
+};
+
+export const reAuthUser = async (email, password, user) => {
+  const credential = EmailAuthProvider.credential(email, password);
+  const result = await reauthenticateWithCredential(user, credential);
+  console.log(result);
+};
+
+export const deleteUserCredential = async (uid) => {
+  try {
+    await deleteDoc(doc(db, "user", uid));
+  } catch (err) {
+    alert(err.message);
+  }
 };
 //updata card
 export const updateCard = async (cardId, data) => {

@@ -1,3 +1,4 @@
+@import "./common-sass/common.styles.scss";
 .checkbox-overlay {
   display: none;
   @media only screen and (max-width: 900px) {
@@ -14,15 +15,7 @@
   }
 }
 .checkbox-up {
-  // animation: top;
-  // animation-timing-function: ease;
-  // // animation-delay: 1s;
-  // animation-direction: reverse;
-  // animation-duration: 3s;
   display: none;
-  // top: 0;
-  // bottom: 0;
-  // transition: bottom 2s ease;
 }
 @keyframes top {
   0% {
@@ -31,4 +24,10 @@
   100% {
     bottom: 100%;
   }
+}
+.centered {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
 }

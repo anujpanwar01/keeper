@@ -15,6 +15,8 @@ body {
   overflow-x: hidden;
   position: relative;
   @include scroll-bar;
+  min-height: 100vh;
+  min-width: 100%;
 }
 .bg-white {
   font-family: "Montserrat", sans-serif;

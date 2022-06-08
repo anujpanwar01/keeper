@@ -1,6 +1,6 @@
 import { useReducer } from "react";
 import CardContext from "./card-context";
-import { deleteCard } from "../../firebase/firebase.util";
+import { deleteAllCard, deleteCard } from "../../firebase/firebase.util";
 
 const init = {
   items: [],
@@ -16,20 +16,18 @@ const reducer = (state, action) => {
       const item = { ...state };
       return item;
 
-    case "ADD_CARD":
-      const items = state.items.concat(payload);
-      return { ...state, items };
+    // case "ADD_CARD":
+    //   const items = state.items.concat(payload);
+    //   return { ...state, items };
+
+    case "REMOVE_ITEM":
+      deleteCard(payload);
+
+      state.items = state.items.filter((card) => card.id !== payload);
+      return { ...state };
 
     case "TASK":
       return { ...state, isTaskOpen: payload };
-
-    case "REMOVE_CARD":
-      deleteCard(payload);
-      const filterItem = state.items.filter((card) => card.id !== payload);
-      return {
-        ...state,
-        items: filterItem,
-      };
 
     case "EDIT_CARD":
       return {
@@ -38,28 +36,11 @@ const reducer = (state, action) => {
       };
 
     case "DELETE_ALL":
+      deleteAllCard();
       return {
         ...state,
         items: payload,
       };
-    // case "EDIT_ITEM_DETAIL":
-    //   //1 find the that item which we want edit;
-    //   //2 after find that item update the items
-
-    //   // updateCard(payload.id, payload);
-
-    //   const updatedItem = state.items.findIndex(
-    //     (item) => item.id === payload.id
-    //   );
-
-    //   const updatedItems = [...state.items];
-    //   console.log(updatedItems);
-    //   updatedItems[updatedItem] = payload;
-
-    //   return {
-    //     ...state,
-    //     items: updatedItems,
-    //   };
     default:
       return init;
   }
@@ -67,18 +48,14 @@ const reducer = (state, action) => {
 const CardProvider = ({ children }) => {
   const [state, dispatchState] = useReducer(reducer, init);
 
-  const addItem = (card) => {
-    dispatchState({ type: "ADD_CARD", payload: card });
-  };
+  // const addItem = (card) => {
+  //   dispatchState({ type: "ADD_CARD", payload: card });
+  // };
   const replaceItems = (items) => {
     dispatchState({ type: "REPLACE_CARD", payload: items });
   };
   const taskHandler = (bool) => {
     dispatchState({ type: "TASK", payload: bool });
-  };
-
-  const removeItem = (id) => {
-    dispatchState({ type: "REMOVE_CARD", payload: id });
   };
 
   const editItem = (bool) => {
@@ -88,10 +65,9 @@ const CardProvider = ({ children }) => {
   const deleteAll = (array) => {
     dispatchState({ type: "DELETE_ALL", payload: array });
   };
-  // const editItemDetail = (details) => {
-  //   console.log(details);
-  //   dispatchState({ type: "EDIT_ITEM_DETAIL", payload: details });
-  // };
+  const removeItem = (id) => {
+    dispatchState({ type: "REMOVE_ITEM", payload: id });
+  };
 
   const value = {
     items: state.items,
@@ -99,13 +75,10 @@ const CardProvider = ({ children }) => {
     isEdit: state.isEdit,
     replaceItems,
     setIsTaskOpen: taskHandler,
-    addItem,
-    removeItem,
     editItem,
     deleteAll,
-    // editItemDetail,
+    removeItem,
   };
-  // console.log(value);
 
   return <CardContext.Provider value={value}>{children}</CardContext.Provider>;
 };

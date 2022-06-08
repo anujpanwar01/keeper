@@ -7,9 +7,14 @@ import "./delete-user.styles.scss";
 import { useContext } from "react";
 import UserContext from "../../context/user-context/user-context";
 import useInput from "../../hooks/use-input";
-import { auth } from "../../firebase/firebase.util";
+import {
+  auth,
+  deleteUserCredential,
+  reAuthUser,
+} from "../../firebase/firebase.util";
 import { deleteUser } from "firebase/auth";
 import { AiOutlineCheckCircle } from "react-icons/ai";
+import CardContext from "../../context/card-context/card-context";
 
 const DeleteUser = () => {
   const {
@@ -19,7 +24,9 @@ const DeleteUser = () => {
     setDeleteUserAcc,
     setDidUserDelete,
   } = useContext(UserContext);
+  const { deleteAll } = useContext(CardContext);
 
+  console.log(deleteUserAcc, didUserDelete);
   const userEmail = currentUser?.email;
 
   const {
@@ -35,13 +42,18 @@ const DeleteUser = () => {
     try {
       setDeleteUserAcc(true);
       setDidUserDelete(true);
-      const res = await deleteUser(auth.currentUser);
-      console.log(res);
+      deleteAll([]);
+      deleteUserCredential(currentUser.uid);
+      await deleteUser(auth.currentUser);
     } catch (err) {
-      console.log(err);
+      //Firebase: Error (auth/requires-recent-login).
+      if (err.message === "auth/requires-recent-login") {
+        console.log("right");
+      }
+      console.log(err.message);
       setDidUserDelete(false);
+      setDeleteUserAcc(false);
     }
-    setDeleteUserAcc(false);
   };
   const clearDelUserOverlay = () => {
     setDeleteUserAcc(false);

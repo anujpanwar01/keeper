@@ -1,4 +1,4 @@
-import { useContext, useEffect, useState } from "react";
+import { useContext, useState } from "react";
 import "./task-adder.styles.scss";
 import { useNavigate } from "react-router-dom";
 import CardContext from "../../context/card-context/card-context";
@@ -17,7 +17,6 @@ const initStates = {
   file: "",
   src: "",
 };
-//  databaseReference.child(user.getUid()).push().setValue(markerInfo);
 
 const TaskAdder = () => {
   //context

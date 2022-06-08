@@ -1,0 +1,47 @@
+@import "../../common-sass/common.styles.scss";
+.page-not-found {
+  @include flex-center(center);
+  min-height: 100vh;
+  padding: 6rem;
+}
+.not-found {
+  @include flex-center(center);
+  flex-direction: column;
+  padding: 2rem 2rem 4rem;
+  width: 70%;
+  box-shadow: 0 0rem 1rem rgba(0, 0, 0, 0.195);
+  &-img {
+    width: 50%;
+    height: 30rem;
+    margin-bottom: 2rem;
+
+    img {
+      width: 100%;
+      height: 100%;
+    }
+  }
+  &-text {
+    @include flex-center(center);
+    flex-direction: column;
+
+    h1 {
+      font-size: 6.4rem;
+      text-transform: uppercase;
+      margin-bottom: 2rem;
+    }
+    a {
+      color: black;
+      font-size: 1.6rem;
+      background-color: $color-primary;
+      font-weight: 500;
+      padding: 1.2rem 3rem;
+      border-radius: 0.5rem;
+      border: 3px solid $color-primary;
+      &:hover,
+      &:active {
+        border: 3px solid $color-primary;
+        background-color: transparent;
+      }
+    }
+  }
+}
