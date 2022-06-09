@@ -1,0 +1,39 @@
+@import "../../common-sass//common.styles.scss";
+.re-auth {
+  @include flex-center(center);
+  height: 100vh;
+  div {
+    width: 35rem;
+    padding: 4rem 2rem;
+    box-shadow: 0 0 1rem rgba(0, 0, 0, 0.293);
+    border-radius: 0.5rem;
+  }
+  h3 {
+    font-size: 2.4rem;
+    margin-bottom: 2rem;
+    // background-color: blue;
+  }
+  label {
+    font-size: 1.6rem;
+    @include flex-column;
+    input {
+      margin: 1rem 0;
+      padding: 0.8rem 1rem;
+      &:focus {
+        background-color: rgb(205, 245, 245);
+      }
+    }
+  }
+  button {
+    font-size: 1.6rem;
+    padding: 0.6rem;
+    cursor: pointer;
+    background-color: $color-primary;
+    border: 2px solid $color-primary;
+    &:hover,
+    &:active {
+      background-color: transparent;
+      border: 2px solid $color-primary;
+    }
+  }
+}

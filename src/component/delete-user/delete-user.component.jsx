@@ -7,16 +7,14 @@ import "./delete-user.styles.scss";
 import { useContext } from "react";
 import UserContext from "../../context/user-context/user-context";
 import useInput from "../../hooks/use-input";
-import {
-  auth,
-  deleteUserCredential,
-  reAuthUser,
-} from "../../firebase/firebase.util";
+import { auth, deleteUserCredential } from "../../firebase/firebase.util";
 import { deleteUser } from "firebase/auth";
 import { AiOutlineCheckCircle } from "react-icons/ai";
 import CardContext from "../../context/card-context/card-context";
+import { useNavigate } from "react-router-dom";
 
 const DeleteUser = () => {
+  const navigate = useNavigate();
   const {
     currentUser,
     deleteUserAcc,
@@ -26,7 +24,7 @@ const DeleteUser = () => {
   } = useContext(UserContext);
   const { deleteAll } = useContext(CardContext);
 
-  console.log(deleteUserAcc, didUserDelete);
+  // console.log(deleteUserAcc, didUserDelete);
   const userEmail = currentUser?.email;
 
   const {
@@ -47,8 +45,8 @@ const DeleteUser = () => {
       await deleteUser(auth.currentUser);
     } catch (err) {
       //Firebase: Error (auth/requires-recent-login).
-      if (err.message === "auth/requires-recent-login") {
-        console.log("right");
+      if (err.code === "auth/requires-recent-login") {
+        navigate("/re-auth");
       }
       console.log(err.message);
       setDidUserDelete(false);

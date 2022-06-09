@@ -1,11 +1,14 @@
 import { useReducer } from "react";
 import CardContext from "./card-context";
-import { deleteAllCard, deleteCard } from "../../firebase/firebase.util";
 
 const init = {
   items: [],
   isTaskOpen: false,
   isEdit: false,
+  isCreating: false,
+  isUpdating: false,
+  isDeleting: false,
+  isFetching: false,
 };
 const reducer = (state, action) => {
   const { type, payload } = action;
@@ -21,8 +24,6 @@ const reducer = (state, action) => {
     //   return { ...state, items };
 
     case "REMOVE_ITEM":
-      deleteCard(payload);
-
       state.items = state.items.filter((card) => card.id !== payload);
       return { ...state };
 
@@ -36,10 +37,29 @@ const reducer = (state, action) => {
       };
 
     case "DELETE_ALL":
-      deleteAllCard();
       return {
         ...state,
         items: payload,
+      };
+    case "CREATING":
+      return {
+        ...state,
+        isCreating: payload,
+      };
+    case "FETCHING":
+      return {
+        ...state,
+        isFetching: payload,
+      };
+    case "UPDATING":
+      return {
+        ...state,
+        isUpdating: payload,
+      };
+    case "DELETING":
+      return {
+        ...state,
+        isDeleting: payload,
       };
     default:
       return init;
@@ -69,15 +89,36 @@ const CardProvider = ({ children }) => {
     dispatchState({ type: "REMOVE_ITEM", payload: id });
   };
 
+  const setIsCreating = (bool) => {
+    dispatchState({ type: "CREATING", payload: bool });
+  };
+
+  const setIsUpdating = (bool) => {
+    dispatchState({ type: "UPDATING", payload: bool });
+  };
+  const setIsDeleting = (bool) => {
+    dispatchState({ type: "DELETING", payload: bool });
+  };
+  const setIsFetching = (bool) => {
+    dispatchState({ type: "FETCHING", payload: bool });
+  };
   const value = {
     items: state.items,
     isTaskOpen: state.isTaskOpen,
     isEdit: state.isEdit,
+    isCreating: state.isCreating,
+    isUpdating: state.isUpdating,
+    isDeleting: state.isDeleting,
+    isFetching: state.isFetching,
     replaceItems,
     setIsTaskOpen: taskHandler,
     editItem,
     deleteAll,
     removeItem,
+    setIsCreating,
+    setIsUpdating,
+    setIsDeleting,
+    setIsFetching,
   };
 
   return <CardContext.Provider value={value}>{children}</CardContext.Provider>;

@@ -7,6 +7,7 @@ import { createPortal } from "react-dom";
 import TaskInput from "../task-input/task-input.component";
 import { database } from "../../firebase/firebase.util";
 import { ref, push } from "firebase/database";
+import LoadingSpinner from "../loadin-Spinner/loading-Spinner.component";
 // import { uid } from "uid";
 //initial states for the input fields
 
@@ -21,11 +22,13 @@ const initStates = {
 const TaskAdder = () => {
   //context
 
-  const { isTaskOpen, setIsTaskOpen } = useContext(CardContext);
+  const { isTaskOpen, isCreating, setIsTaskOpen, setIsCreating } =
+    useContext(CardContext);
   const { currentUser } = useContext(UserContext);
 
   const navigate = useNavigate();
   const [state, setState] = useState(initStates);
+  // const [isCreating, setIsCreating] = useState(false);
 
   const { title, subTitle, file, color, src } = state;
 
@@ -57,6 +60,7 @@ const TaskAdder = () => {
 
   const submitHandler = async (e) => {
     e.preventDefault();
+    setIsCreating(true);
 
     if (!currentUser) {
       alert("Please first do sign-in or sign-up. For save your process.");
@@ -71,7 +75,9 @@ const TaskAdder = () => {
       };
       try {
         await push(ref(database, `notes/${currentUser?.uid}`), data);
+        setIsCreating(false);
       } catch (err) {
+        setIsCreating(false);
         alert(err.code);
       }
 
@@ -103,16 +109,21 @@ const TaskAdder = () => {
     }))();
 
   return (
-    <div className="task-adder">
-      <form onSubmit={submitHandler}>
-        <TaskInput
-          onInputChangeHandler={inputChangeHandler}
-          onFileReader={fileReader}
-          {...state}
-        />
-      </form>
-      {isTaskOpen && taskOverlay}
-    </div>
+    <>
+      {isCreating && <LoadingSpinner />}
+      {!isCreating && (
+        <div className="task-adder">
+          <form onSubmit={submitHandler}>
+            <TaskInput
+              onInputChangeHandler={inputChangeHandler}
+              onFileReader={fileReader}
+              {...state}
+            />
+          </form>
+          {isTaskOpen && taskOverlay}
+        </div>
+      )}
+    </>
   );
 };
 export default TaskAdder;

@@ -2,7 +2,7 @@ import React, { useContext, useState } from "react";
 import CardContext from "../../context/card-context/card-context";
 import TogglerContext from "../../context/toggler-context/toggler-context";
 import CardChildren from "../card-children/card-children.component";
-import { updateCard } from "../../firebase/firebase.util";
+import { updateCard, deleteCard } from "../../firebase/firebase.util";
 import "./card.styles.scss";
 
 const Card = function (ele) {
@@ -13,7 +13,9 @@ const Card = function (ele) {
 
   const [read, setRead] = useState(false);
 
-  const { items, removeItem, editItem, isEdit } = useContext(CardContext);
+  const { items, isEdit, removeItem, editItem, setIsUpdating, setIsDeleting } =
+    useContext(CardContext);
+
   const { grid } = useContext(TogglerContext);
 
   //////////////////////////////////////////
@@ -38,18 +40,24 @@ const Card = function (ele) {
 
     document.body.style.overflow = "hidden visible";
     editItem(false);
-    updateCard(ele.id, {
-      ...ele,
-      title: inputValue.title,
-      subTitle: inputValue.subTitle,
-    });
+    updateCard(
+      ele.id,
+      {
+        ...ele,
+        title: inputValue.title,
+        subTitle: inputValue.subTitle,
+      },
+      setIsUpdating
+    );
   };
-  ////////////////////////////////////////////////
+
+  //////////////////////////////////////////////////
 
   const isCardEdit = (e) => {
     editItem(true);
 
     const findItem = items.find((curr) => curr.id === ele.id);
+
     findItem &&
       e.currentTarget.closest(".card-container").classList.add("out-of-flow");
 
@@ -58,6 +66,7 @@ const Card = function (ele) {
   };
 
   const handleDelete = () => {
+    deleteCard(ele.id, setIsDeleting);
     removeItem(ele.id);
   };
 
@@ -68,10 +77,12 @@ const Card = function (ele) {
   const closeText = () => {
     setRead(false);
   };
+
   /////////////////////////////
 
   const cardProps = {
     grid,
+
     closeText,
     openText,
     handleDelete,
