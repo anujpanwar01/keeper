@@ -26,7 +26,7 @@ const ReAuth = React.lazy(() => import("./routes/re-auth/re-auth.component"));
 
 const App = () => {
   const { currentUser } = useContext(UserContext);
-  const { replaceItems } = useContext(CardContext);
+  const { setIsFetching, replaceItems } = useContext(CardContext);
 
   const notesRef = useMemo(
     () => ref(database, `notes/${currentUser?.uid}`),
@@ -34,16 +34,20 @@ const App = () => {
   );
 
   const navigate = useCallback(
-    (currentUser, element) => {
-      return currentUser ? <Navigate to={"/"} /> : element;
+    (element) => {
+      return currentUser ? <Navigate to={"/"} replace={true} /> : element;
     },
     [currentUser]
   );
 
   useEffect(() => {
+    setIsFetching(true);
     onValue(notesRef, (snapshot) => {
       const data = snapshot.val();
-      if (!data) return;
+      if (!data) {
+        setIsFetching(false);
+        return;
+      }
       let transformedData = [];
 
       for (const key in data) {
@@ -53,6 +57,7 @@ const App = () => {
         });
       }
       replaceItems(transformedData);
+      setIsFetching(false);
     });
   }, [notesRef]);
 
@@ -66,23 +71,14 @@ const App = () => {
   return (
     <Suspense fallback={spinner}>
       <TogglerProvider>
-        <Header />
         <Routes>
-          <Route index path="/" element={<Home />} />
-          {!currentUser && (
-            <Route
-              path="/sign-up"
-              element={navigate(currentUser, <SignUp />)}
-            />
-          )}
-          {!currentUser && (
-            <Route
-              path="/sign-in"
-              element={navigate(currentUser, <SignIn />)}
-            />
-          )}
-          {currentUser && <Route path="/re-auth" element={<ReAuth />} />}
-          <Route path="*" element={<NotFound />} />
+          <Route path="/" element={<Header />}>
+            <Route index element={<Home />} />
+            {<Route path="/sign-up" element={navigate(<SignUp />)} />}
+            {<Route path="/sign-in" element={navigate(<SignIn />)} />}
+            {currentUser && <Route path="/re-auth" element={<ReAuth />} />}
+            <Route path="*" element={<NotFound />} />
+          </Route>
         </Routes>
         <Footer />
         {

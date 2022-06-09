@@ -2,7 +2,7 @@
 .page-not-found {
   @include flex-center(center);
   min-height: 100vh;
-  padding: 6rem;
+  padding: 4rem;
 }
 .not-found {
   @include flex-center(center);
@@ -10,6 +10,9 @@
   padding: 2rem 2rem 4rem;
   width: 70%;
   box-shadow: 0 0rem 1rem rgba(0, 0, 0, 0.195);
+  @media only screen and (max-width: 550px) {
+    width: 100%;
+  }
   &-img {
     width: 50%;
     height: 30rem;
@@ -28,6 +31,15 @@
       font-size: 6.4rem;
       text-transform: uppercase;
       margin-bottom: 2rem;
+      @media only screen and (max-width: 900px) {
+        font-size: 4.4rem;
+      }
+      @media only screen and (max-width: 550px) {
+        font-size: 3.2rem;
+      }
+      @media only screen and (max-width: 400px) {
+        font-size: 2.4rem;
+      }
     }
     a {
       color: black;

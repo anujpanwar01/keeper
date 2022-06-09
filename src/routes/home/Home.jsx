@@ -9,10 +9,22 @@ import Overlay from "../../component/overlay/overlay.component";
 import DeleteUser from "../../component/delete-user/delete-user.component";
 import UserContext from "../../context/user-context/user-context";
 import useResize from "../../hooks/use-resize";
-
+import LoadingSpinner from "../../component/loadin-Spinner/loading-Spinner.component";
+import { deleteAllCard } from "../../firebase/firebase.util";
 const Home = () => {
-  const { didUserDelete, setDidUserDelete } = useContext(UserContext);
-  const { items, isEdit, deleteAll, editItem } = useContext(CardContext);
+  const { currentUser, didUserDelete, setDidUserDelete } =
+    useContext(UserContext);
+  const {
+    items,
+    isFetching,
+    isUpdating,
+    isDeleting,
+    isEdit,
+    deleteAll,
+    editItem,
+    setIsDeleting,
+  } = useContext(CardContext);
+
   const { grid, searchValue, theme } = useContext(TogglerContext);
   const [toolTip, setToolTip] = useState(true);
   const width = useResize();
@@ -55,6 +67,7 @@ const Home = () => {
   /////////////////////////////////////////////////////////////////////////////////////
   const clearAllElement = () => {
     deleteAll([]);
+    deleteAllCard(setIsDeleting);
   };
 
   let content = (
@@ -73,6 +86,13 @@ const Home = () => {
       </p>
     </>
   );
+  if (isFetching && currentUser) {
+    content = (
+      <div className="load-spinner">
+        <LoadingSpinner />
+      </div>
+    );
+  }
   // if one items added then paragraph will be removed
   let classListStyle = "repeat(4,1fr)";
   if (items.length > 0) {
@@ -98,6 +118,12 @@ const Home = () => {
       </div>
     );
   }
+
+  const spinner = (
+    <Overlay target={"spinner"} className="center-spinner">
+      <LoadingSpinner />
+    </Overlay>
+  );
   //overlay onclick
   const overlayHandler = () => {
     editItem(false);
@@ -115,6 +141,8 @@ const Home = () => {
   return (
     <section className="home">
       <TaskAdder />
+      {(isUpdating || isDeleting) && spinner}
+
       {content}
       {toolTipContent}
       <DeleteUser />

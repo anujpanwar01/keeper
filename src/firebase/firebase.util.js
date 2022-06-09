@@ -35,7 +35,7 @@ const firebaseConfig = {
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
 // const analytics = getAnalytics(app);
-
+let isLoading = false;
 export const auth = getAuth(app);
 
 // auth.currentUser.
@@ -82,15 +82,17 @@ export const userCredentail = async function (userAuth, additonalData) {
       alert(err.code);
     }
   }
-
-  // if){}
   return uniqueUser;
 };
 
 export const reAuthUser = async (email, password, user) => {
   const credential = EmailAuthProvider.credential(email, password);
-  const result = await reauthenticateWithCredential(user, credential);
-  console.log(result);
+  try {
+    const result = await reauthenticateWithCredential(user, credential);
+    return result;
+  } catch (err) {
+    console.log(err);
+  }
 };
 
 export const deleteUserCredential = async (uid) => {
@@ -100,30 +102,41 @@ export const deleteUserCredential = async (uid) => {
     alert(err.message);
   }
 };
+
 //updata card
-export const updateCard = async (cardId, data) => {
+export const updateCard = async (cardId, data, loadingState) => {
+  loadingState(true);
   const refCard = ref(database, `/notes/${auth?.currentUser?.uid}/${cardId}`);
 
   try {
     await update(refCard, data);
+    loadingState(false);
   } catch (err) {
+    loadingState(false);
     alert(err.message);
   }
+  return isLoading;
 };
 
 //delete the card from firebase;
-export const deleteCard = async (cardId) => {
+export const deleteCard = async (cardId, deletingState) => {
+  deletingState(true);
   try {
     await remove(ref(database, `/notes/${auth?.currentUser?.uid}/${cardId}`));
+    deletingState(false);
   } catch (err) {
+    deletingState(false);
     alert(err.message);
   }
 };
 
-export const deleteAllCard = async () => {
+export const deleteAllCard = async (deletingState) => {
+  deletingState(true);
   try {
     await remove(ref(database, `/notes/${auth?.currentUser?.uid}`));
+    deletingState(false);
   } catch (err) {
+    deletingState(false);
     alert(err.message);
   }
 };
