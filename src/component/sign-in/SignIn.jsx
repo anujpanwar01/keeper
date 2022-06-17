@@ -1,4 +1,4 @@
-import React, { memo, useCallback } from "react";
+import React, { memo, useCallback, useContext } from "react";
 import useInput from "../../hooks/use-input";
 import { FaGithub, FaFacebook, FaGoogle } from "react-icons/fa";
 import {
@@ -7,12 +7,10 @@ import {
   googleSignIn,
   auth,
   userCredentail,
+  resetPassword,
 } from "../../firebase/firebase.util";
 
-import {
-  signInWithEmailAndPassword,
-  sendPasswordResetEmail,
-} from "firebase/auth";
+import { signInWithEmailAndPassword } from "firebase/auth";
 import { useNavigate } from "react-router-dom";
 
 import CustomForm from "../custom-form/CustomForm";
@@ -20,10 +18,13 @@ import CustomBtn from "../custom-btn/CustomBtn";
 import CustomInput from "../custom-input/CustomInut.component";
 import "./Sign-In.styles.scss";
 import { Link } from "react-router-dom";
+
+import TogglerContext from "../../context/toggler-context/toggler-context";
 export let userProfile;
 
 const SignIn = function () {
   const navigate = useNavigate();
+  const { theme } = useContext(TogglerContext);
 
   const {
     value: enteredEmail,
@@ -76,19 +77,14 @@ const SignIn = function () {
 
   ///////////////////////////////////////////////////////////////////////////
   //reset user password
-  const resetPassword = !emailHasError && enteredEmail.includes("@");
+  const resetCurrentUserPassword = !emailHasError && enteredEmail.includes("@");
 
   const resetUserPassword = async () => {
-    try {
-      sendPasswordResetEmail(auth, enteredEmail);
-      alert(
-        "Reset password link send to your email box. kindly check your email..."
-      );
-    } catch (err) {
-      alert(err);
+    if (!enteredEmail) {
+      alert("Enter email first");
     }
-  };
-  ///////////////////////////////////////////////////////
+    await resetPassword(enteredEmail);
+  }; ///////////////////////////////////////////////////////
   //sign in with socialf
   const social = useCallback(async (data) => {
     const { user } = await data();
@@ -97,7 +93,14 @@ const SignIn = function () {
 
   return (
     <section className="sign-in-page">
-      <div className="sign-in">
+      <div
+        className="sign-in"
+        style={
+          theme
+            ? { backgroundColor: "#dedcfc59" }
+            : { backgroundColor: "#ffffffd4" }
+        }
+      >
         <h1>Sign In</h1>
         <div>
           <CustomBtn
@@ -165,10 +168,10 @@ const SignIn = function () {
           </div>
           <CustomBtn
             className={`password ${
-              resetPassword ? "rm-reset-pass" : "reset-pass"
+              resetCurrentUserPassword ? "rm-reset-pass" : "reset-pass"
             }`}
             type="button"
-            disabled={!resetPassword}
+            disabled={!resetCurrentUserPassword}
             handleChange={resetUserPassword}
           >
             Forget password?

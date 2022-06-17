@@ -53,3 +53,18 @@
   width: 100%;
   position: absolute;
 }
+.local-image {
+  position: relative;
+  button {
+    cursor: pointer;
+    position: absolute;
+    bottom: 3%;
+    right: 1%;
+    background-color: rgb(255, 255, 255);
+    border: none;
+    border-radius: 50%;
+    height: 4rem;
+    width: 4rem;
+    @include flex-center(center);
+  }
+}

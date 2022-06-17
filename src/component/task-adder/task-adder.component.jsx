@@ -8,6 +8,9 @@ import TaskInput from "../task-input/task-input.component";
 import { database } from "../../firebase/firebase.util";
 import { ref, push } from "firebase/database";
 import LoadingSpinner from "../loadin-Spinner/loading-Spinner.component";
+import { FaTrash } from "react-icons/fa";
+import CustomBtn from "../custom-btn/CustomBtn";
+
 // import { uid } from "uid";
 //initial states for the input fields
 
@@ -28,7 +31,7 @@ const TaskAdder = () => {
 
   const navigate = useNavigate();
   const [state, setState] = useState(initStates);
-  // const [isCreating, setIsCreating] = useState(false);
+  const [localImg, setLocalImg] = useState();
 
   const { title, subTitle, file, color, src } = state;
 
@@ -44,6 +47,8 @@ const TaskAdder = () => {
   // let src;
   const fileReader = (e) => {
     const file = e.target.files[0];
+    setLocalImg(file);
+
     const render = new FileReader();
     render.readAsDataURL(file);
 
@@ -64,7 +69,9 @@ const TaskAdder = () => {
 
     if (!currentUser) {
       alert("Please first do sign-in or sign-up. For save your process.");
-      return navigate("/sign-up");
+      navigate("/sign-up");
+      setIsCreating(false);
+      return;
     } else {
       const data = {
         title,
@@ -72,6 +79,7 @@ const TaskAdder = () => {
         color,
         file,
         src: src,
+        createAt: new Date(),
       };
       try {
         await push(ref(database, `notes/${currentUser?.uid}`), data);
@@ -83,6 +91,7 @@ const TaskAdder = () => {
 
       //clear input fields
       setState(initStates);
+      setLocalImg();
     }
     setIsTaskOpen(false);
   };
@@ -111,8 +120,35 @@ const TaskAdder = () => {
   return (
     <>
       {isCreating && <LoadingSpinner />}
+
       {!isCreating && (
         <div className="task-adder">
+          <div className="local-image">
+            {src && localImg && (
+              <>
+                <img
+                  height={"100%"}
+                  width={"100%"}
+                  src={URL.createObjectURL(localImg)}
+                  alt={localImg.name}
+                />
+                <CustomBtn
+                  handleChange={() => {
+                    setLocalImg();
+                    setState(() => {
+                      return {
+                        ...state,
+                        src: "",
+                      };
+                    });
+                  }}
+                >
+                  {" "}
+                  <FaTrash size={20} />
+                </CustomBtn>
+              </>
+            )}
+          </div>
           <form onSubmit={submitHandler}>
             <TaskInput
               onInputChangeHandler={inputChangeHandler}

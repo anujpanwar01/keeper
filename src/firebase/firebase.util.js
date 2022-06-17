@@ -7,6 +7,7 @@ import {
   FacebookAuthProvider,
   EmailAuthProvider,
   reauthenticateWithCredential,
+  sendPasswordResetEmail,
 } from "firebase/auth";
 import { getDatabase, ref, remove, update } from "firebase/database";
 import {
@@ -84,7 +85,21 @@ export const userCredentail = async function (userAuth, additonalData) {
   }
   return uniqueUser;
 };
-
+export const resetPassword = async (enteredEmail) => {
+  console.log(auth);
+  try {
+    await sendPasswordResetEmail(auth, enteredEmail);
+    alert(
+      `Reset password link send to your email box. kindly check your email-box, if you don't found in "Important-box" then please check the "Spam-box"`
+    );
+  } catch (err) {
+    if (err.code === "auth/user-not-found") {
+      alert("Your account doesn't exist, make sure you sign up first...");
+    } else {
+      alert(err.code);
+    }
+  }
+};
 export const reAuthUser = async (email, password, user) => {
   const credential = EmailAuthProvider.credential(email, password);
   try {

@@ -1,21 +1,39 @@
 import CustomForm from "../../component/custom-form/CustomForm";
 import CustomInput from "../../component/custom-input/CustomInut.component";
-import { useContext, useRef } from "react";
+import { useContext } from "react";
 import "./re-auth.styles.scss";
 import CustomBtn from "../../component/custom-btn/CustomBtn";
-import { reAuthUser } from "../../firebase/firebase.util";
-import UserContext from "../../context/user-context/user-context";
 
+import { reAuthUser, resetPassword } from "../../firebase/firebase.util";
+import UserContext from "../../context/user-context/user-context";
+import useInput from "../../hooks/use-input";
+import { useNavigate } from "react-router-dom";
 const ReAuth = () => {
+  const navigate = useNavigate();
+  const {
+    value: enteredPassword,
+    hasError: passwordHasError,
+    vaildValue: passwordIsValid,
+    inputBlurHandler: passwordBlurHanlder,
+    inputChangeHandler: passwordChangeHandler,
+  } = useInput((value) => value.trim().length > 5);
+
   const { currentUser } = useContext(UserContext);
-  const passwordRef = useRef();
 
   const submitHanlder = (event) => {
     event.preventDefault();
-    const enteredPassword = passwordRef.current.value;
-    if (!enteredPassword) return;
-    reAuthUser(currentUser.email, enteredPassword, currentUser);
+
+    if (!passwordIsValid) {
+      passwordBlurHanlder();
+      return;
+    }
+
+    reAuthUser(currentUser?.email, enteredPassword, currentUser);
+    alert("Please now try again to delete your account...");
+    navigate("/");
   };
+
+  const resetUserPassword = async () => await resetPassword(currentUser?.email);
 
   return (
     <section className="re-auth">
@@ -27,12 +45,21 @@ const ReAuth = () => {
             <CustomInput
               id="password"
               type="password"
-              ref={passwordRef}
-              required
+              value={enteredPassword}
+              handleChange={passwordChangeHandler}
+              onBlur={passwordBlurHanlder}
             />
           </label>
+          {passwordHasError && (
+            <p className="error-text">
+              Password length must be greater then 6.
+            </p>
+          )}
           <CustomBtn type="submit">Submit</CustomBtn>
         </CustomForm>
+        <CustomBtn className="reset-pass" onClick={resetUserPassword}>
+          reset password
+        </CustomBtn>
       </div>
     </section>
   );
