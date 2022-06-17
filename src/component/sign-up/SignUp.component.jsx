@@ -1,4 +1,4 @@
-import React, { memo } from "react";
+import React, { memo, useContext } from "react";
 import { auth, userCredentail } from "../../firebase/firebase.util";
 import { createUserWithEmailAndPassword } from "firebase/auth";
 import CustomBtn from "../custom-btn/CustomBtn";
@@ -8,6 +8,7 @@ import useInput from "../../hooks/use-input";
 import "./Sign-Up.styles.scss";
 
 import { Link, useNavigate } from "react-router-dom";
+import TogglerContext from "../../context/toggler-context/toggler-context";
 
 let passwordErrorMsg = "Password must contain atleast one number [0-9]";
 
@@ -49,6 +50,7 @@ const passwordValidation = (str) => {
 };
 
 const SignUp = () => {
+  const { theme } = useContext(TogglerContext);
   const navigate = useNavigate();
   const {
     value: enteredName,
@@ -106,7 +108,14 @@ const SignUp = () => {
 
   return (
     <section className="sign-up-page">
-      <div className="sign-up">
+      <div
+        className="sign-up"
+        style={
+          theme
+            ? { backgroundColor: "#dedcfc59" }
+            : { backgroundColor: "#ffffffd4" }
+        }
+      >
         <h1>Sign Up</h1>
         <h3>create new account</h3>
         <CustomForm onSubmit={submitHandler}>
